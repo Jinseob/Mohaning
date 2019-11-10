@@ -122,7 +122,7 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
-	<h1>기사 상세</h1>
+	<h1>기사 상세 소스를 수정하고 그러면 어케 되려나</h1>
 	
 	<div id="dialog-confirm" title="새로운 성향을 등록하시겠습니까?">
 		<div id="propensity">

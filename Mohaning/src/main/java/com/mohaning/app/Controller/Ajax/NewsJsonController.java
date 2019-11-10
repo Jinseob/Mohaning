@@ -25,6 +25,7 @@ import com.mohaning.app.Model.MHNA010VO;
 import com.mohaning.app.Model.MHNB01001VO;
 import com.mohaning.app.Model.MHNC99901VO;
 import com.mohaning.app.Model.MHNC99902VO;
+import com.mohaning.app.Model.MHND010VO;
 
 @Controller
 public class NewsJsonController {
@@ -152,5 +153,24 @@ public class NewsJsonController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/scoreUpdate.json")
+	public ModelAndView scoreUpdate(@ModelAttribute("mhnd010VO") MHND010VO mhnd010VO, ModelMap model, 
+			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+		
+		ModelAndView modelAndView = new ModelAndView();
+		MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
+		modelAndView.setView(jsonView);
+		
+		// 점수 등록.
+		List<String> scoreList = mhnd010VO.getScoreList();
+		for(int i = 0; i < scoreList.size(); i++) {
+			mhnd010VO.setType_cd(scoreList.get(i));
+			mhnd010VO.setScore(1);
+			dao.insert("d010.insertScore", mhnd010VO);
+		}
+		String rediredUrl = "redirect:/a010d" + mhnd010VO.getNews_id() + ".do";
+		System.out.println(rediredUrl);
+		return modelAndView;
+	}
 }
 

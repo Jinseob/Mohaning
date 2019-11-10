@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,7 @@ public class BoardController {
 		return rediredUrl;
 	}
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/a010d{news_id}.do")
 	public String boardDetail(@PathVariable String news_id, @ModelAttribute("mhna010VO") MHNA010VO mhna010VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
@@ -79,6 +81,10 @@ public class BoardController {
 		@SuppressWarnings("unchecked")
 		List<MHND010VO> scoreListByUser = (List<MHND010VO>) dao.selectList("d010.selectScoreListByUser", news_info);
 		model.addAttribute("scoreListByUser", scoreListByUser);
+		
+		JSONArray jsonArray = new JSONArray(scoreListByUser);
+		model.addAttribute("scoreListByUserJSON", jsonArray);
+		
 		System.out.println(scoreListByUser.get(1).getScore());
 		
 		// 평균 점수 가지고 오는 부분

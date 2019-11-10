@@ -39,46 +39,6 @@
 	<script type="text/javascript">
 	
 	$(function(){
-		let dialog, form;
-		
-		$("#propensity > div > span[data-type=slide]").each(function(e){
-			var value = parseInt( $( this ).text(), 10 );
-			$(this).empty().slider({
-				value : value,
-				range: "min",
-				animate: true,
-				slide: function(event, ui){
-					var index = $(this).data("index");
-					var input = $("#propensity > div > input[name=" + index + "]");
-					input.val(ui.value);
-				}
-			})
-		});
-		
-		$("#propensity > div > input").change(function(e){
-			var value = parseInt($(this).val(), 10);
-			var name = $(this).attr("name");
-			$("#propensity > div > span[data-index=" + name + "]").slider({
-				value : value
-			})
-		})
-		
-		dialog = $("#dialog-confirm").dialog({
-			autoOpen: false,
-			resizable: false,
-			height: "auto",
-			width: 720,
-			modal: true,
-			buttons:{
-				"등록" : function(){
-					$(this).dialog("close");
-				},
-				Cancel: function(){
-					$(this).dialog("close");
-				}
-			}
-		});
-		
 		$("#dialogOpenBtn").button().on("click", function(){
 			dialog.dialog("open");
 		});
@@ -89,8 +49,35 @@
 	})
 	
 	function onSaveBtn(){
-		if(confirm("저장 하시겠습니까?")){
-			$("#frm").attr({"action" : "/processUpdate_a010.do", "method" : "POST"}).submit();
+		if(confirm("평가 하시겠습니까?")){
+			var frm = $("#frm").serialize();
+			$.ajax({
+				method: "POST",
+				url : "/scoreUpdate.json",
+				dataType: "JSON",
+				data : frm,
+				success: function(results){
+					var result = results.result;
+					if(results.type == "NEW"){
+						$("#title").val(result.title);
+						$("#author_id").val(result.author_id);
+						$("#author_nm").val(result.author_nm);
+						$("#author_email").val(result.author_email);
+						$("#media_id").val(result.media_id);
+						$("#media_nm").val(result.media_nm);
+						$("#media_url").val(result.media_url);
+					}else if(results.type == "OCC"){
+						if(confirm(result.news_id + " 번으로 등록된 뉴스가 있습니다.\n이동하시겠습니까?")){
+							onPageMove("a010d" + result.news_id);					
+						}
+					}
+				},
+				error: function(data){
+					alert("E" + data);
+				}
+			})
+			
+// 			$("#frm").attr({"action" : "/scoreUpdate_d010.do", "method" : "POST"}).submit();
 		}
 	}
 	
@@ -131,11 +118,6 @@
 		</div>
 		</div>
 	</div>
-
-<form id="frm" name="frm">
-	<input type="hidden" value="${result.news_id }" name="news_id" id="news_id" />
-</form>
-
 	<div>${result.title }</div>
 	<div><a href="${result.news_url }" target="_blank">${result.news_url }</a></div>
 	<div>${result.view_cnt }</div>
@@ -156,6 +138,7 @@
 		<canvas id="myChart" width="300" height="300"></canvas>
 	</div>
 	<script type="text/javascript">
+	var scoreList = JSON.parse('${scoreListByUserJSON}');
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var myChart = new Chart(ctx, {
 	    type: 'radar',
@@ -188,23 +171,30 @@
 	<!-- Chart.js End -->
 	
 	<!-- Score Button -->
-	<div id="propensity">
-		<c:choose>
-			<c:when test="${fn:length(scoreListByUser) > 0 }">
-			<c:forEach items="${scoreListByUser }" var="scoreList">
-				<div>
-					<c:out value="${scoreList.type_nm }" />
-					<input type="checkbox" name="${scoreList.type_cd }" title="${scoreList.type_nm }" 
-						   <c:if test="${scoreList.score eq '0'} ">checked</c:if>
-					></input>
-<%-- 					<input type="button" name="${scoreList.type_cd }" value="${scoreList.type_nm }" checked="checked"/> --%>
-				</div>
-			</c:forEach>
-			</c:when>
-		</c:choose>
-	</div>
+	<form id="frm" name="frm">
+		<input type="hidden" value="${result.news_id }" name="news_id" id="news_id" />
+		<div id="propensity">
+			<c:choose>
+				<c:when test="${fn:length(scoreListByUser) > 0 }">
+				<c:forEach items="${scoreListByUser }" var="scoreList">
+					<div>
+						<c:out value="${scoreList.type_nm }" />
+						<input type="checkbox" 
+							   name="scoreList" 
+							   title="${scoreList.type_nm }"
+							   value="${scoreList.type_cd }" 
+							   
+							   <c:if test="${scoreList.score eq '1'}">checked</c:if>
+						/>${scoreList.score eq '1'}
+	<%-- 					<input type="button" name="${scoreList.type_cd }" value="${scoreList.type_nm }" checked="checked"/> --%>
+					</div>
+				</c:forEach>
+				</c:when>
+			</c:choose>
+		</div>
+	</form>
 	
-	<input type="button" value="성향등록" id="dialogOpenBtn" />
+<!-- 	<input type="button" value="성향등록" id="dialogOpenBtn" /> -->
 	<input type="button" value="평가" id="saveBtn" />
 </body>
 </html>

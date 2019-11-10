@@ -18,4 +18,20 @@
                		) AS b
 	  			 ON a.type_cd = b.type_cd
 	</select>
+	
+	<insert id="insertScore" parameterType="com.mohaning.app.Model.MHND010VO">
+		INSERT INTO mhnd01001tb(
+			news_id,
+			type_cd,
+			score,
+			REG_ID,
+			REG_DT
+		)VALUES(
+			#{news_id},
+			#{type_cd},
+			#{score},
+			'admin',
+			now()
+		)
+	</insert>
 </mapper>

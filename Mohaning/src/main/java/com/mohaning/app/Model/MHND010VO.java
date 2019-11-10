@@ -1,12 +1,14 @@
 package com.mohaning.app.Model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class MHND010VO {
 	private String news_id;
 	private String type_cd;
 	private String type_nm;
 	private Integer score;
+	private List<String> scoreList;
 	private String reg_id;
 	private Date reg_dt;
 	public String getNews_id() {
@@ -44,5 +46,11 @@ public class MHND010VO {
 	}
 	public void setReg_dt(Date reg_dt) {
 		this.reg_dt = reg_dt;
+	}
+	public List<String> getScoreList() {
+		return scoreList;
+	}
+	public void setScoreList(List<String> scoreList) {
+		this.scoreList = scoreList;
 	}
 }

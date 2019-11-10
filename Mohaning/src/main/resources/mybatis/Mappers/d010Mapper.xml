@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis -->	
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ibatis -->
+<!-- <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
+
+<mapper namespace="d010">
+	<select id="selectScoreListByUser" parameterType="com.mohaning.app.Model.MHND010VO" resultType="com.mohaning.app.Model.MHND010VO">
+		SELECT a.type_cd, a.type_nm, b.news_id, b.score, b.reg_id
+   		  FROM mhnc91001tb a
+   		  LEFT JOIN ( SELECT news_id, type_cd, score, reg_id 
+                 		FROM mhnd01001tb 
+               		   WHERE news_id = #{news_id}
+               		     AND reg_id = #{reg_id} 
+               		) AS b
+	  			 ON a.type_cd = b.type_cd
+	</select>
+</mapper>

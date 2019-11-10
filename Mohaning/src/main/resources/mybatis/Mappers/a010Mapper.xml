@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis -->	
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ibatis -->
+<!-- <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
+
+<mapper namespace="a010">
+	<select id="selectNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, a.title, a.view_cnt, a.reg_dt,
+       		   b.author_nm, c.media_nm
+ 		  FROM mhna01001tb AS a
+  		  LEFT JOIN mhnb01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+	
+	<select id="selectNews" parameterType="com.mohaning.app.Model.MHNA010VO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, a.title, a.news_url, a.view_cnt, a.reg_dt,
+       		   b.author_nm, b.author_email,
+       		   c.media_nm, c.media_url
+ 		  FROM mhna01001tb AS a
+  		  LEFT JOIN mhnb01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+  		 WHERE a.news_id = #{news_id}
+	</select>
+	
+	<insert id="insertNews" parameterType="com.mohaning.app.Model.MHNA010VO" useGeneratedKeys="true" keyProperty="news_id">
+		INSERT INTO mhna01001tb(
+			AUTHOR_ID,
+			TITLE,
+			CONTENT,
+			NEWS_URL,
+			REG_ID,
+			REG_DT
+		)VALUES(
+			#{author_id},
+			#{title},
+			#{content},
+			#{news_url},
+			'admin',
+			now()
+		)
+	</insert>
+	
+	<select id="checkRegisteredNews" parameterType="com.mohaning.app.Model.MHNA010VO" resultType="com.mohaning.app.Model.MHNA01001VO">
+		SELECT NEWS_ID
+		  FROM mhna01001tb
+		 WHERE news_url = #{news_url}
+	</select>
+	
+	<!-- 데이터 삭제 (YYYYMM 기준) -->
+	<!-- <delete id="deleteData" parameterType="com.my.land.model.TBL01VO">
+		DELETE FROM TBL01
+		 WHERE CONTYY = #{contyy}
+	</delete> -->
+	
+	<!-- 아파트매매 입력 -->
+	<!-- <insert id="insertApartmentSell" parameterType="com.my.land.model.TBL01VO">
+		INSERT INTO tbl01(
+			SGG,
+			BUNJI,
+			BONBUN,
+			BUBUN,
+			BLDNM,
+			
+			SIZE1,
+			CONTYY,
+			CONTDD,
+			AMT1,
+			FLOOR,
+			
+			VULIDYY,
+			DORONM,
+			TYPE2,
+			TYPE1,
+			SIZE2,
+			
+			AMT2
+			) VALUES(
+			#{sgg},
+			#{bunji},
+			#{bonbun},
+			#{bubun},
+			#{bldnm},
+
+			#{size1},
+			#{contyy},
+			#{contdd},
+			#{amt1},
+			#{floor},
+
+			#{vulidyy},
+			#{doronm},
+			#{type2},
+			#{type1},
+			#{size2},
+
+			#{amt2}
+			)
+	</insert> -->
+	
+</mapper>

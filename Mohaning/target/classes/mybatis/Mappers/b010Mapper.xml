@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis -->	
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ibatis -->
+<!-- <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
+
+<mapper namespace="b010">
+	<select id="selectAuthorCnt" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="Integer">
+		SELECT COUNT(*)
+		  FROM MHNB01001TB
+		 WHERE media_id = #{media_id}
+		   AND author_nm = #{author_nm}
+		   AND author_email = #{author_email}
+	</select>
+
+	<select id="selectAuthor" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNB01001VO">
+		SELECT AUTHOR_ID
+		  FROM MHNB01001TB
+		 WHERE media_id = #{media_id}
+		   AND author_nm = #{author_nm}
+		   AND author_email = #{author_email}
+	</select>
+
+	<insert id="insertAuthor" parameterType="com.mohaning.app.Model.MHNA010VO">
+		INSERT INTO mhnb01001tb(
+			AUTHOR_NM,
+			AUTHOR_EMAIL,
+			MEDIA_ID,
+			REG_ID,
+			REG_DT
+		)VALUES(
+			#{author_nm},
+			#{author_email},
+			#{media_id},
+			'admin',
+			now()
+		)
+		<selectKey resultType="String" keyProperty="author_id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<!-- 데이터 삭제 (YYYYMM 기준) -->
+	<!-- <delete id="deleteData" parameterType="com.my.land.model.TBL01VO">
+		DELETE FROM TBL01
+		 WHERE CONTYY = #{contyy}
+	</delete> -->
+	
+	<!-- 아파트매매 입력 -->
+	<!-- <insert id="insertApartmentSell" parameterType="com.my.land.model.TBL01VO">
+		INSERT INTO tbl01(
+			SGG,
+			BUNJI,
+			BONBUN,
+			BUBUN,
+			BLDNM,
+			
+			SIZE1,
+			CONTYY,
+			CONTDD,
+			AMT1,
+			FLOOR,
+			
+			VULIDYY,
+			DORONM,
+			TYPE2,
+			TYPE1,
+			SIZE2,
+			
+			AMT2
+			) VALUES(
+			#{sgg},
+			#{bunji},
+			#{bonbun},
+			#{bubun},
+			#{bldnm},
+
+			#{size1},
+			#{contyy},
+			#{contdd},
+			#{amt1},
+			#{floor},
+
+			#{vulidyy},
+			#{doronm},
+			#{type2},
+			#{type1},
+			#{size2},
+
+			#{amt2}
+			)
+	</insert> -->
+	
+</mapper>

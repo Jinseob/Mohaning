@@ -1,0 +1,8 @@
+.subnav > li{
+  width: 100%;
+  text-align: center;
+}
+
+.subnav-small > li{
+  width:calc(100% / 6);
+}

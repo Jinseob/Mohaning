@@ -107,7 +107,7 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
-	<h1>기사 상세 소스를 수정하고 그러면 어케 되려나</h1>
+	<h1>기사 상세</h1>
 	
 	<div id="dialog-confirm" title="새로운 성향을 등록하시겠습니까?">
 		<div id="propensity">
@@ -138,23 +138,25 @@
 		<canvas id="myChart" width="300" height="300"></canvas>
 	</div>
 	<script type="text/javascript">
-	var scoreList = JSON.parse('${scoreListByUserJSON}');
+	var scoreList = JSON.parse('${score}');
 	var ctx = document.getElementById('myChart').getContext('2d');
+	
+	var labels = new Array();
+	var data = new Array();
+	for(var i = 0; i < scoreList.length; i++){
+		var item = scoreList[i];
+		labels.push(item.type_nm);
+		data.push(item.score);
+	}
 	var myChart = new Chart(ctx, {
 	    type: 'radar',
 	    data: {
-	        labels: ['Running', 'Swimming', 'Eating', 'Cycling', 'A', 'B', 'C'],
+	        labels: labels,
 	        datasets: [{
-	        	label: '성향1',
-	            data: [20, 10, 4, 2, 30, 23, 10],
+	        	label: '기사 특성',
+	            data: data,
 	            borderColor : 'rgba(200, 0, 0, 0.1)',
 	            backgroundColor: 'rgba(200, 0, 0, 0.2)'
-	        },
-	        {
-	        	label: '성향2',
-	            data: [30, 20, 14, 12, 40, 33, 20],
-	            borderColor : 'rgba(0, 200, 0, 0.1)',
-	            backgroundColor: 'rgba(0, 200, 0, 0.2)'
 	        }
 	        ]
 	    },
@@ -162,7 +164,7 @@
 	    	scale:{
 	    		ticks:{
 	    			beginAtZero: true,
-	    			max :100
+// 	    			max :100
 	    		}
 	    	}
 	    }

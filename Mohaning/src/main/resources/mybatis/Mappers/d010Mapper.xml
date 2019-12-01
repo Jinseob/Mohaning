@@ -18,7 +18,16 @@
                		) AS b
 	  			 ON a.type_cd = b.type_cd
 	</select>
-	
+	<select id="selectScoreList" parameterType="com.mohaning.app.Model.MHND010VO" resultType="com.mohaning.app.Model.MHND010VO">
+		SELECT a.type_cd, a.type_nm, b.news_id, b.score, b.reg_id
+   		  FROM mhnc91001tb a
+   		  LEFT JOIN ( SELECT news_id, type_cd, SUM(score) AS score, reg_id 
+                 		FROM mhnd01001tb
+               		   WHERE news_id = #{news_id}
+               		   GROUP BY type_cd
+               		) AS b
+	  			 ON a.type_cd = b.type_cd
+	</select>
 	<insert id="insertScore" parameterType="com.mohaning.app.Model.MHND010VO">
 		INSERT INTO mhnd01001tb(
 			news_id,

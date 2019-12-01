@@ -5,11 +5,12 @@ import java.sql.Date;
 public class MHNC99902VO {	
 	private String media_id;
 	private String type;
-	private String select_tag;
-	private String data_tag;
-	private String data_method;
-	private String use_tag;
-	private String data_pattern;
+	private String selection;
+	private String data;
+	private String method;
+	private String use_yn;
+	private String use_url;
+	private String pattern;
 	private String reg_id;
 	private Date reg_dt;
 	public String getMedia_id() {
@@ -24,35 +25,41 @@ public class MHNC99902VO {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getSelect_tag() {
-		return select_tag == null ? "" : select_tag;
+	public String getSelection() {
+		return selection == null ? "" : selection;
 	}
-	public void setSelect_tag(String select_tag) {
-		this.select_tag = select_tag;
+	public void setSelection(String selection) {
+		this.selection = selection;
 	}
-	public String getData_tag() {
-		return data_tag == null ? "" : data_tag;
+	public String getData() {
+		return data == null ? "" : data;
 	}
-	public void setData_tag(String data_tag) {
-		this.data_tag = data_tag;
+	public void setData(String data) {
+		this.data = data;
 	}
-	public String getData_method() {
-		return data_method == null ? "" : data_method;
+	public String getMethod() {
+		return method == null ? "" : method;
 	}
-	public void setData_method(String data_method) {
-		this.data_method = data_method;
+	public void setMethod(String method) {
+		this.method = method;
 	}
-	public String getUse_tag() {
-		return use_tag == null ? "" : use_tag;
+	public String getUse_yn() {
+		return use_yn == null ? "" : use_yn;
 	}
-	public void setUse_tag(String use_tag) {
-		this.use_tag = use_tag;
+	public void setUse_yn(String use_yn) {
+		this.use_yn = use_yn;
 	}
-	public String getData_pattern() {
-		return data_pattern == null ? "" : data_pattern;
+	public String getUse_url() {
+		return use_url == null ? "" : use_url;
 	}
-	public void setData_pattern(String data_pattern) {
-		this.data_pattern = data_pattern;
+	public void setUse_url(String use_url) {
+		this.use_url = use_url;
+	}
+	public String getPattern() {
+		return pattern == null ? "" : pattern;
+	}
+	public void setPattern(String pattern) {
+		this.pattern = pattern;
 	}
 	public String getReg_id() {
 		return reg_id == null ? "" : reg_id;

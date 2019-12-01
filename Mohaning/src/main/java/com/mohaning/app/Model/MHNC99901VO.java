@@ -6,7 +6,7 @@ public class MHNC99901VO {
 	private String media_id;
 	private String media_nm;
 	private String media_url;
-	private String data_chk_url;
+	private String media_chk_url;
 	private String reg_id;
 	private Date reg_dt;
 	public String getMedia_id() {
@@ -27,11 +27,11 @@ public class MHNC99901VO {
 	public void setMedia_url(String media_url) {
 		this.media_url = media_url;
 	}
-	public String getData_chk_url() {
-		return data_chk_url == null ? "" : data_chk_url;
+	public String getMedia_chk_url() {
+		return media_chk_url == null ? "" : media_chk_url;
 	}
-	public void setData_chk_url(String data_chk_url) {
-		this.data_chk_url = data_chk_url;
+	public void setMedia_chk_url(String media_chk_url) {
+		this.media_chk_url = media_chk_url;
 	}
 	public String getReg_id() {
 		return reg_id == null ? "" : reg_id;

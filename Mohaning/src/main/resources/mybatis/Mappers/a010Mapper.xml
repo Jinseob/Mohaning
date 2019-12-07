@@ -51,7 +51,8 @@
 	<select id="checkRegisteredNews" parameterType="com.mohaning.app.Model.MHNA010VO" resultType="com.mohaning.app.Model.MHNA01001VO">
 		SELECT NEWS_ID
 		  FROM mhna01001tb
-		 WHERE news_url = #{news_url}
+		 WHERE doc_id = #{doc_id}
+		   and media_id = #{media_id}
 	</select>
 	
 	<!-- 데이터 삭제 (YYYYMM 기준) -->

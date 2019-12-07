@@ -4,6 +4,9 @@ import java.sql.Date;
 
 public class MHNA01001VO {	
 	private String news_id;
+	private String doc_id;
+	private String media_id;
+	private String author_id;
 	private String title;
 	private String content;
 	private String news_url;
@@ -13,12 +16,29 @@ public class MHNA01001VO {
 	private Date reg_dt;
 	private String upd_id;
 	private Date upd_dt;
-	
 	public String getNews_id() {
 		return news_id == null ? "" : news_id;
 	}
 	public void setNews_id(String news_id) {
 		this.news_id = news_id;
+	}
+	public String getDoc_id() {
+		return doc_id == null ? "" : doc_id;
+	}
+	public void setDoc_id(String doc_id) {
+		this.doc_id = doc_id;
+	}
+	public String getMedia_id() {
+		return media_id == null ? "" : media_id;
+	}
+	public void setMedia_id(String media_id) {
+		this.media_id = media_id;
+	}
+	public String getAuthor_id() {
+		return author_id == null ? "" : author_id;
+	}
+	public void setAuthor_id(String author_id) {
+		this.author_id = author_id;
 	}
 	public String getTitle() {
 		return title == null ? "" : title;
@@ -74,4 +94,5 @@ public class MHNA01001VO {
 	public void setUpd_dt(Date upd_dt) {
 		this.upd_dt = upd_dt;
 	}
+	
 }

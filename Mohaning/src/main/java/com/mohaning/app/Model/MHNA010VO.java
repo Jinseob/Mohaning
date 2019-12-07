@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class MHNA010VO {	
 	private String news_id;
+	private String doc_id;
 	private String title;
 	private String content;
 	private String news_url;
@@ -24,6 +25,12 @@ public class MHNA010VO {
 	}
 	public void setNews_id(String news_id) {
 		this.news_id = news_id;
+	}
+	public String getDoc_id() {
+		return doc_id == null ? "" : doc_id;
+	}
+	public void setDoc_id(String doc_id) {
+		this.doc_id = doc_id;
 	}
 	public String getTitle() {
 		return title == null ? "" : title;

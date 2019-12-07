@@ -61,7 +61,6 @@
 	
 	<input type="text" name="title" id="title" />
 	<input type="text" name="content" id="content" />
-	<input type="text" name="author_id" id="author_id" />
 	<input type="text" name="author_nm" id="author_nm" />
 	<input type="text" name="author_email" id="author_email">
 	

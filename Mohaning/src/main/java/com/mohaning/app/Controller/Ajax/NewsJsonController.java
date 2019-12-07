@@ -372,60 +372,63 @@ public class NewsJsonController {
 			if(selectedMedia.getMedia_id().equals("0001")) {
 				tempData = getData.Media_0001(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0002")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0002(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0003")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0003(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0004")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0004(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0005")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0005(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0006")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0006(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0007")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0007(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0008")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0008(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0009")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0009(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0010")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0010(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0011")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0011(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0012")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0012(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0013")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0013(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0014")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0014(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0015")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0015(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0016")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0016(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0017")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0017(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0018")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0018(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0019")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0019(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0020")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0020(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0021")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0021(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0022")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0022(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0023")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0023(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0024")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0024(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0025")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0025(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0026")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0026(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0027")) {
-				tempData = getData.Media_0001(document, dataCheckList);
-			}else if(selectedMedia.getMedia_id().equals("0028")) {
-				tempData = getData.Media_0001(document, dataCheckList);
+				tempData = getData.Media_0027(document, dataCheckList);
 			}
+			
+			result.setTitle(tempData.getTitle());
+			result.setContent(tempData.getContent());
+			result.setAuthor_nm(tempData.getAuthor_nm());
+			result.setAuthor_email(tempData.getAuthor_email());
 		}
 		
 		return result;

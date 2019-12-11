@@ -191,6 +191,17 @@ public class NewsJsonController {
 		MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
 		modelAndView.setView(jsonView);
 		
+		MHNA010VO result = Register(mhna01001VO);
+		
+		System.out.println(result.getMedia_nm());
+		model.addAttribute("type", "NEW");
+		model.addAttribute("result", result);
+		
+		return modelAndView;
+	}
+	
+	// SSL 확인 및 언론사 정보 가져오기.
+	public MHNA010VO Register(MHNA01001VO mhna01001VO) throws Exception {
 		String url = mhna01001VO.getNews_url();
 		
 		// 1. SSL 있는지 확인 및 우회 처리
@@ -215,105 +226,20 @@ public class NewsJsonController {
 			}
 		}
 		
+		MHNA010VO result = new MHNA010VO();
 		if(chk) {
 			// 4. Doc Id, Title, Content, Author, Email 등을 가져오는 클래스 실행.
-			MHNA010VO result = DataRegister(mhna01001VO, selectedMedia);
+			result = DataRegister(mhna01001VO, selectedMedia);
 			result.setMedia_id(selectedMedia.getMedia_id());
 			result.setMedia_nm(selectedMedia.getMedia_nm());
-			
-			model.addAttribute("type", "NEW");
-			model.addAttribute("result", result);
 		}else {
 			System.out.println("아직 해당 언론사는 지원하지 않습니다.");
 		}
 		
-		
-//        // 4. 찾은 언론사의 정보 추출 방법 가지고 오기.
-//		@SuppressWarnings("unchecked")
-//		List<MHNC99902VO> dataCheckList = (List<MHNC99902VO>) dao.selectList("c999.selectDataCheckList", selectedMedia);
-//		
-//		// 5. 크롤링
-//        Document document = Jsoup.connect(url).get();
-//		
-//		// 6. 기 등록된 뉴스인지 확인하는 부분. DocID 로 확인.
-//        
-//		MHNC99902VO dataCheck = null;
-//		// DOCID 확인하는 Line 가져오기.
-//		for(int i = 0; i < dataCheckList.size(); i++) {
-//        	dataCheck = new MHNC99902VO();
-//        	dataCheck = dataCheckList.get(i);
-//        	if(dataCheck.getType().equals("DOCID")) {
-//        		chk = true;
-//        		break;
-//        	}
-//        }
-//        
-//		// 추가 로직 필요. 크롤링하면서 데이터 확인하는 동시에 저장되어 있는 태그의 형태와 동일한지 확인하기. 가능한가?
-//		MHNA010VO result = new MHNA010VO();
-//		result.setMedia_id(selectedMedia.getMedia_id());
-//		result.setMedia_nm(selectedMedia.getMedia_nm());
-//		Element dataElement = null;
-//		if(dataCheck.getUse_url().equals("Y")) {	// URL 에서 DocId 를 가져와야 하는 경우
-//			URL doc_url = new URL(url);
-//			String query = doc_url.getQuery();
-//			String[] params = query.split("&");
-//			String param = new String();
-//			for(int i = 0; i < params.length; i++) {
-//				param = params[i];
-//				if(param.indexOf(dataCheck.getMethod()) > -1) {
-//					result.setDoc_id(param.split(dataCheck.getMethod())[1]);
-//					System.out.println("docid : " + param.split(dataCheck.getMethod())[1]);
-//				}
-//			}
-//		}else {		// 태그에서 DocID 를 가져올 수 있는 경우.
-//			dataElement = document.select(dataCheck.getSelection()).first();
-//			result.setDoc_id(dataElement.attr(dataCheck.getData()));
-//			System.out.println("docid : " + dataElement.attr(dataCheck.getData()));
-//			System.out.println("outerHtml : " + dataElement.outerHtml());
-////				data = dataElement.attr(dataCheck.getData_tag());
-//		}
-//		// 6-1 Docid 와 언론사 ID 를 사용하여 기등록된 기사가 있는지 확인하는 부분.
-//		@SuppressWarnings("unchecked")
-//		List<MHNA01001VO> checkRegisteredNews = (List<MHNA01001VO>) dao.selectList("a010.checkRegisteredNews", result);
-//		if(checkRegisteredNews.size() > 0) {
-//			System.out.println("기 등록된 기사가 있습니다.");
-//		}else {
-//			for(int i = 0; i < dataCheckList.size(); i++) {
-//	        	dataCheck = new MHNC99902VO();
-//	        	dataCheck = dataCheckList.get(i);
-//	        	
-//	        	if(dataCheck.getType().equals("TITLE")) {
-//	        		dataElement = document.select(dataCheck.getSelection()).first();
-//					result.setTitle(dataElement.attr(dataCheck.getData()));
-//					System.out.println("TitleHtml : " + dataElement.outerHtml());
-//	        	}else if(dataCheck.getType().equals("CONTENTS")) {
-//	        		dataElement = document.select(dataCheck.getSelection()).first();
-//					result.setContent(dataElement.attr(dataCheck.getData()));
-//					System.out.println("ContentHtml : " + dataElement.outerHtml());
-//	        	}else if(dataCheck.getType().equals("AUTHOR")) {
-//	        		
-//	        	}else if(dataCheck.getType().equals("EMAIL")) {
-//	        		if(dataCheck.getUse_yn().equals("Y")) {
-//	        			System.out.println("aaaaaaaa" + document.text());
-//	        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-//	        			System.out.println("aaaaaaaa" + document.data());
-//	        			System.out.println("aaaaaaaa" + document.ownText());
-//	        			System.out.println("aaaaaaaa" + document.body());
-//	        		}
-//	        	}
-//	        }
-			
-			
-			// 7. 제목 및 요약 내용 가져오기.
-			
-			// 8. 기자명 가져오기.
-			
-			// 9. email 정보 가져오기.
-//		}
-		
-		return modelAndView;
+		return result;
 	}
 	
+	// 확인된 언론사의 데이터 가져오기
     public MHNA010VO DataRegister(MHNA01001VO mhna01001VO, MHNC99901VO selectedMedia) throws Exception{
 		MHNA010VO result = new MHNA010VO();
 		
@@ -373,16 +299,16 @@ public class NewsJsonController {
 				tempData = getData.Media_0001(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0002")) {
 				tempData = getData.Media_0002(document, dataCheckList);
-			}else if(selectedMedia.getMedia_id().equals("0003")) {
-				tempData = getData.Media_0003(document, dataCheckList);
+			}else if(selectedMedia.getMedia_id().equals("0003")) {	// 네이버
+				tempData = PortalCheck(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0004")) {
 				tempData = getData.Media_0004(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0005")) {
 				tempData = getData.Media_0005(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0006")) {
 				tempData = getData.Media_0006(document, dataCheckList);
-			}else if(selectedMedia.getMedia_id().equals("0007")) {
-				tempData = getData.Media_0007(document, dataCheckList);
+			}else if(selectedMedia.getMedia_id().equals("0007")) {	// 다음
+				tempData = PortalCheck(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0008")) {
 				tempData = getData.Media_0008(document, dataCheckList);
 			}else if(selectedMedia.getMedia_id().equals("0009")) {
@@ -434,8 +360,45 @@ public class NewsJsonController {
 		return result;
 	}
     
-    // 0001
-	
+    public MHNA010VO PortalCheck(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNA010VO result = new MHNA010VO();
+    	MHNA010VO temp = new MHNA010VO();
+    	
+    	MHNC99902VO dataCheck = null;
+    	Element dataElement = null;
+    	for(int i = 0; i < dataCheckList.size(); i++) {
+        	dataCheck = new MHNC99902VO();
+        	dataCheck = dataCheckList.get(i);
+        	
+        	// Title, Content 는 거의 공통.
+        	if(dataCheck.getType().equals("TITLE")) {
+        		dataElement = document.select(dataCheck.getSelection()).first();
+				result.setTitle(dataElement.attr(dataCheck.getData()));
+        	}else if(dataCheck.getType().equals("CONTENTS")) {
+        		dataElement = document.select(dataCheck.getSelection()).first();
+				result.setContent(dataElement.attr(dataCheck.getData()));
+        	}else if(dataCheck.getType().equals("ORIGINAL")) {
+        		try {
+        			dataElement = document.select(dataCheck.getSelection()).first();
+        			String subUrl = dataElement.attr(dataCheck.getData());
+        			document = Jsoup.connect(subUrl).get();
+        			subUrl = document.baseUri();
+        			MHNA01001VO mhna01001VO = new MHNA01001VO();
+        			mhna01001VO.setNews_url(subUrl);
+        			temp = Register(mhna01001VO);
+				} catch (Exception e) { 					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
+        }
+    	
+    	result.setAuthor_email(temp.getAuthor_email());
+    	result.setAuthor_nm(temp.getAuthor_nm());
+//    	result.setAuthor_email(temp.getAuthor_email());
+		
+    	return result;
+    }
+    
 	@RequestMapping(value = "/scoreUpdate.json")
 	public ModelAndView scoreUpdate(@ModelAttribute("mhnd010VO") MHND010VO mhnd010VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{

@@ -2,14 +2,21 @@ package com.mohaning.app;
 
 import java.util.List;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.stereotype.Controller;
 
+import com.mohaning.app.Controller.Ajax.NewsJsonController;
+import com.mohaning.app.Model.MHNA01001VO;
 import com.mohaning.app.Model.MHNA010VO;
 import com.mohaning.app.Model.MHNC99902VO;
 
+@Controller
 public class GetDataController {
-
+	
 	// 0001 : 경향신문
 	public MHNA010VO Media_0001(Document document, List<MHNC99902VO> dataCheckList) {
     	MHNA010VO result = new MHNA010VO();
@@ -70,14 +77,15 @@ public class GetDataController {
         	}else if(dataCheck.getType().equals("EMAIL")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
         		String[] textArray = dataElement.text().split("\\s+");
-        		String text = "";
+        		String selectedTxt = "";
         		for(int j = textArray.length - 1; j >= 0; j--) {
-        			text = textArray[j];
+        			String text = textArray[j];
         			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
         				break;
         			}
         		}
-        		result.setAuthor_email(text);
+        		result.setAuthor_email(selectedTxt);
         	}
         }
     	
@@ -87,6 +95,7 @@ public class GetDataController {
 	// 0003 : 네이버뉴스 -> 기사 원문 링크를 사용하여 정보 가져오는 로직 사용?
 	public MHNA010VO Media_0003(Document document, List<MHNC99902VO> dataCheckList) {
     	MHNA010VO result = new MHNA010VO();
+    	MHNA010VO temp = new MHNA010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -103,20 +112,25 @@ public class GetDataController {
         		dataElement = document.select(dataCheck.getSelection()).first();
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
-        	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
-        	}else if(dataCheck.getType().equals("EMAIL")) {
-        		
+        	}else if(dataCheck.getType().equals("ORIGINAL")) {
+        		try {
+        			dataElement = document.select(dataCheck.getSelection()).first();
+        			String url = dataElement.attr(dataCheck.getData());
+        			System.out.println(url);
+        			MHNA01001VO mhna01001VO = new MHNA01001VO();
+        			mhna01001VO.setNews_url(url);
+        			NewsJsonController newsJson = new NewsJsonController();
+        			temp = newsJson.Register(mhna01001VO);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
         	}
+        	
+        	result.setAuthor_email(temp.getAuthor_email());
+        	result.setAuthor_nm(temp.getAuthor_nm());
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -173,28 +187,30 @@ public class GetDataController {
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-        		String[] textArray = dataElement.outerHtml().split("\\n");
-        		String text = "";
-        		for(int j = 0; j < textArray.length; j++) {
-        			text = textArray[j];
-        			if(text.indexOf(dataCheck.getPattern()) > -1) {
-        				break;
-        			}
-        		}
-        		String[] authorArr = text.split("\\s+");
-        		String author = authorArr[authorArr.length - 2];
-        		result.setAuthor_nm(author);
+        		String jsonHtml = dataElement.html();
+        		JSONParser jsonParser = new JSONParser();
+        		try {
+					JSONObject jsonObj = (JSONObject)jsonParser.parse(jsonHtml);
+					String text = jsonObj.get("author").toString();
+					String[] authorArr = text.split("\\s+");
+					String author = authorArr[authorArr.length - 2];
+					result.setAuthor_nm(author);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
         	}else if(dataCheck.getType().equals("EMAIL")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
         		String[] textArray = dataElement.text().split("\\s+");
-        		String text = "";
+        		String selectedTxt = "";
         		for(int j = textArray.length - 1; j >= 0; j--) {
-        			text = textArray[j];
+        			String text = textArray[j];
         			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
         				break;
         			}
         		}
-        		result.setAuthor_email(text);
+        		result.setAuthor_email(selectedTxt);
         	}
         }
 		
@@ -223,26 +239,27 @@ public class GetDataController {
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
         		String[] textArray = dataElement.attr(dataCheck.getData()).split("\\s+");
-        		String text = "";
+        		String selectedTxt = "";
         		for(int j = 0; j < textArray.length; j++) {
-        			text = textArray[j];
+        			String text = textArray[j];
         			if(text.indexOf(dataCheck.getPattern()) > -1) {
-        				text = text.replace(dataCheck.getPattern(), "");
+        				selectedTxt = text.replace(dataCheck.getPattern(), "");
         				break;
         			}
         		}
-        		result.setAuthor_nm(text);
+        		result.setAuthor_nm(selectedTxt);
         	}else if(dataCheck.getType().equals("EMAIL")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
         		String[] textArray = dataElement.text().split("\\s+");
-        		String text = "";
+        		String selectedTxt = "";
         		for(int j = textArray.length - 1; j >= 0; j--) {
-        			text = textArray[j];
+        			String text = textArray[j];
         			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
         				break;
         			}
         		}
-        		result.setAuthor_email(text);
+        		result.setAuthor_email(selectedTxt);
         	}
         }
 		
@@ -317,15 +334,16 @@ public class GetDataController {
 				result.setAuthor_nm(author);
         	}else if(dataCheck.getType().equals("EMAIL")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-        		String[] textArray = dataElement.attr(dataCheck.getData()).split("\\s+");
-        		String text = "";
-        		for(int j = 0; j < textArray.length; j++) {
-        			text = textArray[j];
+        		String[] textArray = dataElement.text().split("\\s+");
+        		String selectedTxt = "";
+        		for(int j = textArray.length - 1; j >= 0; j--) {
+        			String text = textArray[j];
         			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
         				break;
         			}
         		}
-				result.setAuthor_email(text);
+        		result.setAuthor_email(selectedTxt);
         	}
         }
 		
@@ -358,14 +376,15 @@ public class GetDataController {
         	}else if(dataCheck.getType().equals("EMAIL")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
         		String[] textArray = dataElement.text().split("\\s+");
-        		String text = "";
-        		for(int j = 0; j < textArray.length; j++) {
-        			text = textArray[j];
+        		String selectedTxt = "";
+        		for(int j = textArray.length - 1; j >= 0; j--) {
+        			String text = textArray[j];
         			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
         				break;
         			}
         		}
-				result.setAuthor_email(text);
+        		result.setAuthor_email(selectedTxt);
         	}
         }
 		
@@ -392,25 +411,13 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+				result.setAuthor_nm(dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
-        		}
+        		// Email 이 없음.
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -434,25 +441,23 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+				result.setAuthor_nm(dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.text().split("\\s+");
+        		String selectedTxt = "";
+        		for(int j = textArray.length - 1; j >= 0; j--) {
+        			String text = textArray[j];
+        			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
+        				break;
+        			}
         		}
+        		result.setAuthor_email(selectedTxt);
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -476,24 +481,22 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+				result.setAuthor_nm(dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.text().split("\\s+");
+        		String selectedTxt = "";
+        		for(int j = textArray.length - 1; j >= 0; j--) {
+        			String text = textArray[j];
+        			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
+        				break;
+        			}
         		}
+        		result.setAuthor_email(selectedTxt);
         	}
         }
-		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
     	
     	return result;
     }
@@ -518,25 +521,25 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.attr(dataCheck.getData()).split("=");
+        		String author = textArray[textArray.length - 1];
+				result.setAuthor_nm(author);
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.text().split("\\s+");
+        		String selectedTxt = "";
+        		for(int j = textArray.length - 1; j >= 0; j--) {
+        			String text = textArray[j];
+        			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
+        				break;
+        			}
         		}
+        		result.setAuthor_email(selectedTxt);
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -560,25 +563,23 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+				result.setAuthor_nm(dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.text().split("\\s+");
+        		String selectedTxt = "";
+        		for(int j = textArray.length - 1; j >= 0; j--) {
+        			String text = textArray[j];
+        			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
+        				break;
+        			}
         		}
+        		result.setAuthor_email(selectedTxt);
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -602,25 +603,15 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.text().split("\\s+");
+        		String author = textArray[0];
+				result.setAuthor_nm(author);
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
-        		}
+        		// Email 이 없음.
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -644,25 +635,15 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.attr(dataCheck.getData()).split("\\s+");
+        		String author = textArray[0];
+				result.setAuthor_nm(author);
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
-        		}
+        		// Email 이 없음.
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -686,29 +667,27 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+				result.setAuthor_nm(dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.text().split("\\s+");
+        		String selectedTxt = "";
+        		for(int j = textArray.length - 1; j >= 0; j--) {
+        			String text = textArray[j];
+        			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
+        				break;
+        			}
         		}
+        		result.setAuthor_email(selectedTxt);
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
-	// 0018 : 채널 A
+	// 0018 : 채널 A -> 로직 추가 필요. 다양한 언론사 사용.
 	public MHNA010VO Media_0018(Document document, List<MHNC99902VO> dataCheckList) {
     	MHNA010VO result = new MHNA010VO();
     	
@@ -728,15 +707,9 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		// 추후 로직 추가.
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
-        		}
+        		// 추후 로직 추가.
         	}
         }
 		
@@ -770,25 +743,25 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.attr(dataCheck.getData()).split("\\s+");
+        		String author = textArray[0];
+				result.setAuthor_nm(author);
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.text().split("\\s+");
+        		String selectedTxt = "";
+        		for(int j = textArray.length - 1; j >= 0; j--) {
+        			String text = textArray[j];
+        			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
+        				break;
+        			}
         		}
+        		result.setAuthor_email(selectedTxt);
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -812,25 +785,17 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.attr(dataCheck.getData()).split(",");
+        		String author = textArray[0];
+				result.setAuthor_nm(author);
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
-        		}
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String text = dataElement.text();
+				result.setAuthor_email(text);
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -854,25 +819,14 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+				result.setAuthor_nm(dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
-        		}
+        		dataElement = document.select(dataCheck.getSelection()).first();
+				result.setAuthor_email(dataElement.attr(dataCheck.getData()));
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -896,25 +850,33 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String jsonHtml = dataElement.html().substring(0, dataElement.html().lastIndexOf("}"));	// Json Data 부분에 '}' 마지막에 하나 더 들어감. 제거 필요.
+        		JSONParser jsonParser = new JSONParser();
+        		try {
+					JSONObject jsonObj = (JSONObject)jsonParser.parse(jsonHtml);
+					JSONObject author = (JSONObject) jsonObj.get("author");
+					String name = (String) author.get("name");
+					result.setAuthor_nm(name);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.text().split("\\s+");
+        		String selectedTxt = "";
+        		for(int j = textArray.length - 1; j >= 0; j--) {
+        			String text = textArray[j];
+        			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
+        				break;
+        			}
         		}
+        		result.setAuthor_email(selectedTxt);
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -938,29 +900,29 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.attr(dataCheck.getData()).split("\\s+");
+        		String author = textArray[0];
+				result.setAuthor_nm(author);
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.attr(dataCheck.getData()).split(":");
+        		String selectedTxt = "";
+        		for(int j = 0; j < textArray.length; j++) {
+        			String text = textArray[j];
+        			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
+        				break;
+        			}
         		}
+				result.setAuthor_email(selectedTxt);
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
-	// 0024 : KBS
+	// 0024 : KBS -> javascript 에서 기자명, 이메일 받아와서 처리. 단순 jsoup 으로 크롤링이 힘듬.
 	public MHNA010VO Media_0024(Document document, List<MHNC99902VO> dataCheckList) {
     	MHNA010VO result = new MHNA010VO();
     	
@@ -980,24 +942,24 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.text().split("\\s+");
+        		String author = textArray[0];
+				result.setAuthor_nm(author);
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.text().split("\\s+");
+        		String selectedTxt = "";
+        		for(int j = 0; j < textArray.length; j++) {
+        			String text = textArray[j];
+        			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
+        				break;
+        			}
         		}
+				result.setAuthor_email(selectedTxt);
         	}
         }
-		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
     	
     	return result;
     }
@@ -1022,25 +984,13 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+				result.setAuthor_nm(dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
-        		}
+        		// Email 이 없음
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -1064,25 +1014,14 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
+        		dataElement = document.select(dataCheck.getSelection()).first();
+				result.setAuthor_nm(dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
-        		}
+        		dataElement = document.select(dataCheck.getSelection()).first();
+				result.setAuthor_email(dataElement.attr(dataCheck.getData()));
         	}
         }
 		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
-    	
     	return result;
     }
 
@@ -1106,24 +1045,50 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		
-        	}else if(dataCheck.getType().equals("EMAIL")) {
-        		if(dataCheck.getUse_yn().equals("Y")) {
-        			System.out.println("aaaaaaaa" + document.text());
-        			System.out.println("aaaaaaaa" + document.text("@kyunghyang.com"));
-        			System.out.println("aaaaaaaa" + document.data());
-        			System.out.println("aaaaaaaa" + document.ownText());
-        			System.out.println("aaaaaaaa" + document.body());
+        		if(result.getAuthor_nm().equals("")) {
+        			dataElement = document.select(dataCheck.getSelection()).first();
+        			String jsonHtml = dataElement.html();	// Json Data 부분에 '}' 마지막에 하나 더 들어감. 제거 필요.
+        			JSONParser jsonParser = new JSONParser();
+        			try {
+        				JSONObject jsonObj = (JSONObject)jsonParser.parse(jsonHtml);
+        				JSONObject author = (JSONObject) jsonObj.get("author");
+        				String name = (String) author.get("name");
+        				result.setAuthor_nm(name);
+        			} catch (ParseException e) {
+        				// TODO Auto-generated catch block
+        				e.printStackTrace();
+        			}
         		}
+        	}else if(dataCheck.getType().equals("EMAIL")) {
+        		dataElement = document.select(dataCheck.getSelection()).first();
+        		String[] textArray = dataElement.text().split("\\s+");
+        		String selectedTxt = "";
+        		for(int j = textArray.length - 1; j >= 0; j--) {
+        			String text = textArray[j];
+        			if(text.indexOf(dataCheck.getPattern()) > -1) {
+        				selectedTxt = text;
+        				break;
+        			}
+        		}
+        		
+        		String author = "";
+        		String email = "";
+        		if(!selectedTxt.equals("")) {
+        			selectedTxt = selectedTxt.replaceAll("\\]", "");
+        			textArray = selectedTxt.split("\\[");
+        			author = textArray[0] != null ? textArray[0] : "";
+        			email = textArray[1] != null ? textArray[1] : "";
+        		}
+        		
+        		// 기자명에 YTN 이 있거나 빈값이 있는 경우. 기자명 넣기.
+				if(result.getAuthor_nm().equals("YTN") || result.getAuthor_nm().equals("")) {
+					result.setAuthor_nm(author);
+				}
+				
+				// email 이 없는 경우도 있음.
+				result.setAuthor_email(email);
         	}
         }
-		
-		
-		// 7. 제목 및 요약 내용 가져오기.
-		
-		// 8. 기자명 가져오기.
-		
-		// 9. email 정보 가져오기.
     	
     	return result;
     }

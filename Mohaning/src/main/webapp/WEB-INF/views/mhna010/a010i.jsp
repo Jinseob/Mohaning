@@ -9,9 +9,9 @@
 	function onNewsRegisterAjax(){
 		var frm = $("#frm").serialize();
 		$.ajax({
-			method: "POST",
+			type: "POST",
 			url : "/NewsRegister.json",
-			dataType: "JSON",
+			dataType: "json",
 			data : frm,
 			success: function(results){
 				var result = results.result;
@@ -54,21 +54,54 @@
 	</header>
 	<h1>기사 등록</h1>
 
-<form id="frm" name="frm">
-	<input type="url" name="news_url" id="news_url" />
-	<input type="button" value="등록" onclick="javascript: onNewsRegisterAjax();" />
-	<input type="button" value="취소" onclick="javascript: onPageMove('Board');" />
+<!-- <form id="frm" name="frm"> -->
+<!-- 	<input type="text" name="media_id" id="media_id" /> -->
+<!-- 	<input type="text" name="media_url" id="media_url"> -->
+<!-- </form> -->
 	
-	<input type="text" name="title" id="title" />
-	<input type="text" name="content" id="content" />
-	<input type="text" name="author_nm" id="author_nm" />
-	<input type="text" name="author_email" id="author_email">
-	
-	<input type="text" name="media_id" id="media_id" />
-	<input type="text" name="media_nm" id="media_nm" />
-	<input type="text" name="media_url" id="media_url">
-</form>
-	<input type="button" value="저장" onclick="javascript: onSaveBtn();" />
-	<input type="button" value="목록" onclick="javascript: onPageMove('Board');" />
+	<div class="uk-section">
+  	<div class="uk-container">
+  	<form id="frm" name="frm">
+    	<fieldset class="uk-fieldset">
+        <div class="uk-grid-small" uk-grid>
+          	<p uk-margin>
+	            <button class="uk-button uk-button-default" onclick="javascript: onNewsRegisterAjax();">등록</button>
+	            <button class="uk-button uk-button-default" onclick="javascript: onPageMove('Board');">취소</button>
+<!-- 	            <button class="uk-button uk-button-primary">발행</button> -->
+          	</p>
+            <div class="uk-width-1-1">
+                <input class="uk-input" type="text" name="news_url" id="news_url" placeholder="https://" />
+            </div>
+            <div class="uk-width-1-1">
+                <input class="uk-input" type="text" name="title" id="title" placeholder="기사 제목" />
+            </div>
+            <div class="uk-width-1-3@s">
+                <input class="uk-input" type="text" name="author_nm" id="author_nm" placeholder="모하닝 기자" />
+            </div>
+            <div class="uk-width-1-3@s">
+                <input class="uk-input" type="text" name="author_email" id="author_email" placeholder="mohaning@mohaning.com" />
+            </div>
+            <div class="uk-width-1-3@s">
+                <input class="uk-input" type="text" name="media_nm" id="media_nm" placeholder="모하닝 신문" />
+            </div>
+            <div class="uk-width-1-1">
+              <input class="uk-input uk-form-large" type="text" placeholder="제목" />
+            </div>
+            <div class="uk-width-1-1">
+              <textarea class="uk-textarea" rows="5" name="content" id="content" placeholder="Textarea"></textarea>
+            </div>
+            <div class="uk-width-1-1">
+              <span class="uk-badge">태그태그</span>
+              <span class="uk-badge">태그태그태그</span>
+            </div>
+            <p uk-margin>
+	            <button class="uk-button uk-button-default" onclick="javascript: onSaveBtn();">저장</button>
+	            <button class="uk-button uk-button-primary" onclick="javascript: onPageMove('Board');">목록</button>
+          	</p>
+        </div>
+      	</fieldset>
+    </form>
+  	</div>
+  	</div>
 </body>
 </html>

@@ -92,10 +92,13 @@
                 <input class="uk-input" type="text" name="media_nm" id="media_nm" placeholder="모하닝 신문" value="${result.media_nm }"/>
             </div>
             <div class="uk-width-1-1">
-              <input class="uk-input uk-form-large" type="text" placeholder="제목" value="${result.title }"/>
+              <textarea class="uk-textarea" rows="5" name="content" id="content" placeholder="Textarea">${result.content }</textarea>
             </div>
             <div class="uk-width-1-1">
-              <textarea class="uk-textarea" rows="5" name="content" id="content" placeholder="Textarea">${result.content }</textarea>
+              <input class="uk-input uk-form-large" type="text" placeholder="등록용 제목"/>
+            </div>
+            <div class="uk-width-1-1">
+              <textarea class="uk-textarea" rows="5" placeholder="등록용 내용"></textarea>
             </div>
             <div class="uk-width-1-1">
               <span class="uk-badge">태그태그</span>

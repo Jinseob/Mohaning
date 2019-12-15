@@ -9,8 +9,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Controller;
 
-import com.mohaning.app.Controller.Ajax.NewsJsonController;
-import com.mohaning.app.Model.MHNA01001VO;
 import com.mohaning.app.Model.MHNA010VO;
 import com.mohaning.app.Model.MHNC99902VO;
 
@@ -113,18 +111,7 @@ public class GetDataController {
 				result.setContent(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("ORIGINAL")) {
-        		try {
-        			dataElement = document.select(dataCheck.getSelection()).first();
-        			String url = dataElement.attr(dataCheck.getData());
-        			System.out.println(url);
-        			MHNA01001VO mhna01001VO = new MHNA01001VO();
-        			mhna01001VO.setNews_url(url);
-        			NewsJsonController newsJson = new NewsJsonController();
-        			temp = newsJson.Register(mhna01001VO);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
         	}
         	
         	result.setAuthor_email(temp.getAuthor_email());

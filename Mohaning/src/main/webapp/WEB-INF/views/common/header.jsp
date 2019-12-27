@@ -30,8 +30,8 @@
 	<div class="uk-navbar-right">
 	    <div>
 	    	<ul class="uk-navbar-nav">
-	        	<li><a href="#">Login</a></li>
-	        	<li><a href="#">Join</a></li>
+	        	<li><a href="/signIn.do">Login</a></li>
+	        	<li><a href="/signUp.do">Join</a></li>
 	      	</ul>
 	    </div>
 	</div>

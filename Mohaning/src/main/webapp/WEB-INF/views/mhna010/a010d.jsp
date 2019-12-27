@@ -118,7 +118,7 @@
 		</div>
 		</div>
 	</div>
-	<div>${result.title }</div>
+	<div>${result.news_title }</div>
 	<div><a href="${result.news_url }" target="_blank">${result.news_url }</a></div>
 	<div>${result.view_cnt }</div>
 	<div>${result.reg_dt }</div>
@@ -175,6 +175,9 @@
 	<!-- Score Button -->
 	<form id="frm" name="frm">
 		<input type="hidden" value="${result.news_id }" name="news_id" id="news_id" />
+		<input type="hidden" value="${result.author_id }" name="author_id" id="author_id" />
+		<input type="hidden" value="${result.media_id }" name="media_id" id="media_id" />
+		<input type="hidden" value="${result.origin_media_id }" name="origin_media_id" id="origin_media_id" />
 		<div id="propensity">
 			<c:choose>
 				<c:when test="${fn:length(scoreListByUser) > 0 }">

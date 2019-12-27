@@ -6,9 +6,11 @@ public class MHNA01001VO {
 	private String news_id;
 	private String doc_id;
 	private String media_id;
+	private String origin_id;
+	private String origin_media_id;
 	private String author_id;
-	private String title;
-	private String content;
+	private String news_title;
+	private String news_contents;
 	private String news_url;
 	private int view_cnt;
 	private int del_fl;
@@ -34,23 +36,35 @@ public class MHNA01001VO {
 	public void setMedia_id(String media_id) {
 		this.media_id = media_id;
 	}
+	public String getOrigin_id() {
+		return origin_id == null ? "" : origin_id;
+	}
+	public void setOrigin_id(String origin_id) {
+		this.origin_id = origin_id;
+	}
+	public String getOrigin_media_id() {
+		return origin_media_id == null ? "" : origin_media_id;
+	}
+	public void setOrigin_media_id(String origin_media_id) {
+		this.origin_media_id = origin_media_id;
+	}
 	public String getAuthor_id() {
 		return author_id == null ? "" : author_id;
 	}
 	public void setAuthor_id(String author_id) {
 		this.author_id = author_id;
 	}
-	public String getTitle() {
-		return title == null ? "" : title;
+	public String getNews_title() {
+		return news_title == null ? "" : news_title;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setNews_title(String news_title) {
+		this.news_title = news_title;
 	}
-	public String getContent() {
-		return content == null ? "" : content;
+	public String getNews_contents() {
+		return news_contents == null ? "" : news_contents;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setNews_contents(String news_contents) {
+		this.news_contents = news_contents;
 	}
 	public String getNews_url() {
 		return news_url == null ? "" : news_url;
@@ -94,5 +108,4 @@ public class MHNA01001VO {
 	public void setUpd_dt(Date upd_dt) {
 		this.upd_dt = upd_dt;
 	}
-	
 }

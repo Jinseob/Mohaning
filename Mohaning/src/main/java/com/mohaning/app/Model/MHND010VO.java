@@ -5,6 +5,9 @@ import java.util.List;
 
 public class MHND010VO {
 	private String news_id;
+	private String author_id;
+	private String media_id;
+	private String origin_media_id;
 	private String type_cd;
 	private String type_nm;
 	private Integer score;
@@ -16,6 +19,24 @@ public class MHND010VO {
 	}
 	public void setNews_id(String news_id) {
 		this.news_id = news_id;
+	}
+	public String getAuthor_id() {
+		return author_id == null ? "" : author_id;
+	}
+	public void setAuthor_id(String author_id) {
+		this.author_id = author_id;
+	}
+	public String getMedia_id() {
+		return media_id == null ? "" : media_id;
+	}
+	public void setMedia_id(String media_id) {
+		this.media_id = media_id;
+	}
+	public String getOrigin_media_id() {
+		return origin_media_id == null ? "" : origin_media_id;
+	}
+	public void setOrigin_media_id(String origin_media_id) {
+		this.origin_media_id = origin_media_id;
 	}
 	public String getType_cd() {
 		return type_cd == null ? "" : type_cd;

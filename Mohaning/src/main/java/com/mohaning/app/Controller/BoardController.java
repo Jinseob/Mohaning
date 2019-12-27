@@ -31,14 +31,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.mohaning.app.GetDataController;
-import com.mohaning.app.Controller.Ajax.NewsJsonController;
 import com.mohaning.app.Dao.CmmnDao;
 import com.mohaning.app.Model.MHNA01001VO;
 import com.mohaning.app.Model.MHNA010VO;
+import com.mohaning.app.Model.MHNB01001VO;
 import com.mohaning.app.Model.MHNC99901VO;
 import com.mohaning.app.Model.MHNC99902VO;
 import com.mohaning.app.Model.MHND010VO;
@@ -76,6 +74,8 @@ public class BoardController {
 		MHNA010VO result = Register(mhna01001VO);
 		
 		System.out.println(result.getMedia_nm());
+		System.out.println(result.getMedia_id() + " : " + result.getOrigin_media_id());
+		System.out.println(result.getNews_title());
 		model.addAttribute("type", "NEW");
 		model.addAttribute("result", result);
 		
@@ -170,6 +170,8 @@ public class BoardController {
 			System.out.println("outerHtml : " + dataElement.outerHtml());
 //							data = dataElement.attr(dataCheck.getData_tag());
 		}
+		document.attr("docid", result.getDoc_id());	// getData 에서 doc id 를 사용하기 위해 설정.
+		
 		// 6-1 Docid 와 언론사 ID 를 사용하여 기등록된 기사가 있는지 확인하는 부분.
 		@SuppressWarnings("unchecked")
 		List<MHNA01001VO> checkRegisteredNews = (List<MHNA01001VO>) dao.selectList("a010.checkRegisteredNews", result);
@@ -180,70 +182,113 @@ public class BoardController {
 			GetDataController getData = new GetDataController();
 			if(selectedMedia.getMedia_id().equals("0001")) {
 				tempData = getData.Media_0001(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0002")) {
 				tempData = getData.Media_0002(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0003")) {	// 네이버
-				tempData = PortalCheck(document, dataCheckList);
+				tempData = PortalCheck(document, dataCheckList, selectedMedia);
+				result.setOrigin_id(tempData.getOrigin_id());
+				result.setOrigin_media_id(tempData.getOrigin_media_id());
 			}else if(selectedMedia.getMedia_id().equals("0004")) {
 				tempData = getData.Media_0004(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0005")) {
 				tempData = getData.Media_0005(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0006")) {
 				tempData = getData.Media_0006(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0007")) {	// 다음
-				tempData = PortalCheck(document, dataCheckList);
+				tempData = PortalCheck(document, dataCheckList,selectedMedia);
+				result.setOrigin_id(tempData.getOrigin_id());
+				result.setOrigin_media_id(tempData.getOrigin_media_id());
 			}else if(selectedMedia.getMedia_id().equals("0008")) {
 				tempData = getData.Media_0008(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0009")) {
 				tempData = getData.Media_0009(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0010")) {
 				tempData = getData.Media_0010(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0011")) {
 				tempData = getData.Media_0011(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0012")) {
 				tempData = getData.Media_0012(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0013")) {
 				tempData = getData.Media_0013(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0014")) {
 				tempData = getData.Media_0014(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0015")) {
 				tempData = getData.Media_0015(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0016")) {
 				tempData = getData.Media_0016(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0017")) {
 				tempData = getData.Media_0017(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0018")) {
 				tempData = getData.Media_0018(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0019")) {
 				tempData = getData.Media_0019(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0020")) {
 				tempData = getData.Media_0020(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0021")) {
 				tempData = getData.Media_0021(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0022")) {
 				tempData = getData.Media_0022(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0023")) {
 				tempData = getData.Media_0023(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0024")) {
 				tempData = getData.Media_0024(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0025")) {
 				tempData = getData.Media_0025(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0026")) {
 				tempData = getData.Media_0026(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}else if(selectedMedia.getMedia_id().equals("0027")) {
 				tempData = getData.Media_0027(document, dataCheckList);
+				result.setOrigin_media_id(selectedMedia.getMedia_id());
 			}
 			
-			result.setTitle(tempData.getTitle());
-			result.setContent(tempData.getContent());
+			result.setNews_title(tempData.getNews_title());
+			result.setNews_contents(tempData.getNews_contents());
 			result.setAuthor_nm(tempData.getAuthor_nm());
 			result.setAuthor_email(tempData.getAuthor_email());
+
+			// 기자 id 생성 또는 가져오기.
+			MHNB01001VO authorInfo = new MHNB01001VO();
+			authorInfo.setAuthor_nm(result.getAuthor_nm());
+			authorInfo.setAuthor_email(result.getAuthor_email());
+			authorInfo.setMedia_id(result.getOrigin_media_id());
+			
+			int authorCnt = dao.selectCnt("b010.selectAuthorCnt", authorInfo);
+			if(authorCnt > 0) {	// 기 등록된 기자가 있으면 ID 가지고 와서 넣기
+				authorInfo = (MHNB01001VO) dao.select("b010.selectAuthor", authorInfo);
+			}else {	// 등록된 기자가 없으면 등록하기.
+				dao.insert_return("b010.insertAuthor", authorInfo);
+			}
+			result.setAuthor_id(authorInfo.getAuthor_id());
 		}
 		
 		return result;
 	}
     
-    public MHNA010VO PortalCheck(Document document, List<MHNC99902VO> dataCheckList) {
+    public MHNA010VO PortalCheck(Document document, List<MHNC99902VO> dataCheckList, MHNC99901VO selectedMedia) {
     	MHNA010VO result = new MHNA010VO();
     	MHNA010VO temp = new MHNA010VO();
     	
@@ -256,10 +301,10 @@ public class BoardController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("ORIGINAL")) {
         		try {
         			dataElement = document.select(dataCheck.getSelection()).first();
@@ -277,7 +322,9 @@ public class BoardController {
     	
     	result.setAuthor_email(temp.getAuthor_email());
     	result.setAuthor_nm(temp.getAuthor_nm());
-//	    	result.setAuthor_email(temp.getAuthor_email());
+    	result.setMedia_id(selectedMedia.getMedia_id());
+    	result.setOrigin_media_id(temp.getMedia_id());
+    	result.setOrigin_id(temp.getDoc_id());
 		
     	return result;
     }
@@ -314,9 +361,8 @@ public class BoardController {
 		if(mhna010VO.getAuthor_id().isEmpty()) {
 			dao.insert("b010.insertAuthor", mhna010VO);	// 우선 기자를 등록하고 등록된 기자의 ID 를 가지고 온다.
 		}
-		dao.insert("a010.insertNews", mhna010VO);	// 기자 ID 를 news 에 넣는다.
-		
-		// 저장 실패시 Insert or Update 화면으로 그대로 둔다.
+		dao.insert_return("a010.insertNews", mhna010VO);	// 기자 ID 를 news 에 넣는다.
+		dao.insert("a020.insertBoard", mhna010VO);	// 기자 ID 를 news 에 넣는다.
 		
 		// 저장 성공시 Detail 화면으로 간다.
 		String rediredUrl = "redirect:/a010d" + mhna010VO.getNews_id() + ".do";
@@ -327,6 +373,9 @@ public class BoardController {
 	@RequestMapping(value = "/a010d{news_id}.do")
 	public String boardDetail(@PathVariable String news_id, @ModelAttribute("mhna010VO") MHNA010VO mhna010VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+		
+		// 조회수 올리는 로직 넣기
+		dao.update("a010.updateCnt", mhna010VO);
 		
 		// 뉴스 기사와 기자, 언론사 정보 가지고 오는 부분.
 		mhna010VO.setNews_id(news_id);

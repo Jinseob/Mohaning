@@ -31,12 +31,16 @@
 	<insert id="insertScore" parameterType="com.mohaning.app.Model.MHND010VO">
 		INSERT INTO mhnd01001tb(
 			news_id,
+			author_id,
+			media_id,
 			type_cd,
 			score,
 			REG_ID,
 			REG_DT
 		)VALUES(
 			#{news_id},
+			#{author_id},
+			#{media_id},
 			#{type_cd},
 			#{score},
 			'admin',

@@ -4,7 +4,7 @@
 <html>
 <head>
 	<title>기사</title>
-	<jsp:directive.include file="/WEB-INF/views/common/taglib.jsp" />
+	<jsp:include page="/WEB-INF/views/common/taglib.jsp" />
 	<script type="text/javascript">
 // 	function onNewsRegisterAjax(){
 // 		var frm = $("#frm").serialize();
@@ -38,14 +38,16 @@
 // 	}
 	
 	function onRegisterBtn(){
+		var frm = $("#frm").attr({"action" : "/NewsRegister.do", "method" : "POST"});
 		if(confirm("등록 하시겠습니까?")){
-			$("#frm").attr({"action" : "/NewsRegister.do", "method" : "POST"}).submit();
+			frm.submit();
 		}
 	}
 	
 	function onSaveBtn(){
+		var frm = $("#frm").attr({"action" : "/processUpdate_a010.do", "method" : "POST"});
 		if(confirm("저장 하시겠습니까?")){
-			$("#frm").attr({"action" : "/processUpdate_a010.do", "method" : "POST"}).submit();
+			frm.submit();
 		}
 	}
 	
@@ -68,19 +70,25 @@
 	
 	<div class="uk-section">
   	<div class="uk-container">
-  	<form id="frm" name="frm">
+  	<form id="frm" name="frm" method="post" >
+		<input type="hidden" name="author_id" value="${result.author_id}"/>  		
+		<input type="hidden" name="media_id" value="${result.media_id}"/>
+		<input type="hidden" name="doc_id" value="${result.doc_id}"/>
+		<input type="hidden" name="origin_id" value="${result.origin_id}"/>
+		<input type="hidden" name="origin_media_id" value="${result.origin_media_id}"/>
+		
     	<fieldset class="uk-fieldset">
         <div class="uk-grid-small" uk-grid>
           	<p uk-margin>
-	            <button class="uk-button uk-button-default" onclick="onRegisterBtn();">등록</button>
-	            <button class="uk-button uk-button-default" onclick="onPageMove('Board');">취소</button>
+	            <button type="button" class="uk-button uk-button-default" onclick="onRegisterBtn();">등록</button>
+	            <button type="button" class="uk-button uk-button-default" onclick="onPageMove('Board');">취소</button>
 <!-- 	            <button class="uk-button uk-button-primary">발행</button> -->
           	</p>
             <div class="uk-width-1-1">
                 <input class="uk-input" type="text" name="news_url" id="news_url" placeholder="https://" value="${result.news_url }"/>
             </div>
             <div class="uk-width-1-1">
-                <input class="uk-input" type="text" name="title" id="title" placeholder="기사 제목" value="${result.title }"/>
+                <input class="uk-input" type="text" name="news_title" id="news_title" placeholder="기사 제목" value="${result.news_title }"/>
             </div>
             <div class="uk-width-1-3@s">
                 <input class="uk-input" type="text" name="author_nm" id="author_nm" placeholder="모하닝 기자" value="${result.author_nm }"/>
@@ -92,21 +100,21 @@
                 <input class="uk-input" type="text" name="media_nm" id="media_nm" placeholder="모하닝 신문" value="${result.media_nm }"/>
             </div>
             <div class="uk-width-1-1">
-              <textarea class="uk-textarea" rows="5" name="content" id="content" placeholder="Textarea">${result.content }</textarea>
+              <textarea class="uk-textarea" rows="5" name="news_contents" id="news_contents" placeholder="Textarea">${result.news_contents }</textarea>
             </div>
             <div class="uk-width-1-1">
-              <input class="uk-input uk-form-large" type="text" placeholder="등록용 제목"/>
+              <input class="uk-input uk-form-large" type="text" name="title" id="title" placeholder="등록용 제목"/>
             </div>
             <div class="uk-width-1-1">
-              <textarea class="uk-textarea" rows="5" placeholder="등록용 내용"></textarea>
+              <textarea class="uk-textarea" rows="5" name="contents" id="contents" placeholder="등록용 내용"></textarea>
             </div>
             <div class="uk-width-1-1">
               <span class="uk-badge">태그태그</span>
               <span class="uk-badge">태그태그태그</span>
             </div>
             <p uk-margin>
-	            <button class="uk-button uk-button-default" onclick="javascript: onSaveBtn();">저장</button>
-	            <button class="uk-button uk-button-primary" onclick="javascript: onPageMove('Board');">목록</button>
+	            <button type="button" class="uk-button uk-button-default" onclick="javascript: onSaveBtn();">저장</button>
+	            <button type="button" class="uk-button uk-button-primary" onclick="javascript: onPageMove('Board');">목록</button>
           	</p>
         </div>
       	</fieldset>

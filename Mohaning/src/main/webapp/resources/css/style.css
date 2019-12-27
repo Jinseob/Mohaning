@@ -6,3 +6,15 @@
 .subnav-small > li{
   width:calc(100% / 6);
 }
+
+.uk-search-default{
+}
+.uk-button-text{
+  margin-right: 1rem;
+}
+.m-border-t{
+  border-top: thick double black;
+}
+.m-border{
+  border:thick double black;
+}

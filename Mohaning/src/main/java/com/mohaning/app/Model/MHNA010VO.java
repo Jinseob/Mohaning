@@ -3,10 +3,16 @@ package com.mohaning.app.Model;
 import java.sql.Date;
 
 public class MHNA010VO {	
+	private String seq_id;
 	private String news_id;
 	private String doc_id;
+	private String origin_id;
+	private String origin_media_id;
+	private String origin_media_nm;
 	private String title;
-	private String content;
+	private String contents;
+	private String news_title;
+	private String news_contents;
 	private String news_url;
 	private String media_id;
 	private String media_nm;
@@ -32,17 +38,47 @@ public class MHNA010VO {
 	public void setDoc_id(String doc_id) {
 		this.doc_id = doc_id;
 	}
+	public String getOrigin_id() {
+		return origin_id == null ? "" : origin_id;
+	}
+	public void setOrigin_id(String origin_id) {
+		this.origin_id = origin_id;
+	}
+	public String getOrigin_media_id() {
+		return origin_media_id == null ? "" : origin_media_id;
+	}
+	public void setOrigin_media_id(String origin_media_id) {
+		this.origin_media_id = origin_media_id;
+	}
 	public String getTitle() {
 		return title == null ? "" : title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContent() {
-		return content == null ? "" : content;
+	public String getNews_title() {
+		return news_title == null ? "" : news_title;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setNews_title(String news_title) {
+		this.news_title = news_title;
+	}
+	public String getSeq_id() {
+		return seq_id == null ? "" : seq_id;
+	}
+	public void setSeq_id(String seq_id) {
+		this.seq_id = seq_id;
+	}
+	public String getContents() {
+		return contents == null ? "" : contents;
+	}
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
+	public String getNews_contents() {
+		return news_contents == null ? "" : news_contents;
+	}
+	public void setNews_contents(String news_contents) {
+		this.news_contents = news_contents;
 	}
 	public String getNews_url() {
 		return news_url == null ? "" : news_url;
@@ -122,5 +158,10 @@ public class MHNA010VO {
 	public void setUpd_dt(Date upd_dt) {
 		this.upd_dt = upd_dt;
 	}
-	
+	public String getOrigin_media_nm() {
+		return origin_media_nm == null ? "" : origin_media_nm;
+	}
+	public void setOrigin_media_nm(String origin_media_nm) {
+		this.origin_media_nm = origin_media_nm;
+	}
 }

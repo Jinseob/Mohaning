@@ -1,10 +1,13 @@
 package com.mohaning.app;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Controller;
@@ -28,11 +31,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -61,11 +64,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -104,11 +107,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("ORIGINAL")) {
 
@@ -134,11 +137,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -166,11 +169,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -217,11 +220,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -266,11 +269,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		
@@ -308,11 +311,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -350,11 +353,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -391,11 +394,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -421,11 +424,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -461,11 +464,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -501,11 +504,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -543,11 +546,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -583,11 +586,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -615,11 +618,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -647,11 +650,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -687,11 +690,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		// 추후 로직 추가.
@@ -723,11 +726,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
-				System.out.println("TitleHtml : " + dataElement.outerHtml());
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
+				System.out.println("TitleHtml : " + dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -765,11 +768,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -799,11 +802,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -830,11 +833,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -880,11 +883,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -909,9 +912,10 @@ public class GetDataController {
     	return result;
     }
 
-	// 0024 : KBS -> javascript 에서 기자명, 이메일 받아와서 처리. 단순 jsoup 으로 크롤링이 힘듬.
+	// 0024 : KBS -> javascript 에서 기자명, 이메일 받아와서 처리. 단순 jsoup 으로 크롤링이 힘듬. ajax 값 json 으로 받아서 처리하기.
 	public MHNA010VO Media_0024(Document document, List<MHNC99902VO> dataCheckList) {
     	MHNA010VO result = new MHNA010VO();
+    	String docId = document.attr("docid");
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -922,29 +926,46 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
-        		dataElement = document.select(dataCheck.getSelection()).first();
-        		String[] textArray = dataElement.text().split("\\s+");
-        		String author = textArray[0];
-				result.setAuthor_nm(author);
+        		try {
+        			String url = dataCheck.getSelection();
+					document = Jsoup.connect(url).data("SEARCH_NEWS_CODE", docId).post();
+					JSONParser jsonParser = new JSONParser();
+					JSONObject jsonObj = (JSONObject)jsonParser.parse(document.select("body").html());
+					JSONArray reporter = (JSONArray) jsonObj.get("reporter");
+					JSONObject reporterInfo = (JSONObject) reporter.get(0);
+					String author = reporterInfo.get("REPORTER_NAME").toString();
+					result.setAuthor_nm(author.toString());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
         	}else if(dataCheck.getType().equals("EMAIL")) {
-        		dataElement = document.select(dataCheck.getSelection()).first();
-        		String[] textArray = dataElement.text().split("\\s+");
-        		String selectedTxt = "";
-        		for(int j = 0; j < textArray.length; j++) {
-        			String text = textArray[j];
-        			if(text.indexOf(dataCheck.getPattern()) > -1) {
-        				selectedTxt = text;
-        				break;
-        			}
-        		}
-				result.setAuthor_email(selectedTxt);
+        		try {
+        			String url = dataCheck.getSelection();
+					document = Jsoup.connect(url).data("SEARCH_NEWS_CODE", docId).post();
+					JSONParser jsonParser = new JSONParser();
+					JSONObject jsonObj = (JSONObject)jsonParser.parse(document.select("body").html());
+					JSONArray reporter = (JSONArray) jsonObj.get("reporter");
+					JSONObject reporterInfo = (JSONObject) reporter.get(0);
+					String email = reporterInfo.get("EMAIL").toString();
+					result.setAuthor_email(email.toString());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
         	}
         }
     	
@@ -964,11 +985,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -994,11 +1015,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
@@ -1025,11 +1046,11 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setTitle(dataElement.attr(dataCheck.getData()));
+				result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setContent(dataElement.attr(dataCheck.getData()));
+				result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		if(result.getAuthor_nm().equals("")) {

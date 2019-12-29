@@ -35,13 +35,11 @@ public class UserController {
 		
 		// 로그인 로직 넣기
 		
-		// 로그인 시 E-mail 인증 되었는지 확인. 인증이 안되었으면 화면 이동 할 수 없도록 or 로그인이 안되도록.
-		
 		// 로그인 후 세션에 정보 넣는 로직 넣기
 		
 		// 메인화면으로 이동.
 		
-		return "mhnu010/u010sif";
+		return "home";
 	}
 	
 	@RequestMapping(value = "/signUp.do")
@@ -54,12 +52,12 @@ public class UserController {
 	@RequestMapping(value = "/signUpProcess.do")
 	public String signUpProcess(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+
+		// 중복 확인. 이미 등록된 e-mail 이 있으면 리턴.
+		
+		// E-mail 인증이 되었는지 확인. 안되어있으면 인증하라고 알림과 함께 리턴.
 		
 		// 회원 정보 저장 로직
-		
-		// E-mail 에 인증번호 날리기.
-		
-		// E-mail 확인하여 인증하라는 알림 or 화면을 보여줌.
 		
 		// 로그인 화면으로 이동.
 		

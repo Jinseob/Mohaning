@@ -4,5 +4,34 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	
+	<!-- mimeMessage와 mimeMessageHelper를 사용할 때 필요한 mailSender 객체이다. @AutoWired 로 di한다.-->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    	<property name="host" value="${mailInfo.host}" />
+   		<!-- SMTP 서버주소: smtp.gmail.com(보내는 메일이 gmail 계정일 경우) -->
+   		<property name="port" value="${mailInfo.port}" />
+   		<!-- 구글의 SMTP 서버포트: 587을 사용했고 465, 25번도 있다. -->
+   		<property name="username" value="${mailInfo.username}" />
+   		<!-- 사용자 아이디: 아이디@계정포함 -->
+   		<property name="password" value="${mailInfo.password}" /> <!-- 사용자 비밀번호 -->
+   		<property name="defaultEncoding" value="UTF-8"/> <!-- 인코딩 방식 -->
+   		<property name="javaMailProperties"> 
+	    	<props>
+	        	<prop key="mail.transport.protocol">smtp</prop> <!--메일서버프로토콜-->
+	         	<prop key="mail.smtp.auth">true</prop> <!-- 인증여부  -->
+	         	<prop key="mail.smtp.starttls.enable">true</prop>
+	         	<prop key="mail.debug">true</prop>
+	      	</props>
+   		</property>
+	</bean>
+
+	<!-- //※프로퍼티에 들어가는 값을 하나의 파일로 정리하기 위해 아래와 같이 작성 -->
+	<bean class=
+	    "org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="/WEB-INF/spring/mailConfig.properties" />
+		<property name="fileEncoding" value="UTF-8" />
+	</bean>
+
+	
+	
 </beans>

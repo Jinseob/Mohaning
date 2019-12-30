@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis -->	
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ibatis -->
+<!-- <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
+
+<mapper namespace="u010">
+	<select id="checkNickName" parameterType="com.mohaning.app.Model.MHNU010VO" resultType="Integer">
+		SELECT COUNT(*)
+   		  FROM mhnu01001tb
+   		 WHERE nickname = #{nickName}
+	</select>
+	
+	<select id="checkEmail" parameterType="com.mohaning.app.Model.MHNU010VO" resultType="Integer">
+		SELECT COUNT(*)
+   		  FROM mhnu01001tb
+   		 WHERE email = #{email}
+	</select>
+	
+	<select id="loginChk" parameterType="com.mohaning.app.Model.MHNU010VO" resultType="Integer">
+		SELECT COUNT(*)
+   		  FROM mhnu01001tb
+   		 WHERE email = #{email}
+   		   AND psw = #{psw}
+	</select>
+	
+	<select id="selectUserInfo" parameterType="com.mohaning.app.Model.MHNU010VO" resultType="com.mohaning.app.Model.MHNU010VO">
+		SELECT *
+   		  FROM mhnu01001tb
+   		 WHERE email = #{email}
+   		   AND psw = #{psw}
+	</select>
+
+	<insert id="insertUser" parameterType="com.mohaning.app.Model.MHNU010VO">
+		INSERT INTO mhnu01001tb(
+			email,
+			nickname,
+			psw,
+			psw_upt_dt,
+			REG_DT
+		)VALUES(
+			#{email},
+			#{nickName},
+			#{psw},
+			now(),
+			now()
+		)
+	</insert>
+</mapper>

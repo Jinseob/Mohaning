@@ -380,6 +380,7 @@ public class BoardController {
 		// 뉴스 기사와 기자, 언론사 정보 가지고 오는 부분.
 		mhna010VO.setNews_id(news_id);
 		MHNA010VO result = (MHNA010VO) dao.select("a010.selectNews", mhna010VO);
+		System.out.println(result.getContents());
 		model.addAttribute("result", result);
 		
 		// 개인별 반영 점수 가지고 오는 부분

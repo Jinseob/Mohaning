@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/uikit-3.2.2/css/uikit.min.css" />
@@ -29,10 +30,19 @@
 	</div>
 	<div class="uk-navbar-right">
 	    <div>
-	    	<ul class="uk-navbar-nav">
-	        	<li><a href="/signIn.do">Login</a></li>
-	        	<li><a href="/signUp.do">Join</a></li>
+			<ul class="uk-navbar-nav">
+	    	<c:choose>
+				<c:when test="${userNick ne null}">
+					<li><a href="/signIn.do">${userNick}</a></li>
+					<li><a href="/logout.do">로그아웃</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="/signIn.do">Login</a></li>
+		        	<li><a href="/signUp.do">Join</a></li>
+				</c:otherwise>
+			</c:choose>
 	      	</ul>
+	    	
 	    </div>
 	</div>
 </nav>

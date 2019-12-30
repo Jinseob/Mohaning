@@ -15,6 +15,9 @@
 .m-border-t{
   border-top: thick double black;
 }
+.m-border-b{
+  border-bottom: thick double black;
+}
 .m-border{
   border:thick double black;
 }

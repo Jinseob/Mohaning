@@ -19,11 +19,23 @@
 	</select>
 	
 	<select id="selectNews" parameterType="com.mohaning.app.Model.MHNA010VO" resultType="com.mohaning.app.Model.MHNA010VO">
-		SELECT a.*,
+		SELECT a.news_id,
+			   a.doc_id,
+			   a.media_id,
+			   a.author_id,
+			   a.origin_id,
+			   a.origin_media_id,
+			   a.news_title,
+			   a.news_url,
+			   a.view_cnt,
+			   a.reg_id,
+			   a.reg_dt,
+			   CONVERT(a.news_contents USING utf8) as news_contents,
 		       c.seq_id,
 		       c.title,
-		       c.contents,
+		       CONVERT(c.contents USING utf8) as contents,
 		       d.media_nm,
+		       d.media_url,
 		       b.author_nm,
 		       b.author_email,
 		       e.media_nm AS origin_media_nm

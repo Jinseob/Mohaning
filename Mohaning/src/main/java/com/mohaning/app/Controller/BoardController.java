@@ -393,7 +393,7 @@ public class BoardController {
 		
 		// 평균 점수 가지고 오는 부분
 		@SuppressWarnings("unchecked")
-		List<MHND010VO> score = (List<MHND010VO>) dao.selectList("d010.selectScoreList", news_info);
+		List<MHND010VO> score = (List<MHND010VO>) dao.selectList("d010.selectScoreListByNews", news_info);
 		JSONArray jsonArray = new JSONArray(score);
 		model.addAttribute("score", jsonArray);
 		

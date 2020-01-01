@@ -30,6 +30,6 @@ public class AuthorController {
 //		List<MHNA010VO> list = (List<MHNA010VO>) dao.selectList("a010.selectNewsList", searchOptionVO);
 //		model.addAttribute("resultList", list);
 		
-		return "mhna010/a010l";
+		return "mhnb010/b010l";
 	}
 }

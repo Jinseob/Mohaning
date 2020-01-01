@@ -15,14 +15,14 @@
 	        <ul class="uk-navbar-nav">
 	            <li class="uk-active"><a href="/Board.do">기사</a></li>
 	            <li>
-	                <a href="#">언론사</a>
-	                <div class="uk-navbar-dropdown">
-	                    <ul class="uk-nav uk-navbar-dropdown-nav">
-	                        <li class="uk-active"><a href="#">Active</a></li>
-	                        <li><a href="#">Item</a></li>
-	                        <li><a href="#">Item</a></li>
-	                    </ul>
-	                </div>
+	                <a href="/Media.do">언론사</a>
+<!-- 	                <div class="uk-navbar-dropdown"> -->
+<!-- 	                    <ul class="uk-nav uk-navbar-dropdown-nav"> -->
+<!-- 	                        <li class="uk-active"><a href="#">Active</a></li> -->
+<!-- 	                        <li><a href="#">Item</a></li> -->
+<!-- 	                        <li><a href="#">Item</a></li> -->
+<!-- 	                    </ul> -->
+<!-- 	                </div> -->
 	            </li>
 	            <li class="uk-active"><a href="#">기자</a></li>
 	        </ul>

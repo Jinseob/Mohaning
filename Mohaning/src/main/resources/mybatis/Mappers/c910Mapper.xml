@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis -->	
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ibatis -->
+<!-- <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
+
+<mapper namespace="c910">
+	<select id="selectScoreList" resultType="com.mohaning.app.Model.MHNC910VO">
+		SELECT * FROM MHNC91001tb
+	</select>
+</mapper>

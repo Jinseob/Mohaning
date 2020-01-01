@@ -11,14 +11,9 @@
 	}
 	
 	$(function(){
-		$(".loginBtn").on("click", function(){
+		$(".submitBtn").on("click", function(){
 			if($("#email").val() == ""){
 				alert("E-mail 을 입력해주세요.");
-				return;
-			}
-			
-			if($("#psw").val() == ""){
-				alert("Password 를 입력해주세요.");
 				return;
 			}
 			
@@ -51,27 +46,16 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
-	<h1>로그인</h1>
+	<h1>비밀번호 찾기</h1>
 
 	<div class="uk-section">
   	<div class="uk-container">
   	<form id="frm" name="frm" method="post" >
     	<fieldset class="uk-fieldset">
         <div class="uk-grid-small" uk-grid>
-                <input class="uk-input uk-width-1-1" type="text" name="email" id="email" placeholder="E-mail" autocomplete="off"/>
-                <input class="uk-input uk-width-1-1" type="password" name="psw" id="psw" placeholder="Password" autocomplete="off"/>
-	            <button type="button" class="uk-button uk-button-primary uk-width-1-1 loginBtn">로그인</button>
-        		<div class="uk-width-1-1">
-	        		<input class="uk-checkbox" type="checkbox">자동 로그인</input>
-        		</div>
-	            <div class="uk-grid-divider uk-child-width-expand@s uk-text-center" uk-grid>
-					<label>
-						<a href="/resetPsw.do" >비밀번호 찾기</a>
-					</label>
-					<label>
-						<a href="/signUp.do" >회원가입</a>
-					</label>
-	            </div>
+        	<p>E-mail 을 입력하면 비밀 번호 초기화 URL을 보내 드립니다.</p>
+            <input class="uk-input uk-width-1-1" type="text" name="email" id="email" placeholder="E-mail" autocomplete="off"/>
+            <button type="button" class="uk-button uk-button-primary uk-width-1-1 submitBtn">제출</button>
         </div>
       	</fieldset>
     </form>

@@ -86,6 +86,20 @@ public class UserController {
 		return url;
 	}
 	
+	@RequestMapping(value = "/resetPsw.do")
+	public String resetPsw(@ModelAttribute("mhnu010VO") MHNU010VO mhnu010VO, ModelMap model, 
+			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+		
+		return "mhnu010/u010reset";
+	}
+	
+	@RequestMapping(value = "/resetPswProcess.do")
+	public String resetPswProcess(@ModelAttribute("mhnu010VO") MHNU010VO mhnu010VO, ModelMap model, 
+			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+		
+		return "mhnu010/u010reset";
+	}
+	
 	@RequestMapping(value = "/logout.do")
 	public String logout(@ModelAttribute("mhnu010VO") MHNU010VO mhnu010VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{

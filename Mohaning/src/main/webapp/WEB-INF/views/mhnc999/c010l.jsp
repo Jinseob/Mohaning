@@ -20,7 +20,7 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
-	<h1>기사 메인</h1>
+	<h1>언론사 메인</h1>
 	<div class="uk-section">
 	  	<div class="uk-container uk-margin-small-top">
 		    <div class="uk-container">

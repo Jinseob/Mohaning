@@ -23,6 +23,44 @@
 		   AND author_nm = #{author_nm}
 		   AND author_email = #{author_email}
 	</select>
+	
+	<select id="selectAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT a.*, 
+			   b.media_nm, 
+			   b.media_url
+  		  FROM ( SELECT author_id, 
+  		  			    author_nm, 
+  		  			    author_email, 
+  		  			    media_id
+	   			   FROM mhnb01001tb
+      		   ) a
+   		  LEFT JOIN mhnc99901tb b
+          	ON a.media_id = b.media_id
+	</select>
+	
+	<select id="selectAuthorByID" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT a.*, 
+			   b.media_nm, 
+			   b.media_url
+  		  FROM ( SELECT author_id, 
+  		  			    author_nm, 
+  		  			    author_email, 
+  		  			    media_id
+	   			   FROM mhnb01001tb
+	   			  WHERE author_id = #{author_id}
+      		   ) a
+   		  LEFT JOIN mhnc99901tb b
+          	ON a.media_id = b.media_id
+	</select>
+	
+	<select id="selectMediaAuthorList" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHNB01001VO">
+		SELECT AUTHOR_ID,
+			   author_nm,
+			   author_email,
+			   media_id
+		  FROM MHNB01001TB
+		 WHERE media_id = #{media_id}
+	</select>
 
 	<insert id="insertAuthor" parameterType="com.mohaning.app.Model.MHNA010VO">
 		INSERT INTO mhnb01001tb(

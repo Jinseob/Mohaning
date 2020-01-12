@@ -2,16 +2,21 @@ package com.mohaning.app.Model;
 
 import java.sql.Date;
 
-import org.json.JSONArray;
-
-public class MHNC999VO {	
+public class MHNB010VO {
+	private String author_id;
 	private String media_id;
 	private String media_nm;
 	private String media_url;
-	private String author_id;
-	private JSONArray scoreList;
+	private String author_nm;
+	private String author_email;
 	private String reg_id;
 	private Date reg_dt;
+	public String getAuthor_id() {
+		return author_id == null ? "" : author_id;
+	}
+	public void setAuthor_id(String author_id) {
+		this.author_id = author_id;
+	}
 	public String getMedia_id() {
 		return media_id == null ? "" : media_id;
 	}
@@ -30,11 +35,17 @@ public class MHNC999VO {
 	public void setMedia_url(String media_url) {
 		this.media_url = media_url;
 	}
-	public JSONArray getScoreList() {
-		return scoreList;
+	public String getAuthor_nm() {
+		return author_nm == null ? "" : author_nm;
 	}
-	public void setScoreList(JSONArray scoreList) {
-		this.scoreList = scoreList;
+	public void setAuthor_nm(String author_nm) {
+		this.author_nm = author_nm;
+	}
+	public String getAuthor_email() {
+		return author_email == null ? "" : author_email;
+	}
+	public void setAuthor_email(String author_email) {
+		this.author_email = author_email;
 	}
 	public String getReg_id() {
 		return reg_id == null ? "" : reg_id;
@@ -47,11 +58,5 @@ public class MHNC999VO {
 	}
 	public void setReg_dt(Date reg_dt) {
 		this.reg_dt = reg_dt;
-	}
-	public String getAuthor_id() {
-		return author_id == null ? "" : author_id;
-	}
-	public void setAuthor_id(String author_id) {
-		this.author_id = author_id;
 	}
 }

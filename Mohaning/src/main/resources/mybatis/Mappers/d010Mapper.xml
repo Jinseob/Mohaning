@@ -38,6 +38,26 @@
 	  			 ON a.type_cd = b.type_cd
 	  	 ORDER BY b.media_id, b.type_cd
 	</select>
+	<select id="selectAuthorScore" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHND010VO">
+		SELECT a.type_cd, b.author_id, b.score
+		  FROM mhnc91001tb a
+		  LEFT JOIN ( SELECT author_id, type_cd, SUM(score) AS score
+			            FROM mhnd01001tb
+			           WHERE author_id = #{author_id}
+			           GROUP BY type_cd
+			        ) AS b
+		    ON a.type_cd = b.type_cd
+	</select>
+	<select id="selectMediaScore" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHND010VO">
+		SELECT a.type_cd, b.media_id, b.score
+		  FROM mhnc91001tb a
+		  LEFT JOIN ( SELECT media_id, type_cd, SUM(score) AS score
+			            FROM mhnd01001tb
+			           WHERE media_id = #{media_id}
+			           GROUP BY type_cd
+			        ) AS b
+		    ON a.type_cd = b.type_cd
+	</select>
 	<insert id="insertScore" parameterType="com.mohaning.app.Model.MHND010VO">
 		INSERT INTO mhnd01001tb(
 			news_id,

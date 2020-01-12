@@ -8,6 +8,12 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
 
 <mapper namespace="c999">
+	<select id="selectMedia" resultType="com.mohaning.app.Model.MHNC99901VO">
+		SELECT media_id, media_nm, media_url, media_chk_url 
+		  FROM mhnc99901tb
+		 WHERE media_id = #{media_id}
+	</select>
+	
 	<select id="selectMediaList" resultType="com.mohaning.app.Model.MHNC99901VO">
 		SELECT media_id, media_nm, media_url, media_chk_url FROM mhnc99901tb
 	</select>

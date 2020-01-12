@@ -18,6 +18,41 @@
   			ON b.media_id = c.media_id
 	</select>
 	
+	<select id="selectMediaNewsList" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
+       		   b.author_nm, c.media_nm
+ 		  FROM ( SELECT * 
+ 		           FROM mhna01001tb
+ 		          WHERE media_id = #{media_id}
+ 		     ) AS a
+  		  LEFT JOIN mhnb01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+	
+	<select id="selectAuthorNewsList" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, 
+			   a.news_title, 
+			   a.view_cnt, 
+			   a.reg_dt,
+			   a.author_id,
+       		   b.author_nm, 
+       		   a.media_id,
+       		   c.media_nm
+ 		  FROM ( SELECT * 
+ 		           FROM mhna01001tb
+ 		          WHERE author_id = #{author_id}
+ 		     ) AS a
+  		  LEFT JOIN ( SELECT * 
+						FROM mhnb01001tb 
+			       	   WHERE author_id = #{author_id}
+			 ) AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+	
 	<select id="selectNews" parameterType="com.mohaning.app.Model.MHNA010VO" resultType="com.mohaning.app.Model.MHNA010VO">
 		SELECT a.news_id,
 			   a.doc_id,

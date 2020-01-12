@@ -24,7 +24,7 @@
 <!-- 	                    </ul> -->
 <!-- 	                </div> -->
 	            </li>
-	            <li class="uk-active"><a href="#">기자</a></li>
+	            <li class="uk-active"><a href="/Author.do">기자</a></li>
 	        </ul>
 	    </div>
 	</div>

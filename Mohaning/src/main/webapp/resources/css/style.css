@@ -21,3 +21,11 @@
 .m-border{
   border:thick double black;
 }
+
+/* uikit 서브용 */
+.subFontList{
+	font-size: 8pt;
+}
+.smallFontList{
+	font-size: 10pt;
+}

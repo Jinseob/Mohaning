@@ -2,11 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/resources/uikit-3.2.2/css/uikit.min.css" />
-<link rel="stylesheet" href="/resources/css/style.css" />
 <script src="/resources/uikit-3.2.2/js/uikit.min.js"></script>
 <script src="/resources/uikit-3.2.2/js/uikit-icons.min.js"></script>
-<nav class="uk-navbar-container uk-margin" uk-navbar>
+<link rel="stylesheet" href="/resources/uikit-3.2.2/css/uikit.min.css" />
+<link rel="stylesheet" href="/resources/css/style.css" />
+<nav class="uk-navbar-container" uk-navbar>
 	<div class="uk-navbar-left">
 		<a class="uk-navbar-item uk-logo" href="/">모하닝</a>
 	</div>

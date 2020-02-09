@@ -33,32 +33,29 @@
               <ul id="component-nav" class="uk-switcher">
                   <li>
                     <div class="uk-container">
-
-                      <h3>분양가 상한제</h3>
-
                       <div class="uk-grid-match uk-child-width-1-3@m" uk-grid>
                         <div>
                           <h5>TOP 기사</h5>
                           <ul class="uk-list">
-                            <li><p class="uk-text-meta">연합뉴스 | 2019.10.10</p><a class="uk-link-text" href="#">이중 그물망에도 인양 중 '실종자 유실'…해경 "인근에 있을 것"</a></li>
-                            <li><p class="uk-text-meta">연합뉴스 | 2019.10.10</p><a class="uk-link-text" href="#">해경 "추락헬기 인양 완료…내부수색했으나 실종자 발견 못 해"</a></li>
-                            <li><p class="uk-text-meta">연합뉴스 | 2019.10.10</p><a class="uk-link-text" href="#">독도해역서 수습한 시신 동산병원에 안치…'침울'</a></li>
+                            <li><p class="uk-text-meta"><span class="subFontList">연합뉴스 | 2019.10.10</span></p><a class="uk-link-text" href="#"><span class="smallFontList">이중 그물망에도 인양 중 '실종자 유실'…해경 "인근에 있을 것"</span></a></li>
+                            <li><p class="uk-text-meta"><span class="subFontList">연합뉴스 | 2019.10.10</span></p><a class="uk-link-text" href="#"><span class="smallFontList">해경 "추락헬기 인양 완료…내부수색했으나 실종자 발견 못 해"</span></a></li>
+                            <li><p class="uk-text-meta"><span class="subFontList">연합뉴스 | 2019.10.10</span></p><a class="uk-link-text" href="#"><span class="smallFontList">독도해역서 수습한 시신 동산병원에 안치…'침울'</span></a></li>
                           </ul>
                         </div>
                         <div>
                           <h5><span uk-icon="arrow-up"></span>긍정</h5>
                           <ul class="uk-list">
-                            <li><p class="uk-text-meta">연합뉴스 | 2019.10.10</p><a class="uk-link-text" href="#">이중 그물망에도 인양 중 '실종자 유실'…해경 "인근에 있을 것"</a></li>
-                            <li><p class="uk-text-meta">연합뉴스 | 2019.10.10</p><a class="uk-link-text" href="#">해경 "추락헬기 인양 완료…내부수색했으나 실종자 발견 못 해"</a></li>
-                            <li><p class="uk-text-meta">연합뉴스 | 2019.10.10</p><a class="uk-link-text" href="#">독도해역서 수습한 시신 동산병원에 안치…'침울'</a></li>
+                            <li><p class="uk-text-meta"><span class="subFontList">연합뉴스 | 2019.10.10</span></p><a class="uk-link-text" href="#"><span class="smallFontList">이중 그물망에도 인양 중 '실종자 유실'…해경 "인근에 있을 것"</span></a></li>
+                            <li><p class="uk-text-meta"><span class="subFontList">연합뉴스 | 2019.10.10</span></p><a class="uk-link-text" href="#"><span class="smallFontList">해경 "추락헬기 인양 완료…내부수색했으나 실종자 발견 못 해"</span></a></li>
+                            <li><p class="uk-text-meta"><span class="subFontList">연합뉴스 | 2019.10.10</span></p><a class="uk-link-text" href="#"><span class="smallFontList">독도해역서 수습한 시신 동산병원에 안치…'침울'</span></a></li>
                           </ul>
                         </div>
                         <div>
                           <h5><span uk-icon="arrow-down"></span>부정</h5>
                           <ul class="uk-list">
-                            <li><p class="uk-text-meta">연합뉴스 | 2019.10.10</p><a class="uk-link-text" href="#">이중 그물망에도 인양 중 '실종자 유실'…해경 "인근에 있을 것"</a></li>
-                            <li><p class="uk-text-meta">연합뉴스 | 2019.10.10</p><a class="uk-link-text" href="#">해경 "추락헬기 인양 완료…내부수색했으나 실종자 발견 못 해"</a></li>
-                            <li><p class="uk-text-meta">연합뉴스 | 2019.10.10</p><a class="uk-link-text" href="#">독도해역서 수습한 시신 동산병원에 안치…'침울'</a></li>
+                            <li><p class="uk-text-meta"><span class="subFontList">연합뉴스 | 2019.10.10</span></p><a class="uk-link-text" href="#"><span class="smallFontList">이중 그물망에도 인양 중 '실종자 유실'…해경 "인근에 있을 것"</span></a></li>
+                            <li><p class="uk-text-meta"><span class="subFontList">연합뉴스 | 2019.10.10</span></p><a class="uk-link-text" href="#"><span class="smallFontList">해경 "추락헬기 인양 완료…내부수색했으나 실종자 발견 못 해"</span></a></li>
+                            <li><p class="uk-text-meta"><span class="subFontList">연합뉴스 | 2019.10.10</span></p><a class="uk-link-text" href="#"><span class="smallFontList">독도해역서 수습한 시신 동산병원에 안치…'침울'</span></a></li>
                           </ul>
                         </div>
                       </div>
@@ -73,15 +70,56 @@
     </div>
   </div>
   <!-- 기자 리스트 -->
+  	<!-- Chart.js -->
+	<script src="/resources/js/Chart.bundle.js"></script>
+	<!-- Chart.js End -->
     <div class="uk-section">
       <div class="uk-container">
-
         <h3>이슈 기자</h3>
-
         <div class="uk-grid-match uk-child-width-1-3@m" uk-grid>
             <div>
               <div class="uk-width-1-2">
-                <img src="/resources/images/photo.jpg" >
+				<canvas id="myChart1" width="100%" height="100%"></canvas>
+				<script type="text/javascript">
+// 				var scoreList = JSON.parse('${result.scoreList}');
+				var ctx = document.getElementById('myChart1').getContext('2d');
+					
+// 				var labels = new Array();
+// 				var data = new Array();
+// 				for(var i = 0; i < scoreList.length; i++){
+// 					var item = scoreList[i];
+// 					labels.push(item.type_nm);
+// 					data.push(item.score);
+// 				}
+				var myChart = new Chart(ctx, {
+				    type: 'radar',
+				    data: {
+				        labels: ['Running', 'Swimming', 'Eating', 'Cycling', 'A', 'B'],
+				        datasets: [{
+				        	label: '성향1',
+				            data: [20, 10, 4, 2, 30, 23],
+				            borderColor : 'rgba(200, 0, 0, 0.1)',
+				            backgroundColor: 'rgba(200, 0, 0, 0.2)'
+				        },
+				        {
+				        	label: '성향2',
+				            data: [30, 20, 14, 12, 40, 33],
+				            borderColor : 'rgba(0, 200, 0, 0.1)',
+				            backgroundColor: 'rgba(0, 200, 0, 0.2)'
+				        }
+				        ]
+				    },
+				    options: {
+				    	scale:{
+				    		ticks:{
+				    			beginAtZero: true,
+				    			max :100
+				    		}
+				    	}
+				    }
+				});
+				</script>
+				<!-- Chart.js End -->
               </div>
               <div class="uk-width-1-2">
                 <p>기자 이름</p>
@@ -91,17 +129,97 @@
             </div>
             <div>
               <div class="uk-width-1-2">
-                <img src="/resources/images/photo1.jpg" >
+                <canvas id="myChart2" width="100%" height="100%"></canvas>
+				<script type="text/javascript">
+// 				var scoreList = JSON.parse('${result.scoreList}');
+				var ctx = document.getElementById('myChart2').getContext('2d');
+					
+// 				var labels = new Array();
+// 				var data = new Array();
+// 				for(var i = 0; i < scoreList.length; i++){
+// 					var item = scoreList[i];
+// 					labels.push(item.type_nm);
+// 					data.push(item.score);
+// 				}
+				var myChart = new Chart(ctx, {
+				    type: 'radar',
+				    data: {
+				        labels: ['Running', 'Swimming', 'Eating', 'Cycling', 'A', 'B'],
+				        datasets: [{
+				        	label: '성향1',
+				            data: [20, 10, 4, 2, 30, 23],
+				            borderColor : 'rgba(200, 0, 0, 0.1)',
+				            backgroundColor: 'rgba(200, 0, 0, 0.2)'
+				        },
+				        {
+				        	label: '성향2',
+				            data: [30, 20, 14, 12, 40, 33],
+				            borderColor : 'rgba(0, 200, 0, 0.1)',
+				            backgroundColor: 'rgba(0, 200, 0, 0.2)'
+				        }
+				        ]
+				    },
+				    options: {
+				    	scale:{
+				    		ticks:{
+				    			beginAtZero: true,
+				    			max :100
+				    		}
+				    	}
+				    }
+				});
+				</script>
+				<!-- Chart.js End -->
               </div>
               <div class="uk-width-1-2">
-                <p>기자 이름</p>
-                <p>언론사</p>
-                <p>메일 주소</p>
-              </div>
+	            <p>기자 이름</p>
+	            <p>언론사</p>
+	          	<p>메일 주소</p>
+	          </div>
             </div>
             <div>
               <div class="uk-width-1-2">
-                <img src="/resources/images/photo2.jpg" >
+                <canvas id="myChart3" width="100%" height="100%"></canvas>
+				<script type="text/javascript">
+// 				var scoreList = JSON.parse('${result.scoreList}');
+				var ctx = document.getElementById('myChart3').getContext('2d');
+					
+// 				var labels = new Array();
+// 				var data = new Array();
+// 				for(var i = 0; i < scoreList.length; i++){
+// 					var item = scoreList[i];
+// 					labels.push(item.type_nm);
+// 					data.push(item.score);
+// 				}
+				var myChart = new Chart(ctx, {
+				    type: 'radar',
+				    data: {
+				        labels: ['Running', 'Swimming', 'Eating', 'Cycling', 'A', 'B'],
+				        datasets: [{
+				        	label: '성향1',
+				            data: [20, 10, 4, 2, 30, 23],
+				            borderColor : 'rgba(200, 0, 0, 0.1)',
+				            backgroundColor: 'rgba(200, 0, 0, 0.2)'
+				        },
+				        {
+				        	label: '성향2',
+				            data: [30, 20, 14, 12, 40, 33],
+				            borderColor : 'rgba(0, 200, 0, 0.1)',
+				            backgroundColor: 'rgba(0, 200, 0, 0.2)'
+				        }
+				        ]
+				    },
+				    options: {
+				    	scale:{
+				    		ticks:{
+				    			beginAtZero: true,
+				    			max :100
+				    		}
+				    	}
+				    }
+				});
+				</script>
+				<!-- Chart.js End -->
               </div>
               <div class="uk-width-1-2">
                 <p>기자 이름</p>

@@ -8,6 +8,46 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
 
 <mapper namespace="a010">
+	<select id="issueTopNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
+       		   b.author_nm, c.media_nm
+ 		  FROM (SELECT * FROM mhna01001tb ORDER BY view_cnt DESC LIMIT 5) AS a
+  		  LEFT JOIN mhnb01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+	
+	<select id="selectTopNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
+       		   b.author_nm, c.media_nm
+ 		  FROM (SELECT * FROM mhna01001tb ORDER BY view_cnt DESC LIMIT 10) AS a
+  		  LEFT JOIN mhnb01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+	
+	<select id="selectNewNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
+       		   b.author_nm, c.media_nm
+ 		  FROM (SELECT * FROM mhna01001tb ORDER BY reg_dt DESC LIMIT 10) AS a
+  		  LEFT JOIN mhnb01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+	
+	<select id="selectBadNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
+       		   b.author_nm, c.media_nm
+ 		  FROM mhna01001tb AS a
+  		  LEFT JOIN mhnb01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+
 	<select id="selectNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
 		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
        		   b.author_nm, c.media_nm

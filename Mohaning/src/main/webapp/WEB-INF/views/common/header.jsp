@@ -11,11 +11,10 @@
 		<a class="uk-navbar-item uk-logo" href="/">모하닝</a>
 	</div>
 	<div class="uk-navbar-center">
-	    <div>
-	        <ul class="uk-navbar-nav">
-	            <li class="uk-active"><a href="/Board.do">기사</a></li>
-	            <li>
-	                <a href="/Media.do">언론사</a>
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="/Board.do">기사</a></li>
+            <li>
+                <a href="/Media.do">언론사</a>
 <!-- 	                <div class="uk-navbar-dropdown"> -->
 <!-- 	                    <ul class="uk-nav uk-navbar-dropdown-nav"> -->
 <!-- 	                        <li class="uk-active"><a href="#">Active</a></li> -->
@@ -23,10 +22,9 @@
 <!-- 	                        <li><a href="#">Item</a></li> -->
 <!-- 	                    </ul> -->
 <!-- 	                </div> -->
-	            </li>
-	            <li class="uk-active"><a href="/Author.do">기자</a></li>
-	        </ul>
-	    </div>
+            </li>
+            <li class="uk-active"><a href="/Author.do">기자</a></li>
+        </ul>
 	</div>
 	<div class="uk-navbar-right">
 	    <div>

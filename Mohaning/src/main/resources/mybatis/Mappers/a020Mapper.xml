@@ -8,6 +8,58 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
 
 <mapper namespace="a020">
+	<select id="issueTopBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA02001VO">
+		SELECT seq_id,
+		       news_id,
+		       title,
+		       contents,
+		       view_cnt,
+		       reg_id,
+		       reg_dt
+		  FROM mhna02001tb
+		  ORDER BY view_cnt DESC, reg_dt DESC
+		  LIMIT 5
+	</select>
+	
+	<select id="issueNewBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA02001VO">
+		SELECT seq_id,
+		       news_id,
+		       title,
+		       contents,
+		       view_cnt,
+		       reg_id,
+		       reg_dt
+		  FROM mhna02001tb
+		  ORDER BY reg_dt DESC
+		  LIMIT 5
+	</select>
+	
+	<select id="selectTopBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA02001VO">
+		SELECT seq_id,
+		       news_id,
+		       title,
+		       contents,
+		       view_cnt,
+		       reg_id,
+		       reg_dt
+		  FROM mhna02001tb
+		  ORDER BY view_cnt DESC
+		  LIMIT 10
+	</select>
+	
+	<select id="selectNewBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA02001VO">
+		SELECT seq_id,
+		       news_id,
+		       title,
+		       contents,
+		       view_cnt,
+		       reg_id,
+		       reg_dt
+		  FROM mhna02001tb
+		  ORDER BY reg_dt DESC
+		  LIMIT 10
+	</select>
+
 	<insert id="insertBoard" parameterType="com.mohaning.app.Model.MHNA010VO">
 		INSERT INTO mhna02001tb(
 			NEWS_ID,

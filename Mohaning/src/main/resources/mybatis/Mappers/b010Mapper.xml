@@ -62,6 +62,41 @@
 		 WHERE media_id = #{media_id}
 	</select>
 
+	<select id="selectTopAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT a.*, 
+			   b.media_nm, 
+			   b.media_url
+  		  FROM ( SELECT author_id, 
+  		  			    author_nm, 
+  		  			    author_email, 
+  		  			    media_id,
+  		  			    eva_cnt
+	   			   FROM mhnb01001tb
+	   			  ORDER BY eva_cnt desc
+	   			  LIMIT 3
+      		   ) a
+   		  LEFT JOIN mhnc99901tb b
+          	ON a.media_id = b.media_id
+	</select>
+	
+	<select id="selectNewAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT a.*, 
+			   b.media_nm, 
+			   b.media_url
+  		  FROM ( SELECT author_id, 
+  		  			    author_nm, 
+  		  			    author_email, 
+  		  			    media_id,
+  		  			    eva_cnt,
+  		  			    reg_dt
+	   			   FROM mhnb01001tb
+	   			  ORDER BY reg_dt desc
+	   			  LIMIT 3
+      		   ) a
+   		  LEFT JOIN mhnc99901tb b
+          	ON a.media_id = b.media_id
+	</select>
+
 	<insert id="insertAuthor" parameterType="com.mohaning.app.Model.MHNA010VO">
 		INSERT INTO mhnb01001tb(
 			AUTHOR_NM,

@@ -29,3 +29,26 @@
 .smallFontList{
 	font-size: 10pt;
 }
+.uk-navbar-center .uk-navbar-nav li{
+	min-width: 100px;
+}
+
+/* header */
+header{
+	background-color: #f8f8f8;
+}
+.uk-navbar-container{
+	margin : 0 auto;
+	width: 1280px;
+	min-width: 1280px;
+}
+
+/* contents */
+.container{
+	position: relative;
+	margin : 0 auto;
+	width: 1280px;
+	min-width: 1280px;
+}
+
+/* footer */

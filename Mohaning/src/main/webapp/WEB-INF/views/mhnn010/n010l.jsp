@@ -10,10 +10,10 @@
 		var url = "";
 		switch(type){
 		case "I":
-			url = "/a010i.do";
+			url = "/n010i.do";
 			break;
 		case "D":
-			url = "/a010d.do";
+			url = "/n010d.do";
 			break;
 		}
 		
@@ -81,7 +81,7 @@
 		    		<c:choose>
 						<c:when test="${fn:length(resultList) > 0 }">
 						<c:forEach items="${resultList }" var="result">
-							<li><a href="/a010d${result.news_id }.do">${result.news_title }</a></li>
+							<li><a href="/n010d${result.news_id }.do">${result.news_title }</a></li>
 						</c:forEach>
 						</c:when>
 						<c:otherwise>

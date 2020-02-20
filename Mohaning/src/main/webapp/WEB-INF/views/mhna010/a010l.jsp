@@ -70,7 +70,7 @@
 						<c:when test="${fn:length(resultList) > 0 }">
 						<c:forEach items="${resultList }" var="result">
 							<li>
-								<a href="/b010d${result.author_id }.do">${result.author_nm }</a>
+								<a href="/a010d${result.author_id }.do">${result.author_nm }</a>
 								<a href="/c010d${result.media_id }.do"><b>${result.media_nm }</b></a>
 							</li>
 						</c:forEach>

@@ -304,7 +304,7 @@
         	<c:choose>
 				<c:when test="${fn:length(boardList) > 0 }">
 				<c:forEach items="${boardList }" var="result">
-					<li><a href="/a020d${result.seq_id }.do">${result.title }</a></li>
+					<li><a href="/b010d${result.board_id }.do">${result.title }</a></li>
 				</c:forEach>
 				</c:when>
 				<c:otherwise>

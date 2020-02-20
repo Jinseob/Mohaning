@@ -40,14 +40,14 @@ public class BoardController {
 		List<MHNB01001VO> list = (List<MHNB01001VO>) dao.selectList("b010.selectBoardList", searchOptionVO);
 		model.addAttribute("resultList", list);
 		
-		return "mhna020/a020l";
+		return "mhnb010/b010l";
 	}
 	
-	@RequestMapping(value = "/a020i.do")
+	@RequestMapping(value = "/b010i.do")
 	public String boardInsert(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
-		return "mhna020/a020i";
+		return "mhnb010/b010i";
 	}
 	
 	@RequestMapping(value = "/BoardRegister.do", method=RequestMethod.POST)
@@ -63,11 +63,11 @@ public class BoardController {
 		model.addAttribute("type", "NEW");
 		model.addAttribute("result", result);
 		
-		return "mhna020/a020i";
+		return "mhnb010/b010i";
 	}
 	
-	@RequestMapping(value = "/processUpdate_a020.do")
-	public String processUpdate(@ModelAttribute("mhna010VO") MHNB010VO mhnb010VO, ModelMap model, 
+	@RequestMapping(value = "/processUpdate_b010.do")
+	public String processUpdate(@ModelAttribute("mhnb010VO") MHNB010VO mhnb010VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
 		// 저자가 등록되어 있지 않으면 저장하기.
@@ -78,12 +78,12 @@ public class BoardController {
 		dao.insert("b010.insertBoard", mhnb010VO);			// 기사 ID 를 board 에 넣는다.
 		
 		// 저장 성공시 Detail 화면으로 간다.
-		String rediredUrl = "redirect:/a020d" + mhnb010VO.getBoard_id() + ".do";
+		String rediredUrl = "redirect:/b010d" + mhnb010VO.getBoard_id() + ".do";
 		System.out.println(rediredUrl);
 		return rediredUrl;
 	}
 	
-	@RequestMapping(value = "/a020d{board_id}.do")
+	@RequestMapping(value = "/b010d{board_id}.do")
 	public String boardDetail(@PathVariable String board_id, @ModelAttribute("mhnb010VO") MHNB010VO mhnb010VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 
@@ -94,7 +94,7 @@ public class BoardController {
 		
 		// 여기서부터 토론 화면 가져오는 부분 만들기. 쿼리부터 다시 짜기. 2020.02.19
 		// 뉴스 기사와 기자, 언론사 정보 가지고 오는 부분.
-		MHNB010VO result = (MHNB010VO) dao.select("b0a0.selectBoard", mhnb010VO);
+		MHNB010VO result = (MHNB010VO) dao.select("b010.selectBoard", mhnb010VO);
 		model.addAttribute("result", result);
 		
 		// 개인별 반영 점수 가지고 오는 부분
@@ -112,6 +112,6 @@ public class BoardController {
 		model.addAttribute("score", jsonArray);
 		
 		
-		return "mhna020/a020d";
+		return "mhnb010/b010d";
 	}
 }

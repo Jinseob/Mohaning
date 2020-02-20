@@ -74,10 +74,10 @@
 		       d.media_id,
 		       d.media_nm,
 		       d.media_url
-		  FROM mhna02001tb a
-		  LEFT JOIN mhna01001tb b
+		  FROM mhnb01001tb a
+		  LEFT JOIN mhnn01001tb b
 		         ON a.news_id = b.news_id
-		  LEFT JOIN mhnb01001tb c
+		  LEFT JOIN mhna01001tb c
 		         ON b.author_id = c.author_id
 		  LEFT JOIN mhnc99901tb d
 		         ON b.media_id = d.media_id

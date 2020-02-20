@@ -9,7 +9,7 @@
 
 <mapper namespace="n010">
 	<!-- 1. 이슈 관련 조회수 가장 많은 기사 5건 -->
-	<select id="issueTopNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+	<select id="issueTopNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
        		   b.author_nm, c.media_nm
  		  FROM (SELECT * FROM mhnn01001tb ORDER BY view_cnt DESC LIMIT 5) AS a
@@ -20,7 +20,7 @@
 	</select>
 	
 	<!-- 7. 조회 수 높은 기사 10건 -->
-	<select id="selectTopNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+	<select id="selectTopNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
        		   b.author_nm, c.media_nm
  		  FROM (SELECT * FROM mhnn01001tb ORDER BY view_cnt DESC LIMIT 10) AS a
@@ -31,7 +31,7 @@
 	</select>
 	
 	<!-- 9. 최신 기사 10건 -->
-	<select id="selectNewNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+	<select id="selectNewNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
        		   b.author_nm, c.media_nm
  		  FROM (SELECT * FROM mhnn01001tb ORDER BY reg_dt DESC LIMIT 10) AS a
@@ -42,7 +42,7 @@
 	</select>
 	
 	<!-- 기사 메인용 -->
-	<select id="selectNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+	<select id="selectNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT a.news_id, 
 			   a.news_title,
 			   CONVERT(a.news_contents USING utf8) as news_contents,
@@ -58,7 +58,7 @@
 	</select>
 	
 	<!-- 기사 상세용 -->
-	<select id="selectNews" parameterType="com.mohaning.app.Model.MHNA010VO" resultType="com.mohaning.app.Model.MHNA010VO">
+	<select id="selectNews" parameterType="com.mohaning.app.Model.MHNB010VO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT a.news_id,
 			   a.doc_id,
 			   a.media_id,
@@ -87,7 +87,7 @@
 	</select>
 	
 	<!-- 기사 저장 -->
-	<insert id="insertNews" parameterType="com.mohaning.app.Model.MHNA010VO">
+	<insert id="insertNews" parameterType="com.mohaning.app.Model.MHNB010VO">
 		INSERT INTO mhnn01001tb(
 			DOC_ID,
 			MEDIA_ID,
@@ -117,7 +117,7 @@
 	</insert>
 	
 	<!-- 기사 저장 여부 확인 -->
-	<select id="checkRegisteredNews" parameterType="com.mohaning.app.Model.MHNA010VO" resultType="com.mohaning.app.Model.">
+	<select id="checkRegisteredNews" parameterType="com.mohaning.app.Model.MHNB010VO" resultType="com.mohaning.app.Model.MHNN01001VO">
 		SELECT NEWS_ID
 		  FROM mhnn01001tb
 		 WHERE doc_id = #{doc_id}
@@ -125,13 +125,13 @@
 	</select>
 	
 	<!-- 기사 조회수 -->
-	<update id="updateCnt" parameterType="com.mohaning.app.Model.MHNA010VO">
+	<update id="updateCnt" parameterType="com.mohaning.app.Model.MHNB010VO">
 		UPDATE mhnn01001tb SET view_cnt = view_cnt + 1 WHERE news_id = #{news_id}
 	</update>
 	<!-- 현재 여기까지 -->
 	
 	
-	<select id="selectBadNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+	<select id="selectBadNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
        		   b.author_nm, c.media_nm
  		  FROM mhnn01001tb AS a
@@ -141,7 +141,7 @@
   			ON b.media_id = c.media_id
 	</select>
 
-	<select id="selectMediaNewsList" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHNA010VO">
+	<select id="selectMediaNewsList" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
        		   b.author_nm, c.media_nm
  		  FROM ( SELECT * 
@@ -154,7 +154,7 @@
   			ON b.media_id = c.media_id
 	</select>
 	
-	<select id="selectAuthorNewsList" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNA010VO">
+	<select id="selectAuthorNewsList" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT a.news_id, 
 			   a.news_title, 
 			   a.view_cnt, 

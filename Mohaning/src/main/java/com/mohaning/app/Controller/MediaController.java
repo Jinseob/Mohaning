@@ -121,12 +121,12 @@ public class MediaController {
 		
 		// 3. 언론사의 최신 기사 가지고 오는 부분
 		@SuppressWarnings("unchecked")
-		List<MHNB010VO> mediaNewsList = (List<MHNB010VO>) dao.selectList("a010.selectMediaNewsList", mhnc99901VO);
+		List<MHNB010VO> mediaNewsList = (List<MHNB010VO>) dao.selectList("n010.selectMediaNewsList", mhnc99901VO);
 		model.addAttribute("mediaNewsList", mediaNewsList);
 		
 		// 4. 언론사의 인기 있는 기자 정보 가지고 오는 부분.
 		@SuppressWarnings("unchecked")
-		List<MHNA01001VO> mediaAuthorList = (List<MHNA01001VO>) dao.selectList("b010.selectMediaAuthorList", mhnc99901VO);
+		List<MHNA01001VO> mediaAuthorList = (List<MHNA01001VO>) dao.selectList("a010.selectMediaAuthorList", mhnc99901VO);
 		model.addAttribute("mediaAuthorList", mediaAuthorList);
 		
 		return "mhnc999/c010d";

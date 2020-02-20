@@ -8,123 +8,113 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
 
 <mapper namespace="a010">
-	<select id="selectNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
-		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
-       		   b.author_nm, c.media_nm
- 		  FROM mhna01001tb AS a
-  		  LEFT JOIN mhnb01001tb AS b
-  			ON a.author_id = b.author_id
-  		  LEFT JOIN mhnc99901tb AS c
-  			ON b.media_id = c.media_id
+	<select id="selectAuthorCnt" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="Integer">
+		SELECT COUNT(*)
+		  FROM MHNB01001TB
+		 WHERE media_id = #{media_id}
+		   AND author_nm = #{author_nm}
+		   AND author_email = #{author_email}
+	</select>
+
+	<select id="selectAuthor" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNB01001VO">
+		SELECT AUTHOR_ID
+		  FROM MHNB01001TB
+		 WHERE media_id = #{media_id}
+		   AND author_nm = #{author_nm}
+		   AND author_email = #{author_email}
 	</select>
 	
-	<select id="selectMediaNewsList" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHNA010VO">
-		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
-       		   b.author_nm, c.media_nm
- 		  FROM ( SELECT * 
- 		           FROM mhna01001tb
- 		          WHERE media_id = #{media_id}
- 		     ) AS a
-  		  LEFT JOIN mhnb01001tb AS b
-  			ON a.author_id = b.author_id
-  		  LEFT JOIN mhnc99901tb AS c
-  			ON b.media_id = c.media_id
+	<select id="selectAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT a.*, 
+			   b.media_nm, 
+			   b.media_url
+  		  FROM ( SELECT author_id, 
+  		  			    author_nm, 
+  		  			    author_email, 
+  		  			    media_id
+	   			   FROM mhnb01001tb
+      		   ) a
+   		  LEFT JOIN mhnc99901tb b
+          	ON a.media_id = b.media_id
 	</select>
 	
-	<select id="selectAuthorNewsList" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNA010VO">
-		SELECT a.news_id, 
-			   a.news_title, 
-			   a.view_cnt, 
-			   a.reg_dt,
-			   a.author_id,
-       		   b.author_nm, 
-       		   a.media_id,
-       		   c.media_nm
- 		  FROM ( SELECT * 
- 		           FROM mhna01001tb
- 		          WHERE author_id = #{author_id}
- 		     ) AS a
-  		  LEFT JOIN ( SELECT * 
-						FROM mhnb01001tb 
-			       	   WHERE author_id = #{author_id}
-			 ) AS b
-  			ON a.author_id = b.author_id
-  		  LEFT JOIN mhnc99901tb AS c
-  			ON b.media_id = c.media_id
+	<select id="selectAuthorByID" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT a.*, 
+			   b.media_nm, 
+			   b.media_url
+  		  FROM ( SELECT author_id, 
+  		  			    author_nm, 
+  		  			    author_email, 
+  		  			    media_id
+	   			   FROM mhnb01001tb
+	   			  WHERE author_id = #{author_id}
+      		   ) a
+   		  LEFT JOIN mhnc99901tb b
+          	ON a.media_id = b.media_id
 	</select>
 	
-	<select id="selectNews" parameterType="com.mohaning.app.Model.MHNA010VO" resultType="com.mohaning.app.Model.MHNA010VO">
-		SELECT a.news_id,
-			   a.doc_id,
-			   a.media_id,
-			   a.author_id,
-			   a.origin_id,
-			   a.origin_media_id,
-			   a.news_title,
-			   a.news_url,
-			   a.view_cnt,
-			   a.reg_id,
-			   a.reg_dt,
-			   CONVERT(a.news_contents USING utf8) as news_contents,
-		       c.seq_id,
-		       c.title,
-		       CONVERT(c.contents USING utf8) as contents,
-		       d.media_nm,
-		       d.media_url,
-		       b.author_nm,
-		       b.author_email,
-		       e.media_nm AS origin_media_nm
-		  FROM mhna01001tb AS a
-		  LEFT JOIN mhnb01001tb AS b
-		  	 	 ON a.author_id = b.author_id
-		  LEFT JOIN mhna02001tb AS c
-		  	 	 ON a.news_id = c.news_id
-		  LEFT JOIN mhnc99901tb AS d
-		         ON a.media_id = d.media_id
-		  LEFT JOIN mhnc99901tb AS e
-         		 ON a.origin_media_id = e.media_id
-  		 WHERE a.news_id = #{news_id}
+	<select id="selectMediaAuthorList" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHNB01001VO">
+		SELECT AUTHOR_ID,
+			   author_nm,
+			   author_email,
+			   media_id
+		  FROM MHNB01001TB
+		 WHERE media_id = #{media_id}
+	</select>
+
+	<select id="selectTopAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT a.*, 
+			   b.media_nm, 
+			   b.media_url
+  		  FROM ( SELECT author_id, 
+  		  			    author_nm, 
+  		  			    author_email, 
+  		  			    media_id,
+  		  			    eva_cnt
+	   			   FROM mhnb01001tb
+	   			  ORDER BY eva_cnt desc
+	   			  LIMIT 3
+      		   ) a
+   		  LEFT JOIN mhnc99901tb b
+          	ON a.media_id = b.media_id
 	</select>
 	
-	<insert id="insertNews" parameterType="com.mohaning.app.Model.MHNA010VO">
-		INSERT INTO mhna01001tb(
-			DOC_ID,
+	<select id="selectNewAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT a.*, 
+			   b.media_nm, 
+			   b.media_url
+  		  FROM ( SELECT author_id, 
+  		  			    author_nm, 
+  		  			    author_email, 
+  		  			    media_id,
+  		  			    eva_cnt,
+  		  			    reg_dt
+	   			   FROM mhnb01001tb
+	   			  ORDER BY reg_dt desc
+	   			  LIMIT 3
+      		   ) a
+   		  LEFT JOIN mhnc99901tb b
+          	ON a.media_id = b.media_id
+	</select>
+
+	<insert id="insertAuthor" parameterType="com.mohaning.app.Model.MHNA010VO">
+		INSERT INTO mhnb01001tb(
+			AUTHOR_NM,
+			AUTHOR_EMAIL,
 			MEDIA_ID,
-			AUTHOR_ID,
-			ORIGIN_ID,
-			ORIGIN_MEDIA_ID,
-			NEWS_TITLE,
-			NEWS_CONTENTS,
-			NEWS_URL,
 			REG_ID,
 			REG_DT
 		)VALUES(
-			#{doc_id},
+			#{author_nm},
+			#{author_email},
 			#{media_id},
-			#{author_id},
-			#{origin_id},
-			#{origin_media_id},
-			#{news_title},
-			#{news_contents},
-			#{news_url},
 			'admin',
 			now()
 		)
-		<selectKey resultType="String" keyProperty="news_id" order="AFTER" >
+		<selectKey resultType="String" keyProperty="author_id" order="AFTER" >
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
-	
-	<select id="checkRegisteredNews" parameterType="com.mohaning.app.Model.MHNA010VO" resultType="com.mohaning.app.Model.MHNA01001VO">
-		SELECT NEWS_ID
-		  FROM mhna01001tb
-		 WHERE doc_id = #{doc_id}
-		   and media_id = #{media_id}
-	</select>
-	
-	<update id="a010.updateCnt" parameterType="com.mohaning.app.Model.MHNA010VO">
-		UPDATE mhna01001tb SET view_cnt = view_cnt + 1 WHERE news_id = #{news_id}
-	</update>
 	
 	<!-- 데이터 삭제 (YYYYMM 기준) -->
 	<!-- <delete id="deleteData" parameterType="com.my.land.model.TBL01VO">

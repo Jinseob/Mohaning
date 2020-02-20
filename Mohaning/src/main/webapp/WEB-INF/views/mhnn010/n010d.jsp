@@ -114,9 +114,9 @@
       <div class="uk-grid-small" uk-grid>
         <div class="uk-width-1-1">
           <h1 class="m-border-b">
-            ${result.title }
+            ${result.news_title }
           </h1>
-          <h4 class="m-border-b"><b>원문제목</b>&nbsp; &nbsp;${result.news_title }</h4>
+<%--           <h4 class="m-border-b"><b>원문제목</b>&nbsp; &nbsp;${result.news_title }</h4> --%>
         </div>
         <div class="uk-width-1-1">
           <h4 class="m-border-b"><b>기사 URL</b><a href="${result.news_url }" target="_blank">&nbsp; &nbsp;${result.news_url }</a></h4>
@@ -133,9 +133,9 @@
         <div class="uk-width-1-1 uk-margin-large">
           <p>${result.news_contents }</p>
         </div>
-        <div class="uk-width-1-1 uk-margin-large">
-          <p>${result.contents }</p>
-        </div>
+<!--         <div class="uk-width-1-1 uk-margin-large"> -->
+<%--           <p>${result.contents }</p> --%>
+<!--         </div> -->
         <div class="uk-width-1-1">
           <a>#해쉬태그</a><a>#해쉬태그</a><a>#해쉬태그</a><a>#해쉬태그</a>
         </div>
@@ -292,128 +292,25 @@
 				</c:choose>
 	          	</div>
 			</form>
-<!--             <div><button class="uk-button uk-button-text">공감</button></div> -->
-<!--             <div><button class="uk-button uk-button-text">전문성</button></div> -->
-<!--             <div><button class="uk-button uk-button-text">추정</button></div> -->
-<!--             <div><button class="uk-button uk-button-text">간접</button></div> -->
-<!--             <div><button class="uk-button uk-button-text">발품</button></div> -->
-<!--             <div><button class="uk-button uk-button-text">검증</button></div> -->
         </div>
         <div>
           <button class="uk-button uk-button-primary uk-align-center" type="button" id="saveBtn">평가하기</button>
         </div>
-
-        <!-- 댓글 -->
-        <div class="uk-width-1-1 m-border-t uk-margin-large-top">
-          <div class="uk-margin-top">
-            <h4><b>댓글</b></h4>
-          </div>
-          <ul class="uk-comment-list">
-            <li class="uk-margin-small">
-              <article class="uk-comment uk-visible-toggle" tabindex="-1">
-                <header class="uk-comment-header uk-position-relative">
-                  <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                    <div class="uk-width-auto">
-                      <h5 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">Author</a></h5>
-                      <p class="uk-comment-meta uk-margin-remove-top"><a class="uk-link-reset" href="#">12 days ago</a></p>
-                    </div>
-                  </div>
-                  <div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted" href="#">답글</a><a class="uk-link-muted" href="#">삭제</a></div>
-                </header>
-                <div class="uk-comment-body">
-                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                    gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                </div>
-              </article>
-              <!-- 대댓글 -->
-              <ul class="uk-margin">
-                <li class="uk-margin-small">
-                  <article class="uk-comment uk-comment-primary uk-visible-toggle" tabindex="-1">
-                    <header class="uk-comment-header uk-position-relative">
-                      <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                        <div class="uk-width-auto">
-                          <h5 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">Author</a></h5>
-                          <p class="uk-comment-meta uk-margin-remove-top"><a class="uk-link-reset" href="#">12 days ago</a></p>
-                        </div>
-                      </div>
-                      <div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted" href="#">답글</a></div>
-                    </header>
-                    <div class="uk-comment-body">
-                      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-                        kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                    </div>
-                  </article>
-                </li>
-                <li class="uk-margin-small">
-                  <article class="uk-comment uk-comment-primary uk-visible-toggle" tabindex="-1">
-                    <header class="uk-comment-header uk-position-relative">
-                      <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                        <div class="uk-width-auto">
-                          <h5 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">Author</a></h5>
-                          <p class="uk-comment-meta uk-margin-remove-top"><a class="uk-link-reset" href="#">12 days ago</a></p>
-                        </div>
-                      </div>
-                      <div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted" href="#">답글</a></div>
-                    </header>
-                    <div class="uk-comment-body">
-                      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-                        kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                    </div>
-                  </article>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <!-- 페이징 -->
-          <div uk-grid>
-            <div class="uk-align-center uk-margin-small-top">
-              <ul class="uk-pagination">
-                <li><a href="#"><span uk-pagination-previous></span></a></li>
-                <li><a href="#">1</a></li>
-                <li class="uk-disabled"><span>...</span></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">6</a></li>
-                <li class="uk-active"><span>7</span></li>
-                <li><a href="#">8</a></li>
-                <li><a href="#">9</a></li>
-                <li><a href="#">10</a></li>
-                <li class="uk-disabled"><span>...</span></li>
-                <li><a href="#">20</a></li>
-                <li><a href="#"><span uk-pagination-next></span></a></li>
-              </ul>
-            </div>
-          </div>
-          <!-- 댓글달기 -->
-          <textarea class="uk-textarea" rows="5" placeholder="Textarea"></textarea>
-          <p class="uk-align-right uk-margin-small-top">
-            <button type="button" class="uk-button uk-button-primary" onclick="javascript: onRegisterBtn();">댓글달기</button>
-          </p>
-        </div>
-
       </div>
     </div>
     <div class="uk-container uk-margin-small-top">
-      <div class="uk-width-1-1 m-border-t uk-margin-top">
-        <h5 class="uk-margin-top"><b>이전글</b>&nbsp; &nbsp;이것이 원래 기사 제목이로다</h5>
-        <h5 class="uk-margin-remove-top"><b>다음글</b>&nbsp; &nbsp;이것이 원래 기사 제목이로다</h5>
-      </div>
       <div class="m-border-t ">
         <ul class="uk-list uk-link-text uk-margin-small-top">
-          <li><a href="#">[12/21개강]스케치와 프로토파이로 UX/UI 실무끝내기-프스투파 [3기]</a></li>
-          <li><a href="#">퍼안감 통굽 여성로퍼 (3cm)</a></li>
-          <li><a href="#">'4+1' 합의 난항에 본회의 불투명…與 "선거법 더 조정 않겠다"</a></li>
-          <li><a href="#">'유재수 비위' 靑반박에 檢 "사실관계 모르면서 일방적 주장"</a></li>
-          <li><a href="#">'유재수 비위' 靑반박에 檢 "사실관계 모르면서 일방적 주장"</a></li>
-          <li><a href="#">인천 1호선 선로서 연기…전동차 운행 1시간여 중단</a></li>
-          <li><a href="#">'유재수 비위' 靑반박에 檢 "사실관계 모르면서 일방적 주장"</a></li>
-          <li><a href="#">[12/21개강]스케치와 프로토파이로 UX/UI 실무끝내기-프스투파 [3기]</a></li>
-          <li><a href="#">퍼안감 통굽 여성로퍼 (3cm)</a></li>
-          <li><a href="#">'4+1' 합의 난항에 본회의 불투명…與 "선거법 더 조정 않겠다"</a></li>
-          <li><a href="#">'유재수 비위' 靑반박에 檢 "사실관계 모르면서 일방적 주장"</a></li>
-          <li><a href="#">'유재수 비위' 靑반박에 檢 "사실관계 모르면서 일방적 주장"</a></li>
-          <li><a href="#">인천 1호선 선로서 연기…전동차 운행 1시간여 중단</a></li>
-          <li><a href="#">'유재수 비위' 靑반박에 檢 "사실관계 모르면서 일방적 주장"</a></li>
+        	<c:choose>
+				<c:when test="${fn:length(boardList) > 0 }">
+				<c:forEach items="${boardList }" var="result">
+					<li><a href="/a020d${result.seq_id }.do">${result.title }</a></li>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<li>데이터가 없습니다.</li>
+				</c:otherwise>
+			</c:choose>
         </ul>
       </div>
       <div class="uk-container" uk-grid>

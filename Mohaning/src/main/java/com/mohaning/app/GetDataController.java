@@ -12,15 +12,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Controller;
 
-import com.mohaning.app.Model.MHNA010VO;
+import com.mohaning.app.Model.MHNB010VO;
 import com.mohaning.app.Model.MHNC99902VO;
 
 @Controller
 public class GetDataController {
 	
 	// 0001 : 경향신문
-	public MHNA010VO Media_0001(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0001(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -52,8 +52,8 @@ public class GetDataController {
     }
 	
 	// 0002 : 국민일보
-	public MHNA010VO Media_0002(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0002(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -94,9 +94,9 @@ public class GetDataController {
     }
 	
 	// 0003 : 네이버뉴스 -> 기사 원문 링크를 사용하여 정보 가져오는 로직 사용?
-	public MHNA010VO Media_0003(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
-    	MHNA010VO temp = new MHNA010VO();
+	public MHNB010VO Media_0003(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
+    	MHNB010VO temp = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -125,8 +125,8 @@ public class GetDataController {
     }
 
 	// 0004 : 노컷뉴스
-	public MHNA010VO Media_0004(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0004(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -157,8 +157,8 @@ public class GetDataController {
     }
 
 	// 0005 : 뉴스1
-	public MHNA010VO Media_0005(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0005(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -208,8 +208,8 @@ public class GetDataController {
     }
 
 	// 0006 : 뉴시스
-	public MHNA010VO Media_0006(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0006(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -257,8 +257,8 @@ public class GetDataController {
     }
 
 	// 0007 : 다음뉴스 -> 네이버와 동일. 마지막에 통합으로 처리.
-	public MHNA010VO Media_0007(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0007(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -299,8 +299,8 @@ public class GetDataController {
     }
 
 	// 0008 : 동아
-	public MHNA010VO Media_0008(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0008(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -341,8 +341,8 @@ public class GetDataController {
     }
 
 	// 0009 : 디지털타임스
-	public MHNA010VO Media_0009(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0009(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -382,8 +382,8 @@ public class GetDataController {
     }
 
 	// 0010 : 머니투데이
-	public MHNA010VO Media_0010(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0010(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -412,8 +412,8 @@ public class GetDataController {
     }
 
 	// 0011 : 서울신문
-	public MHNA010VO Media_0011(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0011(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -452,8 +452,8 @@ public class GetDataController {
     }
 
 	// 0012 : 세계일보
-	public MHNA010VO Media_0012(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0012(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -492,8 +492,8 @@ public class GetDataController {
     }
 
 	// 0013 : 아시아경제
-	public MHNA010VO Media_0013(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0013(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -534,8 +534,8 @@ public class GetDataController {
     }
 
 	// 0014 : 연합뉴스
-	public MHNA010VO Media_0014(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0014(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -574,8 +574,8 @@ public class GetDataController {
     }
 
 	// 0015 : 이데일리
-	public MHNA010VO Media_0015(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0015(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -606,8 +606,8 @@ public class GetDataController {
     }
 
 	// 0016 : 조선일보
-	public MHNA010VO Media_0016(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0016(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -638,8 +638,8 @@ public class GetDataController {
     }
 
 	// 0017 : 중앙일보
-	public MHNA010VO Media_0017(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0017(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -678,8 +678,8 @@ public class GetDataController {
     }
 
 	// 0018 : 채널 A -> 로직 추가 필요. 다양한 언론사 사용.
-	public MHNA010VO Media_0018(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0018(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -714,8 +714,8 @@ public class GetDataController {
     }
 
 	// 0019 : 프레시안
-	public MHNA010VO Media_0019(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0019(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -756,8 +756,8 @@ public class GetDataController {
     }
 
 	// 0020 : 한겨레
-	public MHNA010VO Media_0020(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0020(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -790,8 +790,8 @@ public class GetDataController {
     }
 
 	// 0021 : 한국일보
-	public MHNA010VO Media_0021(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0021(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -821,8 +821,8 @@ public class GetDataController {
     }
 
 	// 0022 : 헤럴드경제
-	public MHNA010VO Media_0022(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0022(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -871,8 +871,8 @@ public class GetDataController {
     }
 
 	// 0023 : JTBC
-	public MHNA010VO Media_0023(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0023(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -913,8 +913,8 @@ public class GetDataController {
     }
 
 	// 0024 : KBS -> javascript 에서 기자명, 이메일 받아와서 처리. 단순 jsoup 으로 크롤링이 힘듬. ajax 값 json 으로 받아서 처리하기.
-	public MHNA010VO Media_0024(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0024(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	String docId = document.attr("docid");
     	
     	MHNC99902VO dataCheck = null;
@@ -973,8 +973,8 @@ public class GetDataController {
     }
 
 	// 0025 : MBC
-	public MHNA010VO Media_0025(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0025(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -1003,8 +1003,8 @@ public class GetDataController {
     }
 
 	// 0026 : SBS
-	public MHNA010VO Media_0026(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0026(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;
@@ -1034,8 +1034,8 @@ public class GetDataController {
     }
 
 	// 0027 : YTN
-	public MHNA010VO Media_0027(Document document, List<MHNC99902VO> dataCheckList) {
-    	MHNA010VO result = new MHNA010VO();
+	public MHNB010VO Media_0027(Document document, List<MHNC99902VO> dataCheckList) {
+    	MHNB010VO result = new MHNB010VO();
     	
     	MHNC99902VO dataCheck = null;
     	Element dataElement = null;

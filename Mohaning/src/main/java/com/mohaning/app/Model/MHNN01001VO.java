@@ -2,24 +2,16 @@ package com.mohaning.app.Model;
 
 import java.sql.Date;
 
-public class MHNB010VO {	
-	private String board_id;
+public class MHNN01001VO {	
 	private String news_id;
 	private String doc_id;
+	private String media_id;
 	private String origin_id;
 	private String origin_media_id;
-	private String origin_media_nm;
-	private String title;
-	private String contents;
+	private String author_id;
 	private String news_title;
 	private String news_contents;
 	private String news_url;
-	private String media_id;
-	private String media_nm;
-	private String media_url;
-	private String author_id;
-	private String author_nm;
-	private String author_email;
 	private int view_cnt;
 	private int del_fl;
 	private String reg_id;
@@ -38,6 +30,12 @@ public class MHNB010VO {
 	public void setDoc_id(String doc_id) {
 		this.doc_id = doc_id;
 	}
+	public String getMedia_id() {
+		return media_id == null ? "" : media_id;
+	}
+	public void setMedia_id(String media_id) {
+		this.media_id = media_id;
+	}
 	public String getOrigin_id() {
 		return origin_id == null ? "" : origin_id;
 	}
@@ -50,29 +48,17 @@ public class MHNB010VO {
 	public void setOrigin_media_id(String origin_media_id) {
 		this.origin_media_id = origin_media_id;
 	}
-	public String getTitle() {
-		return title == null ? "" : title;
+	public String getAuthor_id() {
+		return author_id == null ? "" : author_id;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setAuthor_id(String author_id) {
+		this.author_id = author_id;
 	}
 	public String getNews_title() {
 		return news_title == null ? "" : news_title;
 	}
 	public void setNews_title(String news_title) {
 		this.news_title = news_title;
-	}
-	public String getBoard_id() {
-		return board_id == null ? "" : board_id;
-	}
-	public void setBoard_id(String board_id) {
-		this.board_id = board_id;
-	}
-	public String getContents() {
-		return contents == null ? "" : contents;
-	}
-	public void setContents(String contents) {
-		this.contents = contents;
 	}
 	public String getNews_contents() {
 		return news_contents == null ? "" : news_contents;
@@ -85,42 +71,6 @@ public class MHNB010VO {
 	}
 	public void setNews_url(String news_url) {
 		this.news_url = news_url;
-	}
-	public String getMedia_id() {
-		return media_id == null ? "" : media_id;
-	}
-	public void setMedia_id(String media_id) {
-		this.media_id = media_id;
-	}
-	public String getMedia_nm() {
-		return media_nm == null ? "" : media_nm;
-	}
-	public void setMedia_nm(String media_nm) {
-		this.media_nm = media_nm;
-	}
-	public String getMedia_url() {
-		return media_url == null ? "" : media_url;
-	}
-	public void setMedia_url(String media_url) {
-		this.media_url = media_url;
-	}
-	public String getAuthor_id() {
-		return author_id == null ? "" : author_id;
-	}
-	public void setAuthor_id(String author_id) {
-		this.author_id = author_id;
-	}
-	public String getAuthor_nm() {
-		return author_nm == null ? "" : author_nm;
-	}
-	public void setAuthor_nm(String author_nm) {
-		this.author_nm = author_nm;
-	}
-	public String getAuthor_email() {
-		return author_email == null ? "" : author_email;
-	}
-	public void setAuthor_email(String author_email) {
-		this.author_email = author_email;
 	}
 	public int getView_cnt() {
 		return view_cnt;
@@ -157,11 +107,5 @@ public class MHNB010VO {
 	}
 	public void setUpd_dt(Date upd_dt) {
 		this.upd_dt = upd_dt;
-	}
-	public String getOrigin_media_nm() {
-		return origin_media_nm == null ? "" : origin_media_nm;
-	}
-	public void setOrigin_media_nm(String origin_media_nm) {
-		this.origin_media_nm = origin_media_nm;
 	}
 }

@@ -6,7 +6,19 @@
 	<title>기사</title>
 	<jsp:directive.include file="/WEB-INF/views/common/taglib.jsp" />
 	<script type="text/javascript">
-
+	function onPageMove(type){
+		var url = "";
+		switch(type){
+		case "I":
+			url = "/a010i.do";
+			break;
+		case "D":
+			url = "/a010d.do";
+			break;
+		}
+		
+		$("#frm").attr({"action":url, "method":"POST"}).submit();
+	}
 	</script>
 </head>
 <body>
@@ -14,7 +26,7 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
-	<h1>기자 메인</h1>
+	<h1>기사 메인</h1>
 	<div class="uk-section">
 	  	<div class="uk-container">
 	    	<div class="uk-align-left">
@@ -69,10 +81,7 @@
 		    		<c:choose>
 						<c:when test="${fn:length(resultList) > 0 }">
 						<c:forEach items="${resultList }" var="result">
-							<li>
-								<a href="/b010d${result.author_id }.do">${result.author_nm }</a>
-								<a href="/c010d${result.media_id }.do"><b>${result.media_nm }</b></a>
-							</li>
+							<li><a href="/a010d${result.news_id }.do">${result.news_title }</a></li>
 						</c:forEach>
 						</c:when>
 						<c:otherwise>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis -->	
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ibatis -->
+<!-- <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
+
+<mapper namespace="n010">
+	<!-- 1. 이슈 관련 조회수 가장 많은 기사 5건 -->
+	<select id="issueTopNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
+       		   b.author_nm, c.media_nm
+ 		  FROM (SELECT * FROM mhnn01001tb ORDER BY view_cnt DESC LIMIT 5) AS a
+  		  LEFT JOIN mhna01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+	
+	<!-- 7. 조회 수 높은 기사 10건 -->
+	<select id="selectTopNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
+       		   b.author_nm, c.media_nm
+ 		  FROM (SELECT * FROM mhnn01001tb ORDER BY view_cnt DESC LIMIT 10) AS a
+  		  LEFT JOIN mhna01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+	
+	<!-- 9. 최신 기사 10건 -->
+	<select id="selectNewNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
+       		   b.author_nm, c.media_nm
+ 		  FROM (SELECT * FROM mhnn01001tb ORDER BY reg_dt DESC LIMIT 10) AS a
+  		  LEFT JOIN mhna01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+	
+	<!-- 기사 메인용 -->
+	<select id="selectNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, 
+			   a.news_title,
+			   CONVERT(a.news_contents USING utf8) as news_contents,
+			   a.view_cnt, 
+			   a.reg_dt,
+       		   b.author_nm, 
+       		   c.media_nm
+ 		  FROM mhnn01001tb AS a
+  		  LEFT JOIN mhna01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+	
+	<!-- 기사 상세용 -->
+	<select id="selectNews" parameterType="com.mohaning.app.Model.MHNA010VO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id,
+			   a.doc_id,
+			   a.media_id,
+			   a.author_id,
+			   a.origin_id,
+			   a.origin_media_id,
+			   a.news_title,
+			   a.news_url,
+			   a.view_cnt,
+			   a.reg_id,
+			   a.reg_dt,
+			   CONVERT(a.news_contents USING utf8) as news_contents,
+		       d.media_nm,
+		       d.media_url,
+		       b.author_nm,
+		       b.author_email,
+		       e.media_nm AS origin_media_nm
+		  FROM mhnn01001tb AS a
+		  LEFT JOIN mhna01001tb AS b
+		  	 	 ON a.author_id = b.author_id
+		  LEFT JOIN mhnc99901tb AS d
+		         ON a.media_id = d.media_id
+		  LEFT JOIN mhnc99901tb AS e
+         		 ON a.origin_media_id = e.media_id
+  		 WHERE a.news_id = #{news_id}
+	</select>
+	
+	<!-- 기사 저장 -->
+	<insert id="insertNews" parameterType="com.mohaning.app.Model.MHNA010VO">
+		INSERT INTO mhnn01001tb(
+			DOC_ID,
+			MEDIA_ID,
+			AUTHOR_ID,
+			ORIGIN_ID,
+			ORIGIN_MEDIA_ID,
+			NEWS_TITLE,
+			NEWS_CONTENTS,
+			NEWS_URL,
+			REG_ID,
+			REG_DT
+		)VALUES(
+			#{doc_id},
+			#{media_id},
+			#{author_id},
+			#{origin_id},
+			#{origin_media_id},
+			#{news_title},
+			#{news_contents},
+			#{news_url},
+			'admin',
+			now()
+		)
+		<selectKey resultType="String" keyProperty="news_id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<!-- 기사 저장 여부 확인 -->
+	<select id="checkRegisteredNews" parameterType="com.mohaning.app.Model.MHNA010VO" resultType="com.mohaning.app.Model.">
+		SELECT NEWS_ID
+		  FROM mhnn01001tb
+		 WHERE doc_id = #{doc_id}
+		   and media_id = #{media_id}
+	</select>
+	
+	<!-- 기사 조회수 -->
+	<update id="updateCnt" parameterType="com.mohaning.app.Model.MHNA010VO">
+		UPDATE mhnn01001tb SET view_cnt = view_cnt + 1 WHERE news_id = #{news_id}
+	</update>
+	<!-- 현재 여기까지 -->
+	
+	
+	<select id="selectBadNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
+       		   b.author_nm, c.media_nm
+ 		  FROM mhnn01001tb AS a
+  		  LEFT JOIN mhna01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+
+	<select id="selectMediaNewsList" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, a.news_title, a.view_cnt, a.reg_dt,
+       		   b.author_nm, c.media_nm
+ 		  FROM ( SELECT * 
+ 		           FROM mhnn01001tb
+ 		          WHERE media_id = #{media_id}
+ 		     ) AS a
+  		  LEFT JOIN mhna01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+	
+	<select id="selectAuthorNewsList" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNA010VO">
+		SELECT a.news_id, 
+			   a.news_title, 
+			   a.view_cnt, 
+			   a.reg_dt,
+			   a.author_id,
+       		   b.author_nm, 
+       		   a.media_id,
+       		   c.media_nm
+ 		  FROM ( SELECT * 
+ 		           FROM mhnn01001tb
+ 		          WHERE author_id = #{author_id}
+ 		     ) AS a
+  		  LEFT JOIN ( SELECT * 
+						FROM mhna01001tb 
+			       	   WHERE author_id = #{author_id}
+			 ) AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+	</select>
+	
+	<!-- 데이터 삭제 (YYYYMM 기준) -->
+	<!-- <delete id="deleteData" parameterType="com.my.land.model.TBL01VO">
+		DELETE FROM TBL01
+		 WHERE CONTYY = #{contyy}
+	</delete> -->
+	
+	<!-- 아파트매매 입력 -->
+	<!-- <insert id="insertApartmentSell" parameterType="com.my.land.model.TBL01VO">
+		INSERT INTO tbl01(
+			SGG,
+			BUNJI,
+			BONBUN,
+			BUBUN,
+			BLDNM,
+			
+			SIZE1,
+			CONTYY,
+			CONTDD,
+			AMT1,
+			FLOOR,
+			
+			VULIDYY,
+			DORONM,
+			TYPE2,
+			TYPE1,
+			SIZE2,
+			
+			AMT2
+			) VALUES(
+			#{sgg},
+			#{bunji},
+			#{bonbun},
+			#{bubun},
+			#{bldnm},
+
+			#{size1},
+			#{contyy},
+			#{contdd},
+			#{amt1},
+			#{floor},
+
+			#{vulidyy},
+			#{doronm},
+			#{type2},
+			#{type1},
+			#{size2},
+
+			#{amt2}
+			)
+	</insert> -->
+	
+</mapper>

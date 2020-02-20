@@ -12,7 +12,8 @@
 	</div>
 	<div class="uk-navbar-center">
         <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="/Board.do">기사</a></li>
+        	<li class="uk-active"><a href="/Board.do">토론</a></li>
+            <li class="uk-active"><a href="/News.do">기사</a></li>
             <li>
                 <a href="/Media.do">언론사</a>
 <!-- 	                <div class="uk-navbar-dropdown"> -->

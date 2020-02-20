@@ -41,7 +41,7 @@ public class NewsJsonController {
 			mhnd010VO.setScore(1);
 			dao.insert("d010.insertScore", mhnd010VO);
 		}
-		String rediredUrl = "redirect:/a010d" + mhnd010VO.getNews_id() + ".do";
+		String rediredUrl = "redirect:/n010d" + mhnd010VO.getNews_id() + ".do";
 		System.out.println(rediredUrl);
 		return modelAndView;
 	}

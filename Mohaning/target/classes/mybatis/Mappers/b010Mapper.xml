@@ -8,128 +8,102 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
 
 <mapper namespace="b010">
-	<select id="selectAuthorCnt" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="Integer">
-		SELECT COUNT(*)
-		  FROM MHNB01001TB
-		 WHERE media_id = #{media_id}
-		   AND author_nm = #{author_nm}
-		   AND author_email = #{author_email}
-	</select>
-
-	<select id="selectAuthor" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNB01001VO">
-		SELECT AUTHOR_ID
-		  FROM MHNB01001TB
-		 WHERE media_id = #{media_id}
-		   AND author_nm = #{author_nm}
-		   AND author_email = #{author_email}
+	<!-- 2. 이슈 관련 조회수 가장 많은 토론 5건 -->
+	<select id="issueTopBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT board_id,
+		       title,
+		       contents,
+		       reg_dt,
+		       view_cnt 
+		  FROM mhnb01001tb ORDER BY view_cnt DESC LIMIT 5
 	</select>
 	
-	<select id="selectAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
-		SELECT a.*, 
-			   b.media_nm, 
-			   b.media_url
-  		  FROM ( SELECT author_id, 
-  		  			    author_nm, 
-  		  			    author_email, 
-  		  			    media_id
-	   			   FROM mhnb01001tb
-      		   ) a
-   		  LEFT JOIN mhnc99901tb b
-          	ON a.media_id = b.media_id
+	<!-- 3. 이슈 관련 신규 토론 5건 -->
+	<select id="issueNewBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT board_id,
+		       title,
+		       contents,
+		       reg_dt,
+		       view_cnt 
+		  FROM mhnb01001tb ORDER BY reg_dt DESC LIMIT 5
 	</select>
 	
-	<select id="selectAuthorByID" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNB010VO">
-		SELECT a.*, 
-			   b.media_nm, 
-			   b.media_url
-  		  FROM ( SELECT author_id, 
-  		  			    author_nm, 
-  		  			    author_email, 
-  		  			    media_id
-	   			   FROM mhnb01001tb
-	   			  WHERE author_id = #{author_id}
-      		   ) a
-   		  LEFT JOIN mhnc99901tb b
-          	ON a.media_id = b.media_id
+	<!-- 8. 조회 수 높은 토론 10건 -->
+	<select id="selectTopBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT board_id,
+		       title,
+		       contents,
+		       reg_dt,
+		       view_cnt 
+		  FROM mhnb01001tb ORDER BY view_cnt DESC LIMIT 10
 	</select>
 	
-	<select id="selectMediaAuthorList" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHNB01001VO">
-		SELECT AUTHOR_ID,
-			   author_nm,
-			   author_email,
-			   media_id
-		  FROM MHNB01001TB
-		 WHERE media_id = #{media_id}
+	<!-- 10. 최신 토론 10건 -->
+	<select id="selectNewBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT board_id,
+		       title,
+		       contents,
+		       reg_dt,
+		       view_cnt 
+		  FROM mhnb01001tb ORDER BY reg_dt DESC LIMIT 10
 	</select>
-
-	<insert id="insertAuthor" parameterType="com.mohaning.app.Model.MHNA010VO">
+	
+	<select id="selectBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT board_id,
+		       title,
+		       CONVERT(contents USING utf8) as contents,
+		       reg_dt,
+		       view_cnt 
+		  FROM mhnb01001tb ORDER BY reg_dt DESC
+	</select>
+	
+	<select id="selectBoard" parameterType="com.mohaning.app.Model.MHNB010VO" resultType="com.mohaning.app.Model.MHNB010VO">
+		SELECT a.board_id,
+		       a.news_id,
+		       a.title,
+		       CONVERT(a.contents USING utf8) as contents,
+		       a.view_cnt,
+		       a.reg_id,
+		       a.reg_dt,
+		       b.news_title,
+		       CONVERT(b.news_contents USING utf8) as news_contents,
+		       b.news_url,
+		       c.author_id,
+		       c.author_nm,
+		       c.author_email,
+		       d.media_id,
+		       d.media_nm,
+		       d.media_url
+		  FROM mhna02001tb a
+		  LEFT JOIN mhna01001tb b
+		         ON a.news_id = b.news_id
+		  LEFT JOIN mhnb01001tb c
+		         ON b.author_id = c.author_id
+		  LEFT JOIN mhnc99901tb d
+		         ON b.media_id = d.media_id
+		 WHERE a.board_id = #{board_id}
+	</select>
+	
+	<insert id="insertBoard" parameterType="com.mohaning.app.Model.MHNB010VO">
 		INSERT INTO mhnb01001tb(
-			AUTHOR_NM,
-			AUTHOR_EMAIL,
-			MEDIA_ID,
+			NEWS_ID,
+			TITLE,
+			CONTENTS,
 			REG_ID,
 			REG_DT
 		)VALUES(
-			#{author_nm},
-			#{author_email},
-			#{media_id},
-			'admin',
+			#{news_id},
+			#{title},
+			#{contents},
+			#{reg_id},
 			now()
 		)
-		<selectKey resultType="String" keyProperty="author_id" order="AFTER" >
+		<selectKey resultType="String" keyProperty="board_id" order="AFTER" >
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
 	
-	<!-- 데이터 삭제 (YYYYMM 기준) -->
-	<!-- <delete id="deleteData" parameterType="com.my.land.model.TBL01VO">
-		DELETE FROM TBL01
-		 WHERE CONTYY = #{contyy}
-	</delete> -->
-	
-	<!-- 아파트매매 입력 -->
-	<!-- <insert id="insertApartmentSell" parameterType="com.my.land.model.TBL01VO">
-		INSERT INTO tbl01(
-			SGG,
-			BUNJI,
-			BONBUN,
-			BUBUN,
-			BLDNM,
-			
-			SIZE1,
-			CONTYY,
-			CONTDD,
-			AMT1,
-			FLOOR,
-			
-			VULIDYY,
-			DORONM,
-			TYPE2,
-			TYPE1,
-			SIZE2,
-			
-			AMT2
-			) VALUES(
-			#{sgg},
-			#{bunji},
-			#{bonbun},
-			#{bubun},
-			#{bldnm},
-
-			#{size1},
-			#{contyy},
-			#{contdd},
-			#{amt1},
-			#{floor},
-
-			#{vulidyy},
-			#{doronm},
-			#{type2},
-			#{type1},
-			#{size2},
-
-			#{amt2}
-			)
-	</insert> -->
-	
+	<update id="updateCnt" parameterType="com.mohaning.app.Model.MHNB010VO">
+		UPDATE mhnb01001tb SET view_cnt = view_cnt + 1 WHERE board_id = #{board_id}
+	</update>
 </mapper>

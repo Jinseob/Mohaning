@@ -121,6 +121,9 @@
         <div class="uk-width-1-1">
           <h4 class="m-border-b"><b>기사 URL</b><a href="${result.news_url }" target="_blank">&nbsp; &nbsp;${result.news_url }</a></h4>
         </div>
+        <div class="uk-width-1-1">
+          <h4 class="m-border-b"><b>포털 URL</b><a href="${result.portal_url }" target="_blank">&nbsp; &nbsp;${result.portal_url }</a></h4>
+        </div>
         <div class="uk-width-1-3@s">
           <h4 class="m-border-b"><b>기자</b>&nbsp; &nbsp;${result.author_nm }</h4>
         </div>
@@ -271,7 +274,7 @@
 				<input type="hidden" value="${result.news_id }" name="news_id" id="news_id" />
 				<input type="hidden" value="${result.author_id }" name="author_id" id="author_id" />
 				<input type="hidden" value="${result.media_id }" name="media_id" id="media_id" />
-				<input type="hidden" value="${result.origin_media_id }" name="origin_media_id" id="origin_media_id" />
+				<input type="hidden" value="${result.portal_id }" name="portal_id" id="portal_id" />
 		        <div class="uk-grid-divider uk-child-width-expand@s uk-text-center" uk-grid>
 				<c:choose>
 					<c:when test="${fn:length(scoreListByUser) > 0 }">

@@ -6,9 +6,8 @@ public class MHNB010VO {
 	private String board_id;
 	private String news_id;
 	private String doc_id;
-	private String origin_id;
-	private String origin_media_id;
-	private String origin_media_nm;
+	private String portal_id;
+	private String portal_url;
 	private String title;
 	private String contents;
 	private String news_title;
@@ -20,6 +19,7 @@ public class MHNB010VO {
 	private String author_id;
 	private String author_nm;
 	private String author_email;
+	private String status;	// S : Success, E : Error, N : New, AL : Already
 	private int view_cnt;
 	private int del_fl;
 	private String reg_id;
@@ -37,18 +37,6 @@ public class MHNB010VO {
 	}
 	public void setDoc_id(String doc_id) {
 		this.doc_id = doc_id;
-	}
-	public String getOrigin_id() {
-		return origin_id == null ? "" : origin_id;
-	}
-	public void setOrigin_id(String origin_id) {
-		this.origin_id = origin_id;
-	}
-	public String getOrigin_media_id() {
-		return origin_media_id == null ? "" : origin_media_id;
-	}
-	public void setOrigin_media_id(String origin_media_id) {
-		this.origin_media_id = origin_media_id;
 	}
 	public String getTitle() {
 		return title == null ? "" : title;
@@ -122,6 +110,12 @@ public class MHNB010VO {
 	public void setAuthor_email(String author_email) {
 		this.author_email = author_email;
 	}
+	public String getStatus() {
+		return status == null ? "" : status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public int getView_cnt() {
 		return view_cnt;
 	}
@@ -158,10 +152,16 @@ public class MHNB010VO {
 	public void setUpd_dt(Date upd_dt) {
 		this.upd_dt = upd_dt;
 	}
-	public String getOrigin_media_nm() {
-		return origin_media_nm == null ? "" : origin_media_nm;
+	public String getPortal_id() {
+		return portal_id == null ? "" : portal_id;
 	}
-	public void setOrigin_media_nm(String origin_media_nm) {
-		this.origin_media_nm = origin_media_nm;
+	public void setPortal_id(String portal_id) {
+		this.portal_id = portal_id;
+	}
+	public String getPortal_url() {
+		return portal_url == null ? "" : portal_url;
+	}
+	public void setPortal_url(String portal_url) {
+		this.portal_url = portal_url;
 	}
 }

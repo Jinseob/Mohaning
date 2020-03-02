@@ -6,12 +6,18 @@ public class MHNN01001VO {
 	private String news_id;
 	private String doc_id;
 	private String media_id;
-	private String origin_id;
-	private String origin_media_id;
+	private String media_nm;
+	private String media_url;
 	private String author_id;
+	private String author_nm;
+	private String author_email;
+	private String portal_id;
+	private String portal_nm;
+	private String portal_url;
 	private String news_title;
 	private String news_contents;
 	private String news_url;
+	private String status;
 	private int view_cnt;
 	private int del_fl;
 	private String reg_id;
@@ -36,23 +42,53 @@ public class MHNN01001VO {
 	public void setMedia_id(String media_id) {
 		this.media_id = media_id;
 	}
-	public String getOrigin_id() {
-		return origin_id == null ? "" : origin_id;
+	public String getMedia_nm() {
+		return media_nm == null ? "" : media_nm;
 	}
-	public void setOrigin_id(String origin_id) {
-		this.origin_id = origin_id;
+	public void setMedia_nm(String media_nm) {
+		this.media_nm = media_nm;
 	}
-	public String getOrigin_media_id() {
-		return origin_media_id == null ? "" : origin_media_id;
+	public String getMedia_url() {
+		return media_url == null ? "" : media_url;
 	}
-	public void setOrigin_media_id(String origin_media_id) {
-		this.origin_media_id = origin_media_id;
+	public void setMedia_url(String media_url) {
+		this.media_url = media_url;
 	}
 	public String getAuthor_id() {
 		return author_id == null ? "" : author_id;
 	}
 	public void setAuthor_id(String author_id) {
 		this.author_id = author_id;
+	}
+	public String getAuthor_nm() {
+		return author_nm == null ? "" : author_nm;
+	}
+	public void setAuthor_nm(String author_nm) {
+		this.author_nm = author_nm;
+	}
+	public String getAuthor_email() {
+		return author_email == null ? "" : author_email;
+	}
+	public void setAuthor_email(String author_email) {
+		this.author_email = author_email;
+	}
+	public String getPortal_id() {
+		return portal_id == null ? "" : portal_id;
+	}
+	public void setPortal_id(String portal_id) {
+		this.portal_id = portal_id;
+	}
+	public String getPortal_nm() {
+		return portal_nm == null ? "" : portal_nm;
+	}
+	public void setPortal_nm(String portal_nm) {
+		this.portal_nm = portal_nm;
+	}
+	public String getPortal_url() {
+		return portal_url == null ? "" : portal_url;
+	}
+	public void setPortal_url(String portal_url) {
+		this.portal_url = portal_url;
 	}
 	public String getNews_title() {
 		return news_title == null ? "" : news_title;
@@ -71,6 +107,12 @@ public class MHNN01001VO {
 	}
 	public void setNews_url(String news_url) {
 		this.news_url = news_url;
+	}
+	public String getStatus() {
+		return status == null ? "" : status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	public int getView_cnt() {
 		return view_cnt;

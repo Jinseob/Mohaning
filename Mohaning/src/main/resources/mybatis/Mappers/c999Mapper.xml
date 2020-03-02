@@ -18,7 +18,7 @@
 		SELECT media_id, media_nm, media_url, media_chk_url FROM mhnc99901tb ORDER BY RAND()
 	</select>
 	
-	<select id="selectDataCheckList" parameterType="com.mohaning.app.Model.MHNC99902VO" resultType="com.mohaning.app.Model.MHNC99902VO">
+	<select id="selectDataCheckList" parameterType="com.mohaning.app.Model.MHNN01001VO" resultType="com.mohaning.app.Model.MHNC99902VO">
 		SELECT media_id, type, selection, data, method, use_yn, use_url, pattern FROM mhnc99902tb WHERE media_id = #{media_id}
 	</select>
 	

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis -->	
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ibatis -->
+<!-- <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
+
+<mapper namespace="r010">
+	<select id="replyList" parameterType="com.mohaning.app.Model.MHNB010VO" resultType="com.mohaning.app.Model.MHNR010VO">
+		SELECT a.board_id 
+			 , a.comment
+		     , a.reply_id
+		     , a.group_id
+		     , a.reg_id
+		     , a.reg_dt
+		     , fnc.level
+		  FROM
+		     (SELECT fnc_hierarchi() AS id, @level AS LEVEL
+		        FROM (SELECT @start_with:=0, @id:=@start_with, @level:=0) vars
+		          JOIN mhnr01001tb
+		         WHERE @id IS NOT NULL AND board_id = #{board_id}) fnc
+		  LEFT JOIN (SELECT * 
+				       FROM mhnr01001tb
+				      WHERE board_id = #{board_id}) a 
+				 ON fnc.id = a.reply_id
+	</select>
+	
+	<insert id="insertReply" parameterType="com.mohaning.app.Model.MHNR010VO">
+		INSERT INTO mhnr01001tb(
+			REPLY_ID,
+			BOARD_ID,
+			GROUP_ID,
+			COMMENT,
+			REG_ID,
+			REG_DT
+		)VALUES(
+			(SELECT IFNULL(MAX(REPLY_ID) + 1, 1) 
+			   FROM mhnr01001tb a
+			  WHERE BOARD_ID = #{board_id}),
+			#{board_id},
+			#{group_id},
+			#{comment},
+			'admin',
+			now()
+		)
+		<selectKey resultType="String" keyProperty="reply_id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+</mapper>

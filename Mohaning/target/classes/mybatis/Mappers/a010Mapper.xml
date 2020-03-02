@@ -8,23 +8,23 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
 
 <mapper namespace="a010">
-	<select id="selectAuthorCnt" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="Integer">
+	<select id="selectAuthorCnt" parameterType="com.mohaning.app.Model.MHNA01001VO" resultType="Integer">
 		SELECT COUNT(*)
-		  FROM MHNB01001TB
+		  FROM MHNA01001TB
 		 WHERE media_id = #{media_id}
 		   AND author_nm = #{author_nm}
 		   AND author_email = #{author_email}
 	</select>
 
-	<select id="selectAuthor" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNB01001VO">
+	<select id="selectAuthor" parameterType="com.mohaning.app.Model.MHNA01001VO" resultType="com.mohaning.app.Model.MHNA01001VO">
 		SELECT AUTHOR_ID
-		  FROM MHNB01001TB
+		  FROM MHNA01001TB
 		 WHERE media_id = #{media_id}
 		   AND author_nm = #{author_nm}
 		   AND author_email = #{author_email}
 	</select>
 	
-	<select id="selectAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+	<select id="selectAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
 		SELECT a.*, 
 			   b.media_nm, 
 			   b.media_url
@@ -32,13 +32,13 @@
   		  			    author_nm, 
   		  			    author_email, 
   		  			    media_id
-	   			   FROM mhnb01001tb
+	   			   FROM mhna01001tb
       		   ) a
    		  LEFT JOIN mhnc99901tb b
           	ON a.media_id = b.media_id
 	</select>
 	
-	<select id="selectAuthorByID" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHNB010VO">
+	<select id="selectAuthorByID" parameterType="com.mohaning.app.Model.MHNA01001VO" resultType="com.mohaning.app.Model.MHNA010VO">
 		SELECT a.*, 
 			   b.media_nm, 
 			   b.media_url
@@ -46,23 +46,23 @@
   		  			    author_nm, 
   		  			    author_email, 
   		  			    media_id
-	   			   FROM mhnb01001tb
+	   			   FROM mhna01001tb
 	   			  WHERE author_id = #{author_id}
       		   ) a
    		  LEFT JOIN mhnc99901tb b
           	ON a.media_id = b.media_id
 	</select>
 	
-	<select id="selectMediaAuthorList" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHNB01001VO">
+	<select id="selectMediaAuthorList" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHNA01001VO">
 		SELECT AUTHOR_ID,
 			   author_nm,
 			   author_email,
 			   media_id
-		  FROM MHNB01001TB
+		  FROM MHNA01001TB
 		 WHERE media_id = #{media_id}
 	</select>
 
-	<select id="selectTopAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+	<select id="selectTopAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
 		SELECT a.*, 
 			   b.media_nm, 
 			   b.media_url
@@ -71,7 +71,7 @@
   		  			    author_email, 
   		  			    media_id,
   		  			    eva_cnt
-	   			   FROM mhnb01001tb
+	   			   FROM mhna01001tb
 	   			  ORDER BY eva_cnt desc
 	   			  LIMIT 3
       		   ) a
@@ -79,7 +79,7 @@
           	ON a.media_id = b.media_id
 	</select>
 	
-	<select id="selectNewAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
+	<select id="selectNewAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">
 		SELECT a.*, 
 			   b.media_nm, 
 			   b.media_url
@@ -89,7 +89,7 @@
   		  			    media_id,
   		  			    eva_cnt,
   		  			    reg_dt
-	   			   FROM mhnb01001tb
+	   			   FROM mhna01001tb
 	   			  ORDER BY reg_dt desc
 	   			  LIMIT 3
       		   ) a
@@ -98,7 +98,7 @@
 	</select>
 
 	<insert id="insertAuthor" parameterType="com.mohaning.app.Model.MHNA010VO">
-		INSERT INTO mhnb01001tb(
+		INSERT INTO mhna01001tb(
 			AUTHOR_NM,
 			AUTHOR_EMAIL,
 			MEDIA_ID,

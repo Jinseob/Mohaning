@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mohaning.app.Controller.Ajax.NewsJsonController;
 import com.mohaning.app.Dao.CmmnDao;
-import com.mohaning.app.Model.MHNN01001VO;
-import com.mohaning.app.Model.MHNB010VO;
 import com.mohaning.app.Model.MHNB01001VO;
+import com.mohaning.app.Model.MHNB010VO;
 import com.mohaning.app.Model.MHND010VO;
+import com.mohaning.app.Model.MHNN01001VO;
+import com.mohaning.app.Model.MHNR010VO;
 import com.mohaning.app.Model.SearchOptionVO;
 
 @Controller
@@ -46,22 +48,6 @@ public class BoardController {
 	@RequestMapping(value = "/b010i.do")
 	public String boardInsert(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
-		
-		return "mhnb010/b010i";
-	}
-	
-	@RequestMapping(value = "/BoardRegister.do", method=RequestMethod.POST)
-	public String BoardRegister(@ModelAttribute("mhnn01001VO") MHNN01001VO mhnn01001VO, ModelMap model, HttpServletRequest request, 
-			HttpServletResponse response, HttpSession session) throws Exception{
-		
-		NewsController newsCon = new NewsController();
-		MHNB010VO result = newsCon.Register(mhnn01001VO);
-		
-		System.out.println(result.getMedia_nm());
-		System.out.println(result.getMedia_id() + " : " + result.getOrigin_media_id());
-		System.out.println(result.getNews_title());
-		model.addAttribute("type", "NEW");
-		model.addAttribute("result", result);
 		
 		return "mhnb010/b010i";
 	}
@@ -111,6 +97,10 @@ public class BoardController {
 		JSONArray jsonArray = new JSONArray(score);
 		model.addAttribute("score", jsonArray);
 		
+		// 답글 가지고 오는 부분.
+		@SuppressWarnings("unchecked")
+		List<MHNR010VO> replyList = (List<MHNR010VO>) dao.selectList("r010.replyList", mhnb010VO);
+		model.addAttribute("replyList", replyList);
 		
 		return "mhnb010/b010d";
 	}

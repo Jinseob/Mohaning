@@ -46,6 +46,10 @@
 		$("#saveBtn").button().on("click", function(){
 			onSaveBtn();
 		});
+		
+		$("#replyBtn").button().on("click", function(){
+			onReplyBtn("1");
+		});
 	})
 	
 	function onSaveBtn(){
@@ -78,6 +82,28 @@
 			})
 			
 // 			$("#frm").attr({"action" : "/scoreUpdate_d010.do", "method" : "POST"}).submit();
+		}
+	}
+	
+	function onReplyBtn(){
+		if(confirm("답글을 등록 하시겠습니까?")){
+			$("#frm").append($("#group_id"));
+			$("#frm").append($("#comment"));
+			var frm = $("#frm").serialize();
+			
+			$.ajax({
+				method: "POST",
+				url : "/replyUpdate.json",
+				dataType: "JSON",
+				data : frm,
+				success: function(results){
+					alert("성공 저장 완료.");
+					onPageMove("b010d" + results.mhnr010VO.board_id);
+				},
+				error: function(data){
+					alert("E" + data);
+				}
+			})
 		}
 	}
 	
@@ -268,10 +294,11 @@
           <h4><b>기사의 매력포인트 선택해주세요!</b></h4>
           <!-- Score Button -->
 			<form id="frm" name="frm">
+				<input type="hidden" value="${result.board_id }" name="board_id" id="board_id" />
 				<input type="hidden" value="${result.news_id }" name="news_id" id="news_id" />
 				<input type="hidden" value="${result.author_id }" name="author_id" id="author_id" />
 				<input type="hidden" value="${result.media_id }" name="media_id" id="media_id" />
-				<input type="hidden" value="${result.origin_media_id }" name="origin_media_id" id="origin_media_id" />
+				<input type="hidden" value="${result.portal_id }" name="portal_id" id="portal_id" />
 		        <div class="uk-grid-divider uk-child-width-expand@s uk-text-center" uk-grid>
 				<c:choose>
 					<c:when test="${fn:length(scoreListByUser) > 0 }">
@@ -308,89 +335,88 @@
           <div class="uk-margin-top">
             <h4><b>댓글</b></h4>
           </div>
-          <ul class="uk-comment-list">
-            <li class="uk-margin-small">
-              <article class="uk-comment uk-visible-toggle" tabindex="-1">
-                <header class="uk-comment-header uk-position-relative">
-                  <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                    <div class="uk-width-auto">
-                      <h5 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">Author</a></h5>
-                      <p class="uk-comment-meta uk-margin-remove-top"><a class="uk-link-reset" href="#">12 days ago</a></p>
-                    </div>
-                  </div>
-                  <div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted" href="#">답글</a><a class="uk-link-muted" href="#">삭제</a></div>
-                </header>
-                <div class="uk-comment-body">
-                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
-                    gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                </div>
-              </article>
-              <!-- 대댓글 -->
-              <ul class="uk-margin">
-                <li class="uk-margin-small">
-                  <article class="uk-comment uk-comment-primary uk-visible-toggle" tabindex="-1">
-                    <header class="uk-comment-header uk-position-relative">
-                      <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                        <div class="uk-width-auto">
-                          <h5 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">Author</a></h5>
-                          <p class="uk-comment-meta uk-margin-remove-top"><a class="uk-link-reset" href="#">12 days ago</a></p>
-                        </div>
-                      </div>
-                      <div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted" href="#">답글</a></div>
-                    </header>
-                    <div class="uk-comment-body">
-                      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-                        kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                    </div>
-                  </article>
-                </li>
-                <li class="uk-margin-small">
-                  <article class="uk-comment uk-comment-primary uk-visible-toggle" tabindex="-1">
-                    <header class="uk-comment-header uk-position-relative">
-                      <div class="uk-grid-medium uk-flex-middle" uk-grid>
-                        <div class="uk-width-auto">
-                          <h5 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">Author</a></h5>
-                          <p class="uk-comment-meta uk-margin-remove-top"><a class="uk-link-reset" href="#">12 days ago</a></p>
-                        </div>
-                      </div>
-                      <div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted" href="#">답글</a></div>
-                    </header>
-                    <div class="uk-comment-body">
-                      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-                        kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-                    </div>
-                  </article>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <c:choose>
+          	<c:when test="${fn:length(replyList) > 0 }">
+          		<c:forEach items="${replyList }" var="rList" varStatus="rStatus">
+          			<!-- 1 Level 닫는 부분. 첫번째 값은 제외. -->
+          			<c:if test="${!rStatus.first and rList.level eq '1'}" >
+          				</li>
+		          	</ul>
+          			</c:if>
+          		
+          			<c:choose>
+          			<c:when test="${rList.level eq '1' }">
+          				<ul class="uk-comment-list">
+				        	<li class="uk-margin-small">
+				            	<article class="uk-comment uk-visible-toggle" tabindex="-1">
+				                	<header class="uk-comment-header uk-position-relative">
+				                  		<div class="uk-grid-medium uk-flex-middle" uk-grid>
+				                    		<div class="uk-width-auto">
+				                      			<h5 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#"><c:out value="${rList.reg_id }" /></a></h5>
+				                      			<p class="uk-comment-meta uk-margin-remove-top"><a class="uk-link-reset" href="#"><c:out value="${rList.reg_dt }" /></a></p>
+				                    		</div>
+				                  		</div>
+				                  		<div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted" href="#">답글</a><a class="uk-link-muted" href="#">삭제</a></div>
+				                	</header>
+				                	<div class="uk-comment-body">
+				                  		<p><c:out value="${rList.comment }" /></p>
+				                	</div>
+				              	</article>
+          			</c:when>
+          			<c:otherwise>
+          						<!-- 대댓글 -->
+			              		<ul class="uk-margin">
+			                		<li class="uk-margin-small">
+			                  			<article class="uk-comment uk-comment-primary uk-visible-toggle" tabindex="-1">
+			                    			<header class="uk-comment-header uk-position-relative">
+			                      				<div class="uk-grid-medium uk-flex-middle" uk-grid>
+			                        				<div class="uk-width-auto">
+			                          					<h5 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#"><c:out value="${rList.reg_id }" /></a></h5>
+			                          					<p class="uk-comment-meta uk-margin-remove-top"><a class="uk-link-reset" href="#"><c:out value="${rList.reg_dt }" /></a></p>
+			                        				</div>
+			                      				</div>
+			                      				<div class="uk-position-top-right uk-position-small uk-hidden-hover"><a class="uk-link-muted" href="#">답글</a></div>
+			                    			</header>
+			                    			<div class="uk-comment-body">
+			                      				<p><c:out value="${rList.comment }" /></p>
+			                    			</div>
+			                  			</article>
+			                		</li>
+			              		</ul>
+          			</c:otherwise>
+          			</c:choose>
+          		</c:forEach>
+          	</c:when>
+          </c:choose>
+          
+          
           <!-- 페이징 -->
-          <div uk-grid>
-            <div class="uk-align-center uk-margin-small-top">
-              <ul class="uk-pagination">
-                <li><a href="#"><span uk-pagination-previous></span></a></li>
-                <li><a href="#">1</a></li>
-                <li class="uk-disabled"><span>...</span></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">6</a></li>
-                <li class="uk-active"><span>7</span></li>
-                <li><a href="#">8</a></li>
-                <li><a href="#">9</a></li>
-                <li><a href="#">10</a></li>
-                <li class="uk-disabled"><span>...</span></li>
-                <li><a href="#">20</a></li>
-                <li><a href="#"><span uk-pagination-next></span></a></li>
-              </ul>
-            </div>
-          </div>
+<!--           <div uk-grid> -->
+<!--             <div class="uk-align-center uk-margin-small-top"> -->
+<!--               <ul class="uk-pagination"> -->
+<!--                 <li><a href="#"><span uk-pagination-previous></span></a></li> -->
+<!--                 <li><a href="#">1</a></li> -->
+<!--                 <li class="uk-disabled"><span>...</span></li> -->
+<!--                 <li><a href="#">4</a></li> -->
+<!--                 <li><a href="#">5</a></li> -->
+<!--                 <li><a href="#">6</a></li> -->
+<!--                 <li class="uk-active"><span>7</span></li> -->
+<!--                 <li><a href="#">8</a></li> -->
+<!--                 <li><a href="#">9</a></li> -->
+<!--                 <li><a href="#">10</a></li> -->
+<!--                 <li class="uk-disabled"><span>...</span></li> -->
+<!--                 <li><a href="#">20</a></li> -->
+<!--                 <li><a href="#"><span uk-pagination-next></span></a></li> -->
+<!--               </ul> -->
+<!--             </div> -->
+<!--           </div> -->
           <!-- 댓글달기 -->
-          <textarea class="uk-textarea" rows="5" placeholder="Textarea"></textarea>
+          <input type="hidden" value="0" name="group_id" id="group_id" />
+          <textarea class="uk-textarea" rows="5" placeholder="Textarea" name="comment" id="comment"></textarea>
           <p class="uk-align-right uk-margin-small-top">
-            <button type="button" class="uk-button uk-button-primary" onclick="javascript: onRegisterBtn();">댓글달기</button>
+            <button type="button" class="uk-button uk-button-primary" id="replyBtn">댓글달기</button>
           </p>
         </div>
-
       </div>
     </div>
     <div class="uk-container uk-margin-small-top">

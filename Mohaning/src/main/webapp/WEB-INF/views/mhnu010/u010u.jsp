@@ -74,8 +74,7 @@
 		<input type="hidden" name="author_id" value="${result.author_id}"/>  		
 		<input type="hidden" name="media_id" value="${result.media_id}"/>
 		<input type="hidden" name="doc_id" value="${result.doc_id}"/>
-		<input type="hidden" name="origin_id" value="${result.origin_id}"/>
-		<input type="hidden" name="origin_media_id" value="${result.origin_media_id}"/>
+		<input type="hidden" name="portal_id" value="${result.portal_id}"/>
 		
     	<fieldset class="uk-fieldset">
         <div class="uk-grid-small" uk-grid>

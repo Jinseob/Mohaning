@@ -12,7 +12,7 @@
 	<select id="issueTopBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT board_id,
 		       title,
-		       contents,
+		       CONVERT(contents USING utf8) as contents,
 		       reg_dt,
 		       view_cnt 
 		  FROM mhnb01001tb ORDER BY view_cnt DESC LIMIT 5
@@ -22,7 +22,7 @@
 	<select id="issueNewBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT board_id,
 		       title,
-		       contents,
+		       CONVERT(contents USING utf8) as contents,
 		       reg_dt,
 		       view_cnt 
 		  FROM mhnb01001tb ORDER BY reg_dt DESC LIMIT 5
@@ -32,7 +32,7 @@
 	<select id="selectTopBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT board_id,
 		       title,
-		       contents,
+		       CONVERT(contents USING utf8) as contents,
 		       reg_dt,
 		       view_cnt 
 		  FROM mhnb01001tb ORDER BY view_cnt DESC LIMIT 10
@@ -42,7 +42,7 @@
 	<select id="selectNewBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT board_id,
 		       title,
-		       contents,
+		       CONVERT(contents USING utf8) as contents,
 		       reg_dt,
 		       view_cnt 
 		  FROM mhnb01001tb ORDER BY reg_dt DESC LIMIT 10
@@ -54,7 +54,13 @@
 		       CONVERT(contents USING utf8) as contents,
 		       reg_dt,
 		       view_cnt 
-		  FROM mhnb01001tb ORDER BY reg_dt DESC
+		  FROM mhnb01001tb
+		  <where>
+		  	<if test=" news_id!=null and news_id!='' ">
+				news_id = #{news_id }
+			</if>
+		  </where>
+		 ORDER BY reg_dt DESC
 	</select>
 	
 	<select id="selectBoard" parameterType="com.mohaning.app.Model.MHNB010VO" resultType="com.mohaning.app.Model.MHNB010VO">
@@ -65,9 +71,11 @@
 		       a.view_cnt,
 		       a.reg_id,
 		       a.reg_dt,
+		       b.doc_id,
 		       b.news_title,
 		       CONVERT(b.news_contents USING utf8) as news_contents,
 		       b.news_url,
+		       b.portal_url,
 		       c.author_id,
 		       c.author_nm,
 		       c.author_email,

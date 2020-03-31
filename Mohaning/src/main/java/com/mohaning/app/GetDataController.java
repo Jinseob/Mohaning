@@ -10,6 +10,7 @@ import org.json.simple.parser.ParseException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 
 import com.mohaning.app.Model.MHNC99902VO;
@@ -557,15 +558,19 @@ public class GetDataController {
 				result.setAuthor_nm(dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("EMAIL")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-        		String[] textArray = dataElement != null ? dataElement.text().split("\\s+") : new String[0];
+        		// 연합뉴스는 기자 정보 사이트를 따로 개설함. 여기에서 E-mail 정보를 가지고 와야함.
         		String selectedTxt = "";
-        		for(int j = textArray.length - 1; j >= 0; j--) {
-        			String text = textArray[j];
-        			if(text.indexOf(dataCheck.getPattern()) > -1) {
-        				selectedTxt = text;
-        				break;
-        			}
-        		}
+        		Elements a = dataElement.select("a");
+        		String href = "http:" + a.attr("href");
+        		try {
+					Document doc_Author = Jsoup.connect(href).get();
+					Element mailTag = doc_Author.select(dataCheck.getMethod()).first();
+					selectedTxt = mailTag.text();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		
         		result.setAuthor_email(selectedTxt);
         	}
         }

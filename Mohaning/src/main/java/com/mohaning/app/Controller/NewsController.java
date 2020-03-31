@@ -19,8 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mohaning.app.Dao.CmmnDao;
 import com.mohaning.app.Model.MHNA01001VO;
 import com.mohaning.app.Model.MHNB01001VO;
-import com.mohaning.app.Model.MHNB010VO;
 import com.mohaning.app.Model.MHND010VO;
+import com.mohaning.app.Model.MHNN01001VO;
+import com.mohaning.app.Model.MHNP01001VO;
 import com.mohaning.app.Model.SearchOptionVO;
 
 @Controller
@@ -36,7 +37,7 @@ public class NewsController {
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
 		@SuppressWarnings("unchecked")
-		List<MHNB010VO> list = (List<MHNB010VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
+		List<MHNN01001VO> list = (List<MHNN01001VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
 		model.addAttribute("resultList", list);
 		
 		return "mhnn010/n010l";
@@ -50,40 +51,56 @@ public class NewsController {
 	}
 
 	@RequestMapping(value = "/processUpdate_n010.do")
-	public String processUpdate(@ModelAttribute("mhnb010VO") MHNB010VO mhnb010VO, ModelMap model, 
+	public String processUpdate(@ModelAttribute("mhnn01001VO") MHNN01001VO mhnn01001VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
 		// 저자가 등록되어 있지 않으면 저장하기.
-		if(mhnb010VO.getAuthor_id().isEmpty()) {
+		if(mhnn01001VO.getAuthor_id().isEmpty()) {
 			MHNA01001VO authorInfo = new MHNA01001VO();
-			authorInfo.setAuthor_id(mhnb010VO.getAuthor_id());
-			authorInfo.setAuthor_email(mhnb010VO.getAuthor_email());
-			authorInfo.setAuthor_nm(mhnb010VO.getAuthor_nm());
-			authorInfo.setMedia_id(mhnb010VO.getMedia_id());
+			authorInfo.setAuthor_id(mhnn01001VO.getAuthor_id());
+			authorInfo.setAuthor_email(mhnn01001VO.getAuthor_email());
+			authorInfo.setAuthor_nm(mhnn01001VO.getAuthor_nm());
+			authorInfo.setMedia_id(mhnn01001VO.getMedia_id());
 			
 			dao.insert("a010.insertAuthor", authorInfo);	// 우선 기자를 등록하고 등록된 기자의 ID 를 가지고 온다.
+			mhnn01001VO.setAuthor_id(authorInfo.getAuthor_id());
 		}
-		dao.insert_return("n010.insertNews", mhnb010VO);	// 기자 ID 를 news 에 넣는다.
+		dao.insert_return("n010.insertNews", mhnn01001VO);		// News 를 저장한다.
+
+		// 포털 URL 이 있는 경우 저장 되었는지 확인하는 부분.
+		int portalCnt = -1;	// -1 이면 포털 ID 가 없는 경우. 0 이상이면 포털 ID 가 있는 경우.
+		if(!mhnn01001VO.getPortal_id().isEmpty()) {	// 포털 URL 이 잇는 경우 포털 ID 가 있다.
+			portalCnt = dao.selectCnt("p010.selectPortalByNewsCnt", mhnn01001VO);
+		}
+		
+		if(portalCnt == 0) {
+			System.out.println("Portal Count : " + portalCnt);
+			dao.insert_return("p010.insertPortal", mhnn01001VO);	// 포탈에서 가져온 경우 포털 정보를 저장한다.
+		}
 		
 		// 저장 성공시 Detail 화면으로 간다.
-		String rediredUrl = "redirect:/n010d" + mhnb010VO.getNews_id() + ".do";
+		String rediredUrl = "redirect:/n010d" + mhnn01001VO.getNews_id() + ".do";
 		System.out.println(rediredUrl);
 		return rediredUrl;
 	}
 	
 	@RequestMapping(value = "/n010d{news_id}.do")
-	public String boardDetail(@PathVariable String news_id, @ModelAttribute("mhnb010VO") MHNB010VO mhnb010VO, ModelMap model, 
+	public String boardDetail(@PathVariable String news_id, @ModelAttribute("mhnn01001VO") MHNN01001VO mhnn01001VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
-		mhnb010VO.setNews_id(news_id);
+		mhnn01001VO.setNews_id(news_id);
 
 		// 조회수 올리는 로직 넣기
-		dao.update("n010.updateCnt", mhnb010VO);
+		dao.update("n010.updateCnt", mhnn01001VO);
 		
 		// 뉴스 기사와 기자, 언론사 정보 가지고 오는 부분.
-		MHNB010VO result = (MHNB010VO) dao.select("n010.selectNews", mhnb010VO);
-		System.out.println(result.getContents());
+		MHNN01001VO result = (MHNN01001VO) dao.select("n010.selectNews", mhnn01001VO);
 		model.addAttribute("result", result);
+		
+		// 포털 정보가 있는 경우 가지고 오는 부분.
+		@SuppressWarnings("unchecked")
+		List<MHNP01001VO> portalList = (List<MHNP01001VO>) dao.selectList("p010.selectPortalByNews", result);
+		model.addAttribute("portalList", portalList);
 		
 		// 개인별 반영 점수 가지고 오는 부분
 		MHND010VO news_info = new MHND010VO();
@@ -101,8 +118,10 @@ public class NewsController {
 		
 		// 뉴스 기사를 사용한 토론 불러오기.
 		SearchOptionVO searchOptionVO = new SearchOptionVO();
+		searchOptionVO.setNews_id(news_id);
 		@SuppressWarnings("unchecked")
 		List<MHNB01001VO> boardList = (List<MHNB01001VO>) dao.selectList("b010.selectBoardList", searchOptionVO);
+		
 		model.addAttribute("boardList", boardList);
 		
 		return "mhnn010/n010d";

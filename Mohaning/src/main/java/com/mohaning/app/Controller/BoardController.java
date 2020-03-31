@@ -15,14 +15,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.mohaning.app.Controller.Ajax.NewsJsonController;
 import com.mohaning.app.Dao.CmmnDao;
 import com.mohaning.app.Model.MHNB01001VO;
 import com.mohaning.app.Model.MHNB010VO;
 import com.mohaning.app.Model.MHND010VO;
 import com.mohaning.app.Model.MHNN01001VO;
+import com.mohaning.app.Model.MHNP01001VO;
 import com.mohaning.app.Model.MHNR010VO;
 import com.mohaning.app.Model.SearchOptionVO;
 
@@ -60,12 +59,13 @@ public class BoardController {
 		if(mhnb010VO.getAuthor_id().isEmpty()) {
 			dao.insert("a010.insertAuthor", mhnb010VO);	// 우선 기자를 등록하고 등록된 기자의 ID 를 가지고 온다.
 		}
-		dao.insert_return("n010.insertNews", mhnb010VO);	// 기자 ID 를 news 에 넣는다.
+		if(mhnb010VO.getNews_id().isEmpty()) {	// 우선은 Java 에서 News 의 ID 기준으로 새롭게 등록하던가 아니면 넘어가도록만 처리. 추후 merge 쿼리를 사용하여 업데이트도 되도록 변경.
+			dao.insert_return("n010.insertNews", mhnb010VO);	// 기자 ID 를 news 에 넣는다.
+		}
 		dao.insert("b010.insertBoard", mhnb010VO);			// 기사 ID 를 board 에 넣는다.
 		
 		// 저장 성공시 Detail 화면으로 간다.
 		String rediredUrl = "redirect:/b010d" + mhnb010VO.getBoard_id() + ".do";
-		System.out.println(rediredUrl);
 		return rediredUrl;
 	}
 	
@@ -82,6 +82,11 @@ public class BoardController {
 		// 뉴스 기사와 기자, 언론사 정보 가지고 오는 부분.
 		MHNB010VO result = (MHNB010VO) dao.select("b010.selectBoard", mhnb010VO);
 		model.addAttribute("result", result);
+		
+		// 포털 정보가 있는 경우 가지고 오는 부분.
+		@SuppressWarnings("unchecked")
+		List<MHNP01001VO> portalList = (List<MHNP01001VO>) dao.selectList("p010.selectPortalByNews", result);
+		model.addAttribute("portalList", portalList);
 		
 		// 개인별 반영 점수 가지고 오는 부분
 		MHND010VO news_info = new MHND010VO();

@@ -23,6 +23,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,10 +34,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import com.mohaning.app.GetDataController;
-import com.mohaning.app.Controller.NewsController;
 import com.mohaning.app.Dao.CmmnDao;
 import com.mohaning.app.Model.MHNA01001VO;
-import com.mohaning.app.Model.MHNB010VO;
 import com.mohaning.app.Model.MHNC99901VO;
 import com.mohaning.app.Model.MHNC99902VO;
 import com.mohaning.app.Model.MHND010VO;
@@ -97,7 +96,12 @@ public class NewsJsonController {
 		result = DataCheckForURL(mhnn01001VO);
 		
 		// 2. 데이터 추출.
-		result = DataExtract(result);
+		if(result.getMedia_id() != null && !result.getMedia_id().isEmpty()) {
+			result.setStatus("S");
+			result = DataExtract(result);
+		}else {
+			result.setStatus("E1");
+		}
 		
 		model.addAttribute("result", result);
 		
@@ -283,11 +287,33 @@ public class NewsJsonController {
 		document.attr("docid", mhnn01001VO.getDoc_id());	// getData 에서 doc id 를 사용하기 위해 설정.
 		
 		// 6-1 Docid 와 언론사 ID 를 사용하여 기등록된 기사가 있는지 확인하는 부분.
-		@SuppressWarnings("unchecked")
-		List<MHNN01001VO> checkRegisteredNews = (List<MHNN01001VO>) dao.selectList("n010.checkRegisteredNews", mhnn01001VO);
-		if(checkRegisteredNews.size() > 0) {
-			mhnn01001VO.setStatus("AL");
-			mhnn01001VO.setNews_id(checkRegisteredNews.get(0).getNews_id());
+		MHNN01001VO checkRegisteredNews = (MHNN01001VO) dao.select("n010.registeredNews", mhnn01001VO);
+		
+		if(checkRegisteredNews != null) {
+			// mhnn01001VO 여기는 크롤링한 데이터만 있음.
+			// 토론에서만 사용.
+			mhnn01001VO.setNews_id(checkRegisteredNews.getNews_id());
+			String inputURL = mhnn01001VO.getPortal_url();
+			String inputPortal = mhnn01001VO.getPortal_id();
+			// 기등록된 경우에도 포털의 URL 은 추가된 적이 없을 수 있기 때문에 저장하는 로직 추가. Portal ID 가 있고 doc_id
+			// 포털 URL 이 있는 경우 저장 되었는지 확인하는 부분.
+			int portalCnt = -1;	// -1 이면 포털 ID 가 없는 경우. 0 이상이면 포털 ID 가 있는 경우.
+			if(!mhnn01001VO.getPortal_id().isEmpty()) {	// 포털 URL 이 잇는 경우 포털 ID 가 있다.
+				portalCnt = dao.selectCnt("p010.selectPortalByNewsCnt", mhnn01001VO);
+			}
+			
+			if(portalCnt == 0) {
+				dao.insert_return("p010.insertPortal", mhnn01001VO);	// 포탈에서 가져온 경우 포털 정보를 저장한다.
+			}
+			// 토론에서만 사용.
+			
+			BeanUtils.copyProperties(checkRegisteredNews, mhnn01001VO);
+			mhnn01001VO.setStatus("AL");	// 기사 등록하는 화면에서는 상태값으로 
+			
+			// 토론에서만 사용.
+			mhnn01001VO.setPortal_url(inputURL);	// 토론 등록화면에서 확인하기 위함
+			mhnn01001VO.setPortal_id(inputPortal);	// 토론 등록화면에서 확인하기 위함
+			// 토론에서만 사용.
 		}else {
 			mhnn01001VO.setStatus("N");
 			MHNN01001VO tempData = new MHNN01001VO();

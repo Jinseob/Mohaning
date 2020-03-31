@@ -65,6 +65,8 @@
 	 					if(confirm(result.news_id + " 번으로 등록된 뉴스가 있습니다.\n이동하시겠습니까?")){
 	 						onPageMove("n010d" + result.news_id);					
 	 					}
+	 				}else if(result.status == "E1"){
+	 					alert("아직 지원하지 않는 언론사입니다.");
 	 				}
 	 			},
 	 			error: function(data){
@@ -110,14 +112,14 @@
         <div class="uk-grid-small" uk-grid>
           	<p uk-margin>
 	            <button type="button" class="uk-button uk-button-default" onclick="onRegisterBtn();">등록</button>
-	            <button type="button" class="uk-button uk-button-default" onclick="onPageMove('Board');">취소</button>
+	            <button type="button" class="uk-button uk-button-default" onclick="onPageMove('News');">취소</button>
 <!-- 	            <button class="uk-button uk-button-primary">발행</button> -->
           	</p>
             <div class="uk-width-1-1">
                 <input class="uk-input" type="text" name="news_url" id="news_url" placeholder="https://" value="${result.news_url }"/>
             </div>
             <div class="uk-width-1-1">
-                <input class="uk-input" type="text" name="portal_url" id="portal_url" placeholder="https://" value="${result.portal_url }" />
+                <input class="uk-input" type="text" name="portal_url" id="portal_url" placeholder="https://" value="${result.portal_url }" readonly="readonly"/>
             </div>
             <div class="uk-width-1-1">
                 <input class="uk-input" type="text" name="news_title" id="news_title" placeholder="기사 제목" value="${result.news_title }"/>
@@ -140,7 +142,7 @@
             </div>
             <p uk-margin>
 	            <button type="button" class="uk-button uk-button-default" onclick="javascript: onSaveBtn();">저장</button>
-	            <button type="button" class="uk-button uk-button-primary" onclick="javascript: onPageMove('Board');">목록</button>
+	            <button type="button" class="uk-button uk-button-primary" onclick="javascript: onPageMove('News');">목록</button>
           	</p>
         </div>
       	</fieldset>

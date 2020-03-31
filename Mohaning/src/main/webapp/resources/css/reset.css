@@ -1,0 +1,75 @@
+@font-face {font-family: "SCDream";src: url("../font/SCDream1.otf");font-weight: 100;font-style: thin;}
+@font-face {font-family: "SCDream";src: url("../font/SCDream2.otf");font-weight: 200;font-style: light;}
+@font-face {font-family: "SCDream"; src: url("../font/SCDream3.otf");font-weight: 300; font-style: demilight;}
+@font-face {font-family: "SCDream";  src: url("../font/SCDream4.otf");font-weight: 400;font-style: regular;}
+@font-face {font-family: "SCDream";  src: url("../font/SCDream5.otf"); font-weight: 500;  font-style: medium;}
+@font-face {font-family: "SCDream";  src: url("../font/SCDream6.otf"); font-weight: 600; font-style: semibold;}
+@font-face {font-family: "SCDream";  src: url("../font/SCDream7.otf");font-weight: 700;font-style: bold;}
+@font-face {font-family: "SCDream";src: url("../font/SCDream8.otf");font-weight: 800;font-style: black;}
+@font-face {font-family: "SCDream";src: url("../font/SCDream9.otf");font-weight: 900;font-style: black2;}
+
+* {
+  font-family: "SCDream"; margin: 0px; padding: 0px;
+}
+
+/* a 링크 초기화 */
+a,input {font-size: 1.6rem; color: #1E2226; text-decoration: none;}
+
+/* 폰트 스타일 초기화 */
+em,address {font-style: normal;}
+html{font-size:10px;}
+
+body{background-color: black;}
+
+/* 블릿기호 초기화 */
+ul,li,ol {list-style: none;}
+
+/* 제목 태그 초기화 */
+h1,h2,h3,h4,h5,h6 {font-family: 'SCDream'; font-weight: 600; line-height: 1.2;}
+button {font-size: 1.6rem; font-weight: 500; line-height: 1.2;background-color: none; border: none;}
+p{font-size: 1.6rem; font-weight: 300;}
+h1{font-size: 5.6rem;}
+h2{font-size: 4.0rem;}
+h3{font-size: 3.2rem;}
+h4{font-size: 2.4rem;}
+h5{font-size: 2.0rem;}
+h6{font-size: 1.8rem;}
+
+/* Header 초기화 */
+header{
+  background-color: #ffffff;
+    border-bottom: 0.1rem solid black;
+}
+section{
+  background-color: #ffffff;
+}
+footer{
+  background-color: black;
+}
+
+/* Margin */
+.mt-40{
+  margin-top:4rem !important;
+}
+.mt-30{
+  margin-top: 30px !important;
+}
+.mt-20{
+  margin-top: 20px !important;
+}
+.mt-10{
+  margin-top: 10px !important;
+}
+
+/* Padding */
+.padt-40{
+  padding-top: 40px !important;
+}
+.padt-30{
+  padding-top: 30px !important;
+}
+
+/* Width-Percent */
+.width50{
+  width: 50%;
+}

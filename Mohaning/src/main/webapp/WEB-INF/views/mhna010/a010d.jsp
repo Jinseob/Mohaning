@@ -99,7 +99,7 @@
 	        	<c:choose>
 	        		<c:when test="${fn:length(authorNewsList) > 0 }">
 	        		<c:forEach items="${authorNewsList }" var="result">
-	        			<li><a href="/a010d${result.news_id }.do">${result.news_title }</a></li>
+	        			<li><a href="/n010d${result.news_id }.do">${result.news_title }</a></li>
 	        		</c:forEach>
 	        		</c:when>
 	        		<c:otherwise>

@@ -14,6 +14,7 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
+	<section>
 	<h1>Error Page</h1>
 
 	<div class="uk-section">
@@ -40,5 +41,9 @@
       	</fieldset>
   	</div>
   	</div>
+  	</section>
+  	<footer>
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />	    
+  	</footer>
 </body>
 </html>

@@ -3,22 +3,26 @@
 <!doctype html>
 <html>
 <head>
-	<title>기사</title>
+	<title>모하닝</title>
 	<jsp:directive.include file="/WEB-INF/views/common/taglib.jsp" />
 	<script type="text/javascript">
 	function onPageMove(type){
 		var url = "";
 		switch(type){
 		case "I":
-			url = "/b010i.do";
+			url = "/Board/b010i.do";
 			break;
-		case "D":
-			url = "/b010d.do";
+		case "M":
+			url = "/Board/main.do";
 			break;
 		}
 		
 		$("#frm").attr({"action":url, "method":"POST"}).submit();
 	}
+	$(document).on('change', '#sortType', function(){
+		$("#sort").val($("#sortType option:selected").val());
+		onPageMove("M");
+	});
 	</script>
 </head>
 <body>
@@ -32,22 +36,10 @@
 	<div class="container">
     	<div class="row">
         	<form id="frm" name="frm">
+        		<input type="hidden" name="sort" id="sort" />
+        		<input type="hidden" name="news_id" id="news_id" />
       		<div class="search-wrapper">
-        		<div class="dropdown">
-          			<h6 style="display:inline-block;">인기검색어</h6>
-          			<a class="hot-keyword"><b>1</b> 코로나19</a>
-          			<button class="dropbtn">Q</button>
-          			<div class="dropdown-content">
-			            <a href="#">Link 1</a>
-			            <a href="#">Link 2</a>
-			            <a href="#">Link 3</a>
-          			</div>
-        		</div>
-        		<div class="search-container">
-		        		<input type="hidden" name="news_id" id="news_id" />
-		            	<input type="text" placeholder="코로나19" name="search">
-		            	<button type="submit">search</button>
-        		</div>
+        		<jsp:include page="/WEB-INF/views/common/search.jsp" />
       		</div>
           	</form>
     	</div>
@@ -61,12 +53,14 @@
           			<h5>토론방 목록</h5>
           			<div class="filters_wrap">
 			            <div class="custom-select">
-			              <select>
-			                <option value="S11">등록일순</option>
-			                <option value="S12">조회순</option>
-			                <option value="S13">댓글순</option>
-			                <option value="S14">평가순</option>
-			              </select>
+			              	<select id="sortType">
+		           				<option value="01" <c:if test="${searchOptionVO.sort eq '01' }">selected</c:if>>등록일최신순</option>
+		           				<option value="02" <c:if test="${searchOptionVO.sort eq '02' }">selected</c:if>>등록일과거순</option>
+		           				<option value="03" <c:if test="${searchOptionVO.sort eq '03' }">selected</c:if>>조회수높은순</option>
+		           				<option value="04" <c:if test="${searchOptionVO.sort eq '04' }">selected</c:if>>조회수낮은순</option>
+	<!-- 	           			<option value="S13">댓글순</option> -->
+	<!-- 	           			<option value="S14">평가순</option> -->
+		         			</select>
 			            </div>
 			    	</div>
         		</div>
@@ -76,7 +70,7 @@
 						<c:forEach items="${resultList }" var="result">
 							<li class="news-list-title">
 								<label>298</label>
-								<a href="/b010d${result.board_id }.do">${result.title }</a>
+								<a href="/Board/b010d${result.board_id }.do">${result.title }</a>
 							</li>
 						</c:forEach>
 						</c:when>
@@ -112,7 +106,7 @@
   	</div>
   	</section>
   	
-  	<script src="./resources/js/dropDown.js"></script>
+<!--   	<script src="/resources/js/dropDown.js"></script> -->
   	<footer>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />	    
   	</footer>

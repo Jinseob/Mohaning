@@ -30,7 +30,7 @@ public class AuthorController {
 	@Autowired
 	private CmmnDao dao;
 	
-	@RequestMapping(value = "/Author.do")
+	@RequestMapping(value = "/Author/main.do")
 	public String authorMain(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
@@ -46,7 +46,7 @@ public class AuthorController {
 		return "mhna010/a010l";
 	}
 	
-	@RequestMapping(value = "/a010d{author_id}.do")
+	@RequestMapping(value = "/Author/a010d{author_id}.do")
 	public String mediaDetail(@PathVariable String author_id, @ModelAttribute("mhna01001VO") MHNA01001VO mhna01001VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		

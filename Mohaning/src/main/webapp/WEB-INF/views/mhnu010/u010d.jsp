@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>기사</title>
+	<title>모하닝</title>
 	<jsp:include page="/WEB-INF/views/common/taglib.jsp" />
 	<script type="text/javascript">
 // 	function onNewsRegisterAjax(){
@@ -71,10 +71,8 @@
 	<div class="uk-section">
   	<div class="uk-container">
   	<form id="frm" name="frm" method="post" >
-		<input type="hidden" name="author_id" value="${result.author_id}"/>  		
-		<input type="hidden" name="media_id" value="${result.media_id}"/>
-		<input type="hidden" name="doc_id" value="${result.doc_id}"/>
-		<input type="hidden" name="portal_id" value="${result.portal_id}"/>
+		<input type="hidden" name="user_id" id="user_id" value="${result.user_id}"/>  		
+		<input type="hidden" name="status" id=""status"" value="${result.status}"/>
 		
     	<fieldset class="uk-fieldset">
         <div class="uk-grid-small" uk-grid>

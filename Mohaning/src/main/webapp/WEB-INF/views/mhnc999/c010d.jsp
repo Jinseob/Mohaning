@@ -3,16 +3,39 @@
 <!doctype html>
 <html>
 <head>
-	<title>기사</title>
+	<title>모하닝</title>
 	<jsp:directive.include file="/WEB-INF/views/common/taglib.jsp" />
 	
 	<!-- Chart.js -->
 	<script src="/resources/js/Chart.bundle.js"></script>
 	<!-- Chart.js End -->
-	
+	<script src="/resources/js/common.js"></script>
 	<script type="text/javascript">
-	function onPageMove(type){
-		$("#frm").attr({"action" : "/" + type + ".do", "method" : "POST"}).submit();
+	$(function(){
+		scoreAjax();
+	});
+	function scoreAjax(){
+		var frm = $("#frm").serialize();
+		var url = "/getScoreM.json";
+		$.ajax({
+ 			type: "POST",
+ 			url : url,
+ 			dataType: "json",
+ 			data : frm,
+ 			success: function(results){
+ 				var prop = new Object();
+ 				var id = "myChart1";
+ 				var items = results.mediaScore;
+ 				drawChart(items, prop, id);
+ 			},
+ 			error: function(data){
+ 				alert("E" + data);
+ 			},
+ 		})
+	}
+	function onPageMove(url){
+		if(url == "main") url = "/Media/main";
+		$("#frm").attr({"action" : url + ".do", "method" : "POST"}).submit();
 	}
 	</script>
 </head>
@@ -21,6 +44,10 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
+	
+	<form id="frm" name="frm" method="post" >
+		<input type="hidden" name="media_id" id="media_id" value="${media.media_id}"/>
+	</form>
 	
 	<section>
 	<div class="container padt-30">
@@ -76,44 +103,8 @@
 		        <div class="right_wrap">
 		          	<div class="chart_wrap">
 		            	<div class="chart_area">
-		              		<span>언론사</span>
 		              		<div class="chart">
-		              			<!-- Chart.js -->
 		              			<canvas id="myChart1" width="300" height="300"></canvas>
-		              			<script type="text/javascript">
-								var scoreList = JSON.parse('${mediaScore}');
-								var ctx = document.getElementById('myChart1').getContext('2d');
-								
-								var labels = new Array();
-								var data = new Array();
-								for(var i = 0; i < scoreList.length; i++){
-									var item = scoreList[i];
-									labels.push(item.type_nm);
-									data.push(item.score);
-								}
-								var myChart = new Chart(ctx, {
-								    type: 'radar',
-								    data: {
-								        labels: labels,
-								        datasets: [{
-								        	label: '언론사 특성',
-								            data: data,
-								            borderColor : 'rgba(200, 0, 0, 0.1)',
-								            backgroundColor: 'rgba(200, 0, 0, 0.2)'
-								        }
-								        ]
-								    },
-								    options: {
-								    	scale:{
-								    		ticks:{
-								    			beginAtZero: true,
-							// 	    			max :100
-								    		}
-								    	}
-								    }
-								});
-								</script>
-								<!-- Chart.js End -->
 		              		</div>
 		            	</div>
 		          	</div>
@@ -128,7 +119,7 @@
 	          		<h5>최근 등록된 기사</h5>
 	          		<a href="#">전체보기 ></a>
 	        	</div>
-	        	<ul class="news-list">
+	        	<ul class="info-listL">
 	        		<c:choose>
 		        		<c:when test="${fn:length(mediaNewsList) > 0 }">
 		        		<c:forEach items="${mediaNewsList }" var="result">
@@ -147,11 +138,11 @@
 	          		<h5>최근 등록된 기자</h5>
 	          		<a href="#">전체보기 ></a>
 	        	</div>
-	        	<ul class="author-list">
+	        	<ul class="info-listR">
 	        		<c:choose>
 		        		<c:when test="${fn:length(mediaAuthorList) > 0 }">
 		        		<c:forEach items="${mediaAuthorList }" var="result">
-		        			<li><label>${result.author_nm }</label><a href="/a010d${result.author_id }.do">${result.author_email }</a></li>
+		        			<li><a href="/a010d${result.author_id }.do"><label>${result.author_nm }</label>${result.author_email }</a></li>
 		        		</c:forEach>
 		        		</c:when>
 		        		<c:otherwise>
@@ -165,7 +156,7 @@
   	<div class="container">
   		<div class="buttons_wrap">
 	    	<div class="left_group">
-	        	<button type="button" class="btn1" onclick="javascript: onPageMove('Board');">목록</button>
+	        	<button type="button" class="btn1" onclick="javascript: onPageMove('main');">목록</button>
 	        </div>
 	        <div class="right_group">
 	
@@ -177,126 +168,5 @@
 	<footer>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />	    
   	</footer>
-	
-	<h1>언론사 상세</h1>
-	
-	<div class="uk-section">
-    <div class="uk-container" uk-grid>
-      <div class="uk-width-2-3@s" uk-grid>
-        <div class="uk-width-1-1">
-          <h1 class="m-border-b">
-            ${media.media_nm }
-          </h1>
-        </div>
-        <div class="uk-width-1-1">
-          <h4 class="m-border-b"><a href="${media.media_url }" target="_blank">${media.media_url }</a></h4>
-        </div>
-        <div class="uk-width-1-2@s">
-          <h4 class="m-border-b"><b>모하닝에 등록된 기사수</b>&nbsp; &nbsp;${fn:length(mediaNewsList) }</h4>
-        </div>
-        <div class="uk-width-1-2@s">
-          <h4 class="m-border-b"><b>모하닝에 등록된 기자수</b>&nbsp; &nbsp;${fn:length(mediaNewsList) }</h4>
-        </div>
-        <div class="uk-width-1-2@s">
-          <h4 class="m-border-b"><b>평가된 기사수</b>&nbsp; &nbsp;${fn:length(mediaAuthorList) }</h4>
-        </div>
-        <div class="uk-width-1-2@s">
-          <h4 class="m-border-b"><b>평가된 기자수</b>&nbsp; &nbsp;${fn:length(mediaAuthorList) }</h4>
-        </div>
-      </div>
-      <div class="uk-width-1-3@s">
-      	<div class="uk-grid-divider" uk-grid>
-          <div>
-			<!-- Chart.js -->
-			<div style="width: 300px; height: 300px;">
-				<canvas id="myChart1" width="300" height="300"></canvas>
-			</div>
-			<script type="text/javascript">
-			var scoreList = JSON.parse('${mediaScore}');
-			var ctx = document.getElementById('myChart1').getContext('2d');
-			
-			var labels = new Array();
-			var data = new Array();
-			for(var i = 0; i < scoreList.length; i++){
-				var item = scoreList[i];
-				labels.push(item.type_nm);
-				data.push(item.score);
-			}
-			var myChart = new Chart(ctx, {
-			    type: 'radar',
-			    data: {
-			        labels: labels,
-			        datasets: [{
-			        	label: '언론사 특성',
-			            data: data,
-			            borderColor : 'rgba(200, 0, 0, 0.1)',
-			            backgroundColor: 'rgba(200, 0, 0, 0.2)'
-			        }
-			        ]
-			    },
-			    options: {
-			    	scale:{
-			    		ticks:{
-			    			beginAtZero: true,
-		// 	    			max :100
-			    		}
-			    	}
-			    }
-			});
-			</script>
-			<!-- Chart.js End -->          
-          </div>
-        </div>
-      </div>
-      
-    </div>
-    <div class="uk-container" uk-grid>
-    	<div class="uk-width-2-3@s">
-	      <div class="m-border-t ">
-	        <ul class="uk-list uk-link-text uk-margin-small-top">
-	        	<c:choose>
-	        		<c:when test="${fn:length(mediaNewsList) > 0 }">
-	        		<c:forEach items="${mediaNewsList }" var="result">
-	        			<li><a href="/n010d${result.news_id }.do">${result.news_title }</a></li>
-	        		</c:forEach>
-	        		</c:when>
-	        		<c:otherwise>
-	        			<li>등록된 기사가 없습니다.</li>
-	        		</c:otherwise>
-	        	</c:choose>
-	        </ul>
-	      </div>
-          <div>
-          	<button class="uk-button uk-button-primary uk-align-center">전체 기사 보기</button>
-          </div>
-	    </div>
-	    <div class="uk-width-1-3@s">
-	      <div class="m-border-t ">
-	        <ul class="uk-list uk-link-text uk-margin-small-top">
-	        	<c:choose>
-	        		<c:when test="${fn:length(mediaAuthorList) > 0 }">
-	        		<c:forEach items="${mediaAuthorList }" var="result">
-	        			<li><a href="/a010d${result.author_id }.do">${result.author_nm }</a></li>
-	        		</c:forEach>
-	        		</c:when>
-	        		<c:otherwise>
-	        			<li>등록된 기자가 없습니다.</li>
-	        		</c:otherwise>
-	        	</c:choose>
-	        </ul>
-	      </div>
-          <div>
-          	<button class="uk-button uk-button-primary uk-align-center">전체 기자 보기</button>
-          </div>
-	    </div>
-    </div>
-  </div>
-	
-	<input type="button" value="목록" onclick="javascript: onPageMove('Board');" />
-	
-	<!-- Google Charts -->
-<!-- 	<div id="myPieChart"></div> -->
-	<!-- Google Charts End -->
-<!-- 	<input type="button" value="성향등록" id="dialogOpenBtn" /> -->
 </body>
 </html>

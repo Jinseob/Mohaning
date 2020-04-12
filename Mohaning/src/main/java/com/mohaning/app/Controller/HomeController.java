@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.mohaning.app.Model.MHNA010VO;
 import com.mohaning.app.Model.MHNB01001VO;
 import com.mohaning.app.Model.MHNB010VO;
 import com.mohaning.app.Model.MHNC99901VO;
+import com.mohaning.app.Model.MHND010VO;
 import com.mohaning.app.Model.SearchOptionVO;
 
 /**
@@ -43,18 +45,27 @@ public class HomeController {
 		// 0. 현재 이슈 리스트업 10건
 		
 		// 1. 이슈 관련 조회수 가장 많은 기사 5건
+		searchOptionVO.setType("MIX");	// Title, Contents 에 이슈 단어가 있는 경우만 검색. val 에 이슈 단어가 들어가 있음.
+		searchOptionVO.setSort("03");
+		searchOptionVO.setLegnth(5);
 		@SuppressWarnings("unchecked")
-		List<MHNB010VO> issueTopNewsList = (List<MHNB010VO>) dao.selectList("n010.issueTopNewsList", searchOptionVO);
+		List<MHNB010VO> issueTopNewsList = (List<MHNB010VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
 		model.addAttribute("issueTopNewsList", issueTopNewsList);
 		
 		// 2. 이슈 관련 조회수 가장 많은 토론 5건
+		searchOptionVO.setType("MIX");	// Title, Contents 에 이슈 단어가 있는 경우만 검색.  val 에 이슈 단어가 들어가 있음.
+		searchOptionVO.setSort("03");
+		searchOptionVO.setLegnth(5);
 		@SuppressWarnings("unchecked")
-		List<MHNB01001VO> issueTopBoardList = (List<MHNB01001VO>) dao.selectList("b010.issueTopBoardList", searchOptionVO);
+		List<MHNB01001VO> issueTopBoardList = (List<MHNB01001VO>) dao.selectList("b010.selectBoardList", searchOptionVO);
 		model.addAttribute("issueTopBoardList", issueTopBoardList);
 		
 		// 3. 이슈 관련 신규 토론 5건
+		searchOptionVO.setType("MIX");	// Title, Contents 에 이슈 단어가 있는 경우만 검색. val 에 이슈 단어가 들어가 있음.
+		searchOptionVO.setSort("01");
+		searchOptionVO.setLegnth(5);
 		@SuppressWarnings("unchecked")
-		List<MHNB01001VO> issueNewBoardList = (List<MHNB01001VO>) dao.selectList("b010.issueNewBoardList", searchOptionVO);
+		List<MHNB01001VO> issueNewBoardList = (List<MHNB01001VO>) dao.selectList("b010.selectBoardList", searchOptionVO);
 		model.addAttribute("issueNewBoardList", issueNewBoardList);
 		
 		// 4. 평가 많은 기자 3명
@@ -77,24 +88,36 @@ public class HomeController {
 		model.addAttribute("mediaList", mediaList);
 		
 		// 7. 조회 수 높은 기사 10건
+		searchOptionVO.setType("");
+		searchOptionVO.setSort("03");
+		searchOptionVO.setLegnth(10);
 		@SuppressWarnings("unchecked")
-		List<MHNB010VO> topNewsList = (List<MHNB010VO>) dao.selectList("n010.selectTopNewsList", searchOptionVO);
+		List<MHNB010VO> topNewsList = (List<MHNB010VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
 		model.addAttribute("topNewsList", topNewsList);
 		
 		// 8. 조회 수 높은 토론 10건
-		@SuppressWarnings("unchecked")
-		List<MHNB01001VO> topBoardList = (List<MHNB01001VO>) dao.selectList("b010.selectTopBoardList", searchOptionVO);
-		model.addAttribute("topBoardList", topBoardList);
+//		searchOptionVO.setType("");
+//		searchOptionVO.setSort("03");
+//		searchOptionVO.setLegnth(10);
+//		@SuppressWarnings("unchecked")
+//		List<MHNB01001VO> topBoardList = (List<MHNB01001VO>) dao.selectList("b010.selectBoardList", searchOptionVO);
+//		model.addAttribute("topBoardList", topBoardList);
 		
 		// 9. 최신 기사 10건
+		searchOptionVO.setType("");
+		searchOptionVO.setSort("01");
+		searchOptionVO.setLegnth(10);
 		@SuppressWarnings("unchecked")
-		List<MHNB010VO> newsList = (List<MHNB010VO>) dao.selectList("n010.selectNewNewsList", searchOptionVO);
+		List<MHNB010VO> newsList = (List<MHNB010VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
 		model.addAttribute("newNewsList", newsList);
 		
 		// 10. 최신 토론 10건
-		@SuppressWarnings("unchecked")
-		List<MHNB01001VO> boardList = (List<MHNB01001VO>) dao.selectList("b010.selectNewBoardList", searchOptionVO);
-		model.addAttribute("newBoardList", boardList);
+//		searchOptionVO.setType("");
+//		searchOptionVO.setSort("01");
+//		searchOptionVO.setLegnth(10);
+//		@SuppressWarnings("unchecked")
+//		List<MHNB01001VO> boardList = (List<MHNB01001VO>) dao.selectList("b010.selectBoardList", searchOptionVO);
+//		model.addAttribute("newBoardList", boardList);
 		
 		return "main";
 	}

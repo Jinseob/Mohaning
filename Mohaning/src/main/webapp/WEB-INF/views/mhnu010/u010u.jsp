@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>기사</title>
+	<title>모하닝</title>
 	<jsp:include page="/WEB-INF/views/common/taglib.jsp" />
 	<script type="text/javascript">
 // 	function onNewsRegisterAjax(){

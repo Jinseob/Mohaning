@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>기사</title>
+	<title>모하닝</title>
 	<jsp:include page="/WEB-INF/views/common/taglib.jsp" />
 	<script type="text/javascript">
 	function onLoginBtn(){
@@ -51,31 +51,42 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
-	<h1>로그인</h1>
-
-	<div class="uk-section">
-  	<div class="uk-container">
-  	<form id="frm" name="frm" method="post" >
-    	<fieldset class="uk-fieldset">
-        <div class="uk-grid-small" uk-grid>
-                <input class="uk-input uk-width-1-1" type="text" name="email" id="email" placeholder="E-mail" autocomplete="off"/>
-                <input class="uk-input uk-width-1-1" type="password" name="psw" id="psw" placeholder="Password" autocomplete="off"/>
-	            <button type="button" class="uk-button uk-button-primary uk-width-1-1 loginBtn">로그인</button>
-        		<div class="uk-width-1-1">
-	        		<input class="uk-checkbox" type="checkbox">자동 로그인</input>
-        		</div>
-	            <div class="uk-grid-divider uk-child-width-expand@s uk-text-center" uk-grid>
-					<label>
+	
+	<section>
+	<div class="container padt-40">
+		<div class="contents_type">
+  			<h5>로그인</h5>
+		</div>
+		<form id="frm" name="frm" method="post" >
+   			<div class="login_wrap">
+   				<div class="loginForm">
+   					<div class="row">
+	        			<input type="text" class="in_id" name="email" id="email" placeholder="E-mail" autocomplete="off"/>
+	      			</div>
+	      			<div class="row">
+	        			<input type="password" class="in_passwd" name="psw" id="psw" placeholder="Password" autocomplete="off"/>
+	      			</div>
+	      			<div class="row">
+	        			<button type="button" class="login_btn">로그인</button>
+	      			</div>
+	      			<div class="row">
+		        		<input type="checkbox" id="chkItem1">
+           				<label for="chkItem1">자동 로그인</label>
+	        		</div>
+	        		<div class="spacer-horizontal-line"></div>
+		            <div class="row">
 						<a href="/resetPsw.do" >비밀번호 찾기</a>
-					</label>
-					<label>
+						<div class="spacer-vertical-line"></div>
 						<a href="/signUp.do" >회원가입</a>
-					</label>
+		            </div>
 	            </div>
-        </div>
-      	</fieldset>
-    </form>
-  	</div>
-  	</div>
+   			</div>
+   		</form>
+	</div>
+  	</section>
+	
+	<footer>
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />	    
+  	</footer>	
 </body>
 </html>

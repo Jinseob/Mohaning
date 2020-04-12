@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>기사</title>
+	<title>모하닝</title>
 	<jsp:include page="/WEB-INF/views/common/taglib.jsp" />
 	<script type="text/javascript">
 // 	function onNewsRegisterAjax(){
@@ -83,7 +83,8 @@
 		}
 	}
 	
-	function onPageMove(type){
+	function onPageMove(url){
+		if(url = "main") url = "/News/main";
 		$("#frm").attr({"action" : "/" + type + ".do", "method" : "POST"}).submit();
 	}
 	</script>
@@ -112,7 +113,7 @@
         <div class="uk-grid-small" uk-grid>
           	<p uk-margin>
 	            <button type="button" class="uk-button uk-button-default" onclick="onRegisterBtn();">등록</button>
-	            <button type="button" class="uk-button uk-button-default" onclick="onPageMove('News');">취소</button>
+	            <button type="button" class="uk-button uk-button-default" onclick="onPageMove('main');">취소</button>
 <!-- 	            <button class="uk-button uk-button-primary">발행</button> -->
           	</p>
             <div class="uk-width-1-1">

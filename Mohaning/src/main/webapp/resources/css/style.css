@@ -219,7 +219,7 @@
 }
 
 .search-wrapper input[type=text] {
-  padding: 12px 16px;
+  padding: 10px 16px;
   border: none;
   border-top: 1px solid #ffffff;
   border-bottom : 1px solid #222222;
@@ -242,7 +242,7 @@
   display: inline-block;
   border-bottom : 1px solid #222222;
   width: 160px;
-  padding: 12px 16px;
+  padding: 10px 16px;
 }
 .dropbtn {
   color: #222222;
@@ -296,13 +296,17 @@
   background-color: #222222;
 }
 .popular-news-list{
-  margin-top: 2rem;
+  margin-top: 2.4rem;
+  margin-bottom: 4rem;
 }
 .news-list-title{
-  margin-bottom: 1rem;
+  margin-bottom: 1.6rem;
 }
 .news-list-title a{
-  line-height: 2.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
 }
 .news-list-title label{
   font-size: 1.6rem;
@@ -619,30 +623,31 @@
 }
 .media_wrap > div:last-child{
   width: 66.6%;
+/*   padding: 12px; */
+  padding: 0 12px;
   border-right: 0;
 }
-.media_row{
-  display: flex;
-  position: relative;
-  justify-content: center;
+.media_table{
+	border-collapse: collapse;
+	margin-top: 3px;
 }
-.media_row:first-child{
-  margin-top: 12px;
-}
-.media_row a{
-  padding: 8px;
-  width: 80px;
+.media_table td{
+/*   padding: 8px; */
+/*   width: 80px; */
+  width: 96px;
+  height: 41px;
   text-align: center;
-  border-left: 0.1rem solid black;
-  border-top: 0.1rem solid black;
+  border: 0.1rem solid black;
 }
-.media_row a:last-child{
-  border-right: 0.1rem solid black;
+.media_table .active{
+	background-color: black;
+/* 	color: #EF8126; */
 }
-.media_row:last-child a{
-  border-bottom: 0.1rem solid black;
+.media_table .active a{
+	color: #EF8126;
+	font-weight: bold;
 }
-.media_row a:hover{
+.media_table td:hover{
   background-color: grey;
 }
 
@@ -652,8 +657,26 @@
   display: flex;
   justify-content: space-between;
 }
+.main-news-list .news-list-title{
+	margin-bottom: 16px;
+}
+.main-news-list .news-list-title a{
+  max-height: 4.3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* spacer */
 .spacer-vertical{
   margin: 0 5px;
+}
+.spacer-vertical-line{
+  margin: 5px 0;
+  border: 0.1rem solid gray;
 }
 .spacer-horizontal{
   padding: 5px 0;
@@ -662,6 +685,7 @@
   margin: 5px 0;
   border: 0.1rem solid gray;
 }
+
 
 /* Property */
 .property_items{
@@ -804,7 +828,7 @@
 }
 
 .custom-select select {
-  display: none; /*hide original SELECT element:*/
+/*   display: none; hide original SELECT element: */
 }
 
 .custom-select select > option{
@@ -917,16 +941,19 @@
 }
 
 /* Author part in Media */
-.info_wrap .author-list{
-  margin-top: 2rem;
+.info_wrap .info-listR{
+  margin-top: 1rem;
+  display: grid;
 }
-.info_wrap .author-list li{
-  margin-bottom: 1rem;
+.info_wrap .info-listR li{
+/* 	width: 100%; */
+/* 	display: grid; */
+/*   margin-bottom: 1rem; */
 }
-.info_wrap .author-list li a{
+.info_wrap .info-listR li a{
   line-height: 2.5rem;
 }
-.info_wrap .author-list li label{
+.info_wrap .info-listR li label{
   font-size: 1.6rem;
   font-weight: 700;
   color: #D25A49;
@@ -938,20 +965,21 @@
 }
 
 /* News part in Media */
-.info_wrap .news-list{
-  margin-top: 2rem;
+.info_wrap .info-listL{
+  margin-top: 1rem;
+  display: grid;
 }
-.info_wrap .news-list li{
-  margin-bottom: 1rem;
+.info_wrap .info-listL li{
+/*   margin-bottom: 1rem; */
 }
-.info_wrap .news-list li a{
+.info_wrap .info-listL li a{
   line-height: 2.5rem;
   text-overflow: ellipsis;
   overflow: hidden;
   display: block;
   white-space: nowrap;
 }
-.info_wrap .news-list li label{
+.info_wrap .info-listL li label{
   font-size: 1.6rem;
   font-weight: 700;
   color: #D25A49;
@@ -960,4 +988,99 @@
   /* width: 3rem; */
   height: 3rem;
   margin-right:1rem;
+}
+
+/* Login Form */
+.login_wrap{
+	display: flex;
+	justify-content: center;
+}
+.loginForm{
+	width: 300px;
+}
+.loginForm .row{
+/*   display: flex; */
+/*   justify-content: center; */
+  padding: 5px;
+}
+.loginForm .row > .in_id, .loginForm .row > .in_passwd{
+    width: 100%;
+    height: 40px;
+}
+.loginForm .row > button{
+    width: 294px;
+    height: 44px;
+}
+.loginForm .row > button{
+  border: 1px solid #222222;
+/*   padding: 12px 16px; */
+  cursor: pointer;
+}
+.loginForm .row > button:hover{
+  color: white;
+  background-color: #222222;
+}
+.loginForm .row > input[type=checkbox]{
+	width : 20px;
+	height: 20px;
+	
+}
+.loginForm .row > input[type=checkbox] + label{
+	font-size: 1.6rem;
+}
+.loginForm .row:last-child {
+	display:flex;
+	justify-content: center;
+}
+.loginForm .row:last-child a{
+	margin: 0 10px;
+}
+
+/* signup Form */
+.signup_wrap{
+	display: flex;
+	justify-content: center;
+}
+.signupForm{
+	width: 450px;
+}
+.signupForm .row{
+  padding: 5px;
+}
+.signupForm .row .in_type1{
+	height: 40px;
+	width: 330px;
+}
+.signupForm .row .in_type2{
+	height: 40px;
+	width: 436px;
+}
+.signupForm .row > button{
+    height: 44px;
+}
+.signupForm .row > button{
+  border: 1px solid #222222;
+/*   padding: 12px 16px; */
+  cursor: pointer;
+}
+.signupForm .row > button:hover{
+  color: white;
+  background-color: #222222;
+}
+.signupForm .row:last-child{
+  display: flex;
+  justify-content: space-between;
+}
+/* .signupForm .row > .in_id, .signupForm .row > .in_passwd{ */
+/*     width: 100%; */
+/*     height: 50px; */
+/* } */
+
+/* aList */
+.alist_row{
+	display: flex;
+}
+.alist_row .alist_item{
+	width: 100px;
+	height: 50px;
 }

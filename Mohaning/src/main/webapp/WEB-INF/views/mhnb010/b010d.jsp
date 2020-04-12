@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>기사</title>
+	<title>모하닝</title>
 	<jsp:directive.include file="/WEB-INF/views/common/taglib.jsp" />
 	<link rel="stylesheet" href="/resources/css/jquery-ui.css" />
 	<script src="/resources/js/jquery-ui.js"></script>
@@ -72,7 +72,7 @@
 						$("#media_url").val(result.media_url);
 					}else if(results.type == "OCC"){
 						if(confirm(result.news_id + " 번으로 등록된 뉴스가 있습니다.\n이동하시겠습니까?")){
-							onPageMove("a010d" + result.news_id);					
+							onPageMove("/Author/a010d" + result.news_id);					
 						}
 					}
 				},
@@ -98,7 +98,7 @@
 				data : frm,
 				success: function(results){
 					alert("성공 저장 완료.");
-					onPageMove("b010d" + results.mhnr010VO.board_id);
+					onPageMove("/Board/b010d" + results.mhnr010VO.board_id);
 				},
 				error: function(data){
 					alert("E" + data);
@@ -107,8 +107,9 @@
 		}
 	}
 	
-	function onPageMove(type){
-		$("#frm").attr({"action" : "/" + type + ".do", "method" : "POST"}).submit();
+	function onPageMove(url){
+		if(url == "main") url = "/Board/main";
+		$("#frm").attr({"action" : url + ".do", "method" : "POST"}).submit();
 	}
 	</script>
 	<style>
@@ -324,7 +325,7 @@
 			</div>
 		    <div class="buttons_wrap">
 		    	<div class="left_group">
-		        	<button type="button" class="btn1" onclick="javascript: onPageMove('Board');">목록</button>
+		        	<button type="button" class="btn1" onclick="javascript: onPageMove('main');">목록</button>
 		        </div>
 		        <div class="right_group">
 		

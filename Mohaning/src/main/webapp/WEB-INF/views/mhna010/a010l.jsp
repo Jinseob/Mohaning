@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>기사</title>
+	<title>모하닝</title>
 	<jsp:directive.include file="/WEB-INF/views/common/taglib.jsp" />
 	<script type="text/javascript">
 
@@ -14,96 +14,68 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
-	<h1>기자 메인</h1>
-	<div class="uk-section">
-	  	<div class="uk-container">
-	    	<div class="uk-align-left">
-	        	<div uk-form-custom="target: > * > span:first-child">
-		            <select>
-		                <option value="">제목</option>
-		                <option value="1">제목+내용</option>
-		                <option value="2">기사</option>
-		            </select>
-		            <button class="uk-button uk-button-default" type="button" tabindex="-1">
-		                <span></span>
-		                <span uk-icon="icon: chevron-down"></span>
-		            </button>
-	        	</div>
-		        <form id="frm" name="frm" class="uk-search uk-search-default ">
-		        	<input type="hidden" name="news_id" id="news_id" />
-		            <a href="" class="uk-search-icon-flip" uk-search-icon></a>
-		            <input class="uk-search-input" type="search" placeholder="Search...">
-		        </form>
-	      	</div>
-	      	<div class="uk-align-right m-border" style="margin-top:-3rem; padding:1rem">
-	      		<div class="uk-text-center">홍길동</div>
-	        	<div class="uk-margin-small-top">
-		        	<button class="uk-button uk-button-default">내 소식</button>
-		          	<button class="uk-button uk-button-default">내가 남긴 글</button>
-		            <button class="uk-button uk-button-default">내가 남긴 댓글</button>
-		        </div>
-			</div>
-	  	</div>
-	  	<div class="uk-container uk-margin-small-top">
-		    <div class="" uk-grid>
-		      	<ul class="uk-subnav uk-subnav-divider" style="margin-left:20px;" uk-margin>
-			        <li class="uk-active"><a href="#">제보일순</a></li>
-			        <li><a href="#">작성일순</a></li>
-			        <li><a href="#">평가순</a></li>
-			        <li><a href="#">조회순</a></li>
-		      	</ul>
-		      	<div class="uk-navbar-right" uk-form-custom="target: > * > span:first-child">
-			        <select>
-			        	<option value="">성향별</option>
-			            <option value="1">000</option>
-			            <option value="2">000</option>
-			        </select>
-			        <button class="uk-button uk-button-default" type="button" tabindex="-1">
-			            <span></span>
-			            <span uk-icon="icon: chevron-down"></span>
-			        </button>
-			    </div>
-		    </div>
-		    <div class="m-border-t ">
-		    	<ul class="uk-list uk-link-text uk-margin-small-top uk-margin-small-left">
-		    		<c:choose>
-						<c:when test="${fn:length(resultList) > 0 }">
-						<c:forEach items="${resultList }" var="result">
-							<li>
-								<a href="/a010d${result.author_id }.do">${result.author_nm }</a>
-								<a href="/c010d${result.media_id }.do"><b>${result.media_nm }</b></a>
-							</li>
-						</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<li>데이터가 없습니다.</li>
-						</c:otherwise>
-					</c:choose>
-		    	</ul>
-		    </div>
-		    <div class="uk-container"uk-grid>
-		    	<div class="uk-align-center uk-margin-small-top">
-			        <ul class="uk-pagination">
-			        	<li><a href="#"><span uk-pagination-previous></span></a></li>
-			        	<li><a href="#">1</a></li>
-			        	<li class="uk-disabled"><span>...</span></li>
-			        	<li><a href="#">4</a></li>
-			        	<li><a href="#">5</a></li>
-			        	<li><a href="#">6</a></li>
-			        	<li class="uk-active"><span>7</span></li>
-			        	<li><a href="#">8</a></li>
-			        	<li><a href="#">9</a></li>
-			        	<li><a href="#">10</a></li>
-			        	<li class="uk-disabled"><span>...</span></li>
-			        	<li><a href="#">20</a></li>
-			        	<li><a href="#"><span uk-pagination-next></span></a></li>
-			      	</ul>
+		
+	<section>
+	<!-- Search -->
+	<div class="container">
+    	<div class="row">
+        	<form id="frm" name="frm">
+      		<div class="search-wrapper">
+        		<jsp:include page="/WEB-INF/views/common/search.jsp" />
+      		</div>
+          	</form>
+    	</div>
+  	</div>
+	
+	<div class="container">
+		<div class="contents_type">
+	   		<h5>기자 목록</h5>
+	     	<div class="filters_wrap">
+	       		<div class="custom-select">
+	         		<select id="sortType">
+           				<option value="01" <c:if test="${searchOptionVO.sort eq '01' }">selected</c:if>>등록일최신순</option>
+           				<option value="02" <c:if test="${searchOptionVO.sort eq '02' }">selected</c:if>>등록일과거순</option>
+           				<option value="03" <c:if test="${searchOptionVO.sort eq '03' }">selected</c:if>>조회수높은순</option>
+           				<option value="04" <c:if test="${searchOptionVO.sort eq '04' }">selected</c:if>>조회수낮은순</option>
+<!-- 	           			<option value="S13">댓글순</option> -->
+<!-- 	           			<option value="S14">평가순</option> -->
+         			</select>
+	       		</div>
+	     	</div>
+	   	</div>
+	   	<div class="alist_wrap">
+	   	<c:choose>
+			<c:when test="${fn:length(resultList) > 0 }">
+			<c:forEach items="${resultList }" var="result" varStatus="status">
+			<c:if test="${status.count % 9 eq 1 }">
+			<div class="alist_row">
+			</c:if>
+	   			<div class="alist_item">
+	   				<div class="top">
+	   					<a href="/Author/a010d${result.author_id }.do"><b>${result.author_nm }</b></a>
+	   				</div>
+	   				<div class="bottom">
+						<a href="/Media/c010d${result.media_id }.do">${result.media_nm }</a>	   			
+	   				</div>
+	   			</div>
+	   		<c:if test="${status.count % 9 eq 0 }">
+	   		</div>
+			</c:if>
+	   		</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<div class="alist_empty">
+					<span>데이터가 없습니다.</span>
 				</div>
-			    <div>
-			    	<button class="uk-button uk-button-primary uk-align-center" type="button" onclick="javascript: onPageMove('I')">제보하기</button>
-			    </div>
-			</div>
-		</div>
+			</c:otherwise>
+		</c:choose>
+	   	</div>
 	</div>
+	</section>
+	
+<!-- 	<script src="/resources/js/dropDown.js"></script> -->
+  	<footer>
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />	    
+  	</footer>
 </body>
 </html>

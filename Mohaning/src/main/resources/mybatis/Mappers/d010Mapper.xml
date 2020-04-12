@@ -39,7 +39,7 @@
 	  	 ORDER BY b.media_id, b.type_cd
 	</select>
 	<select id="selectAuthorScore" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHND010VO">
-		SELECT a.type_cd, b.author_id, b.score
+		SELECT a.type_cd, a.type_nm, b.author_id, b.score
 		  FROM mhnc91001tb a
 		  LEFT JOIN ( SELECT author_id, type_cd, SUM(score) AS score
 			            FROM mhnd01001tb
@@ -49,7 +49,7 @@
 		    ON a.type_cd = b.type_cd
 	</select>
 	<select id="selectMediaScore" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHND010VO">
-		SELECT a.type_cd, b.media_id, b.score
+		SELECT a.type_cd, a.type_nm, b.media_id, b.score
 		  FROM mhnc91001tb a
 		  LEFT JOIN ( SELECT media_id, type_cd, SUM(score) AS score
 			            FROM mhnd01001tb

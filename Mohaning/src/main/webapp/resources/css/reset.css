@@ -42,6 +42,7 @@ header{
 }
 section{
   background-color: #ffffff;
+  min-height: calc(100vh - 141px);/* Header = 52px, footer = 89px */
 }
 footer{
   background-color: black;
@@ -60,6 +61,10 @@ footer{
 .mt-10{
   margin-top: 10px !important;
 }
+.mv-20{
+	margin: 0 20px !important;
+}
+
 
 /* Padding */
 .padt-40{

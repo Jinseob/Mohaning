@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>기사</title>
+	<title>모하닝</title>
 	<jsp:directive.include file="/WEB-INF/views/common/taglib.jsp" />
 <!-- 	<link rel="stylesheet" href="/resources/css/jquery-ui.css" /> -->
 <!-- 	<script src="/resources/js/jquery-ui.js"></script> -->
@@ -36,14 +36,20 @@
 	<script src="/resources/js/Chart.bundle.js"></script>
 	<!-- Chart.js End -->
 	
+	<script src="/resources/js/common.js"></script>
 	<script type="text/javascript">
-	
 	$(function(){
-		$("#dialogOpenBtn").button().on("click", function(){
-			dialog.dialog("open");
-		});
+		// Chart 넣는 부분.
+		var newsScore = JSON.parse('${newsScore}');
+		var authorScore = JSON.parse('${authorScore}');
+		var mediaScore = JSON.parse('${mediaScore}');
+		var prop = new Object();
+		drawChart(newsScore, prop, "myChart1");
+		drawChart(authorScore, prop, "myChart2");
+		drawChart(mediaScore, prop, "myChart3");
+		// Chart 넣는 부분. 여기까지.
 		
-		$("#saveBtn").button().on("click", function(){
+		$("#saveBtn").on("click", function(){
 			onSaveBtn();
 		});
 	})
@@ -68,7 +74,7 @@
 						$("#media_url").val(result.media_url);
 					}else if(results.type == "OCC"){
 						if(confirm(result.news_id + " 번으로 등록된 뉴스가 있습니다.\n이동하시겠습니까?")){
-							onPageMove("a010d" + result.news_id);					
+							onPageMove("/Author/a010d" + result.news_id);					
 						}
 					}
 				},
@@ -81,10 +87,12 @@
 		}
 	}
 	
-	function onPageMove(type){
-		$("#frm").attr({"action" : "/" + type + ".do", "method" : "POST"}).submit();
+	function onPageMove(url){
+		if(url = "main") url = "/News/main";
+		$("#frm").attr({"action" : url + ".do", "method" : "POST"}).submit();
 	}
 	</script>
+	
 	<style>
 /* 	#propensity > div{ */
 /* 		width: 700px; */
@@ -233,7 +241,7 @@
         	</div>
 		    <div class="buttons_wrap">
 		    	<div class="left_group">
-		        	<button type="button" class="btn1" onclick="javascript: onPageMove('Board');">목록</button>
+		        	<button type="button" class="btn1" onclick="javascript: onPageMove('main');">목록</button>
 		        </div>
 		        <div class="right_group">
 					<button type="button" class="btn1" id="saveBtn">평가</button>
@@ -242,112 +250,6 @@
 		</div>
 	</div>
 	
-			<!-- Chart.js -->
-<!-- 			<div style="width: 300px; height: 300px;"> -->
-<!-- 				<canvas id="myChart1" width="300" height="300"></canvas> -->
-<!-- 			</div> -->
-			<script type="text/javascript">
-			var scoreList = JSON.parse('${score}');
-			var ctx = document.getElementById('myChart1').getContext('2d');
-			
-			var labels = new Array();
-			var data = new Array();
-			for(var i = 0; i < scoreList.length; i++){
-				var item = scoreList[i];
-				labels.push(item.type_nm);
-				data.push(item.score);
-			}
-			var myChart = new Chart(ctx, {
-			    type: 'radar',
-			    data: {
-			        labels: labels,
-			        datasets: [{
-			        	label: '기사 특성',
-			            data: data,
-			            borderColor : 'rgba(200, 0, 0, 0.1)',
-			            backgroundColor: 'rgba(200, 0, 0, 0.2)'
-			        }
-			        ]
-			    },
-			    options: {
-			    	scale:{
-			    		ticks:{
-			    			beginAtZero: true,
-		// 	    			max :100
-			    		}
-			    	}
-			    }
-			});
-			</script>
-			<!-- Chart.js End -->          
-			<script type="text/javascript">
-			var scoreList = JSON.parse('${score}');
-			var ctx = document.getElementById('myChart2').getContext('2d');
-			
-			var labels = new Array();
-			var data = new Array();
-			for(var i = 0; i < scoreList.length; i++){
-				var item = scoreList[i];
-				labels.push(item.type_nm);
-				data.push(item.score);
-			}
-			var myChart = new Chart(ctx, {
-			    type: 'radar',
-			    data: {
-			        labels: labels,
-			        datasets: [{
-			        	label: '기자 특성',
-			            data: data,
-			            borderColor : 'rgba(200, 0, 0, 0.1)',
-			            backgroundColor: 'rgba(200, 0, 0, 0.2)'
-			        }
-			        ]
-			    },
-			    options: {
-			    	scale:{
-			    		ticks:{
-			    			beginAtZero: true,
-		// 	    			max :100
-			    		}
-			    	}
-			    }
-			});
-			</script>
-			<!-- Chart.js End -->
-			<script type="text/javascript">
-			var scoreList = JSON.parse('${score}');
-			var ctx = document.getElementById('myChart3').getContext('2d');
-			
-			var labels = new Array();
-			var data = new Array();
-			for(var i = 0; i < scoreList.length; i++){
-				var item = scoreList[i];
-				labels.push(item.type_nm);
-				data.push(item.score);
-			}
-			var myChart = new Chart(ctx, {
-			    type: 'radar',
-			    data: {
-			        labels: labels,
-			        datasets: [{
-			        	label: '언론사 특성',
-			            data: data,
-			            borderColor : 'rgba(200, 0, 0, 0.1)',
-			            backgroundColor: 'rgba(200, 0, 0, 0.2)'
-			        }
-			        ]
-			    },
-			    options: {
-			    	scale:{
-			    		ticks:{
-			    			beginAtZero: true,
-		// 	    			max :100
-			    		}
-			    	}
-			    }
-			});
-			</script>
-			<!-- Chart.js End -->
 	<!-- List -->
   	<div class="container">
 		<div class="column-wrapper">
@@ -361,7 +263,7 @@
 						<c:forEach items="${boardList }" var="result">
 							<li class="news-list-title">
 								<label>298</label>
-								<a href="/b010d${result.board_id }.do">${result.title }</a>
+								<a href="/Board/b010d${result.board_id }.do">${result.title }</a>
 							</li>
 						</c:forEach>
 						</c:when>

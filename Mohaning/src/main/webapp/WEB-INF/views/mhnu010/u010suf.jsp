@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>기사</title>
+	<title>모하닝</title>
 	<jsp:include page="/WEB-INF/views/common/taglib.jsp" />
 	<script type="text/javascript">
 	function onRegisterBtn(){
@@ -79,69 +79,46 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
-	<h1>회원 가입</h1>
-
-	<div class="uk-section">
-	  	<div class="uk-container">
-		  	<form class="uk-form-horizontal" id="frm" name="frm" method="post" >
-		  		<input type="hidden" name="type" id="type" />
-		    	<fieldset class="uk-fieldset">
-			        <div class="uk-flex uk-flex-center uk-margin-small">
-			        	<div class="uk-width-1-4">
-			            	<label class="uk-form-label" for="email">메일주소</label>
-			        	</div>
-			            <div class="uk-width-expand">
-			               	<input class="uk-input" type="text" name="email" id="email" placeholder="E-mail" autocomplete="off">
-			            </div>
-			            <div class="uk-width-auto uk-child-width-expand@s">
-			               	<button type="button" class="uk-button uk-button-primary chkBtn" data-Property="email">인증</button>
-			            </div>
-					</div>
-			        <div class="uk-flex uk-flex-center uk-margin-small">
-			            <div class="uk-width-1-4">
-			              	<label class="uk-form-label" for="emailAct">인증번호</label>
-			            </div>
-			            <div class="uk-width-expand">
-			            	<input class="uk-input" type="text" name="emailAct" id="emailAct" placeholder="인증번호" autocomplete="off">
-			            </div>
-			            <div class="uk-width-auto uk-child-width-expand@s">
-			              	<button type="button" class="uk-button uk-button-primary chkBtn" data-Property="emailAct">활성</button>
-			            </div>
-					</div>
-			        <div class="uk-flex uk-flex-center uk-margin-small">
-			            <div class="uk-width-1-4">
-			            	<label class="uk-form-label" for="nickName">닉네임</label>
-			            </div>
-			            <div class="uk-width-expand">
-			               	<input class="uk-input" name="nickName" id="nickName" type="text" placeholder="닉네임" autocomplete="off">
-			            </div>
-			            <div class="uk-width-auto uk-child-width-expand@s">
-			               	<button type="button" class="uk-button uk-button-primary chkBtn" data-Property="nickName">중복확인</button>
-			            </div>
-					</div>
-			        <div class="uk-flex uk-flex-center uk-margin-small">
-			        	<div class="uk-width-1-4">
-			                <label class="uk-form-label" for="psw">비밀번호</label>
-			            </div>
-			            <div class="uk-width-expand">
-			                <input class="uk-input" name="psw" id="psw" type="password" placeholder="비밀번호">
-			            </div>
-					</div>
-			        <div class="uk-flex uk-flex-center uk-margin-small">
-			        	<div class="uk-width-1-4">
-			            	<label class="uk-form-label" for="pswConfirm">비밀번호 확인</label>
-			            </div>
-			            <div class="uk-width-expand">
-			                <input class="uk-input" name=pswConfirm id="pswConfirm" type="password" placeholder="비밀번호 확인">
-			            </div>
-			    	</div>
-			        <p class="uk-align-right" uk-margin>
-			        	<button type="button" class="uk-button uk-button-default" onclick="javascript: onPageMove();">취소</button>
-			            <button type="button" class="uk-button uk-button-primary" onclick="javascript: onRegisterBtn();">가입하기</button>
-			        </p>
-		    	</fieldset>
-		    </form>
-	  	</div>
-  	</div>
+	
+	<section>
+	<div class="container padt-40">
+		<div class="contents_type">
+   			<h5>회원 가입</h5>
+		</div>
+		<form id="frm" name="frm" method="post" >
+			<input type="hidden" name="type" id="type" />
+   			<div class="signup_wrap">
+   				<div class="signupForm">
+   					<div class="row">
+	        			<input class="in_type1" type="text" name="email" id="email" placeholder="E-mail" autocomplete="off">
+	        			<button type="button" class="btn1" data-Property="email">인증</button>
+	      			</div>
+	      			<div class="row">
+	        			<input class="in_type1" type="text" name="emailAct" id="emailAct" placeholder="인증번호" autocomplete="off">
+	        			<button type="button" class="btn1" data-Property="emailAct">활성</button>
+	      			</div>
+	      			<div class="row">
+	        			<input class="in_type1" name="nickName" id="nickName" type="text" placeholder="닉네임" autocomplete="off">
+	        			<button type="button" class="btn1" data-Property="nickName">확인</button>
+	      			</div>
+	      			<div class="row">
+	        			<input class="in_type2" name="psw" id="psw" type="password" placeholder="비밀번호">
+	      			</div>
+	      			<div class="row">
+	        			<input class="in_type2" name=pswConfirm id="pswConfirm" type="password" placeholder="비밀번호 확인">
+	      			</div>
+	      			<div class="row">
+		      			<button type="button" class="btn1" onclick="javascript: onPageMove();">취소</button>
+			            <button type="button" class="btn1" onclick="javascript: onRegisterBtn();">가입하기</button>
+	      			</div>
+	            </div>
+   			</div>
+   		</form>
+	</div>
+  	</section>
+	
+	<footer>
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />	    
+  	</footer>
 </body>
 </html>

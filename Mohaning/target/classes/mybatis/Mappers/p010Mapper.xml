@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis -->	
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ibatis -->
+<!-- <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
+
+<mapper namespace="p010">
+	<insert id="insertPortal" parameterType="com.mohaning.app.Model.MHNN01001VO">
+		INSERT INTO mhnp01001tb(
+			PORTAL_ID,
+			MEDIA_ID,
+			NEWS_ID,
+			DOC_ID,
+			PORTAL_URL,
+			REG_ID,
+			REG_DT
+		)VALUES(
+			#{portal_id},
+			#{media_id},
+			#{news_id},
+			#{doc_id},
+			#{portal_url},
+			'admin',
+			now()
+		)
+	</insert>
+	
+	<!-- 상세에 따른 포털 목록 -->
+	<select id="selectPortalByNewsCnt" parameterType="com.mohaning.app.Model.MHNN01001VO" resultType="Integer">
+		SELECT COUNT(*)
+		  FROM mhnp01001tb
+		 WHERE news_id = #{news_id}
+		   AND doc_id = #{doc_id}
+		   AND media_id = #{media_id}
+		   AND portal_id = #{portal_id}
+	</select>
+	
+	<!-- 상세에 따른 포털 목록 -->
+	<select id="selectPortalByNews" parameterType="com.mohaning.app.Model.MHNN01001VO" resultType="com.mohaning.app.Model.MHNP01001VO">
+		SELECT a.portal_id,
+		       a.news_id,
+		       a.doc_id,
+		       a.media_id,
+		       b.media_nm AS portal_nm,
+		       a.portal_url,
+		       a.clk_cnt
+		  FROM mhnp01001tb AS a
+		  LEFT JOIN mhnc99901tb AS b
+		    ON a.portal_id = b.media_id
+		 WHERE a.news_id = #{news_id}
+		   AND a.doc_id = #{doc_id}
+		   AND a.media_id = #{media_id}
+	</select>
+</mapper>

@@ -32,7 +32,7 @@ public class NewsController {
 	private CmmnDao dao;
 	
 	// 기사
-	@RequestMapping(value = "/News.do")
+	@RequestMapping(value = "/News/main.do")
 	public String newsMain(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
@@ -43,14 +43,14 @@ public class NewsController {
 		return "mhnn010/n010l";
 	}
 	
-	@RequestMapping(value = "/n010i.do")
+	@RequestMapping(value = "/News/n010i.do")
 	public String newsInsert(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
 		return "mhnn010/n010i";
 	}
 
-	@RequestMapping(value = "/processUpdate_n010.do")
+	@RequestMapping(value = "/News/processUpdate_n010.do")
 	public String processUpdate(@ModelAttribute("mhnn01001VO") MHNN01001VO mhnn01001VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
@@ -84,7 +84,7 @@ public class NewsController {
 		return rediredUrl;
 	}
 	
-	@RequestMapping(value = "/n010d{news_id}.do")
+	@RequestMapping(value = "/News/n010d{news_id}.do")
 	public String boardDetail(@PathVariable String news_id, @ModelAttribute("mhnn01001VO") MHNN01001VO mhnn01001VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
@@ -107,14 +107,26 @@ public class NewsController {
 		news_info.setNews_id(news_id);
 		news_info.setReg_id("admin");
 		@SuppressWarnings("unchecked")
-		List<MHND010VO> scoreListByUser = (List<MHND010VO>) dao.selectList("d010.selectScoreListByUser", news_info);
+		List<MHND010VO> scoreListByUser = (List<MHND010VO>) dao.selectList("d010.selectScoreListByUser", result);
 		model.addAttribute("scoreListByUser", scoreListByUser);
 		
 		// 평균 점수 가지고 오는 부분
 		@SuppressWarnings("unchecked")
-		List<MHND010VO> score = (List<MHND010VO>) dao.selectList("d010.selectScoreListByNews", news_info);
-		JSONArray jsonArray = new JSONArray(score);
-		model.addAttribute("score", jsonArray);
+		List<MHND010VO> newsScore = (List<MHND010VO>) dao.selectList("d010.selectScoreListByNews", result);
+		JSONArray newsJsonArray = new JSONArray(newsScore);
+		model.addAttribute("newsScore", newsJsonArray);
+		
+		// 언론사 점수 가지고 오는 부분
+		@SuppressWarnings("unchecked")
+		List<MHND010VO> authorScore = (List<MHND010VO>) dao.selectList("d010.selectAuthorScore", result);
+		JSONArray authorJsonArray = new JSONArray(authorScore);
+		model.addAttribute("authorScore", authorJsonArray);
+		
+		// 기자 점수 가지고 오는 부분
+		@SuppressWarnings("unchecked")
+		List<MHND010VO> mediaScore = (List<MHND010VO>) dao.selectList("d010.selectMediaScore", result);
+		JSONArray mediaJsonArray = new JSONArray(mediaScore);
+		model.addAttribute("mediaScore", mediaJsonArray);
 		
 		// 뉴스 기사를 사용한 토론 불러오기.
 		SearchOptionVO searchOptionVO = new SearchOptionVO();

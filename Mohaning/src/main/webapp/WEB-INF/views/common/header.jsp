@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- <script src="/resources/uikit-3.2.2/js/uikit.min.js"></script> -->
@@ -15,11 +16,12 @@
     	</div>
 
 	    <!-- Centered link -->
+	    <c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" />
 	    <div class="topnav-centered">
-	    	<a href="/Board.do" class="active">토론방</a>
-	        <a href="/News.do" class="">기사</a>
-	        <a href="/Author.do" class="">기자</a>
-	        <a href="/Media.do" class="">언론사</a>
+	    	<a href="/Board/main.do" class=<c:if test="${fn:indexOf(path, 'Board') > -1 }">active</c:if>>토론방</a>
+	        <a href="/News/main.do" class=<c:if test="${fn:indexOf(path, 'News') > -1 }">active</c:if>>기사</a>
+	        <a href="/Author/main.do" class=<c:if test="${fn:indexOf(path, 'Author') > -1 }">active</c:if>>기자</a>
+	        <a href="/Media/main.do" class=<c:if test="${fn:indexOf(path, 'Media') > -1 }">active</c:if>>언론사</a>
 	    </div>
 	
 	    <!-- Right-aligned links -->

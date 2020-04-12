@@ -33,7 +33,7 @@ public class MediaController {
 	@Autowired
 	private CmmnDao dao;
 	
-	@RequestMapping(value = "/Media.do")
+	@RequestMapping(value = "/Media/main.do")
 	public String mediaMain(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
@@ -104,7 +104,7 @@ public class MediaController {
 		return "mhnc999/c010l";
 	}
 	
-	@RequestMapping(value = "/c010d{media_id}.do")
+	@RequestMapping(value = "/Media/c010d{media_id}.do")
 	public String mediaDetail(@PathVariable String media_id, @ModelAttribute("mhnc99901VO") MHNC99901VO mhnc99901VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		

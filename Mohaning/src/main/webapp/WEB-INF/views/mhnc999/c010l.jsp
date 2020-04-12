@@ -3,13 +3,27 @@
 <!doctype html>
 <html>
 <head>
-	<title>기사</title>
+	<title>모하닝</title>
 	<jsp:directive.include file="/WEB-INF/views/common/taglib.jsp" />
 	
 	<!-- Chart.js -->
 	<script src="/resources/js/Chart.bundle.js"></script>
 	<!-- Chart.js End -->
 	<script type="text/javascript">
+	$(function(){
+// 		$("#dialogOpenBtn").button().on("click", function(){
+// 			dialog.dialog("open");
+// 		});
+		
+// 		$("#saveBtn").button().on("click", function(){
+// 			onSaveBtn();
+// 		});
+		
+// 		$("#replyBtn").button().on("click", function(){
+// 			onReplyBtn("1");
+// 		});
+	})
+	
 	function onPageMove(type){
 		$("#frm").attr({"action":url, "method":"POST"}).submit();
 	}
@@ -27,21 +41,7 @@
     	<div class="row">
         	<form id="frm" name="frm">
       		<div class="search-wrapper">
-        		<div class="dropdown">
-          			<h6 style="display:inline-block;">인기검색어</h6>
-          			<a class="hot-keyword"><b>1</b> 코로나19</a>
-          			<button class="dropbtn">Q</button>
-          			<div class="dropdown-content">
-			            <a href="#">Link 1</a>
-			            <a href="#">Link 2</a>
-			            <a href="#">Link 3</a>
-          			</div>
-        		</div>
-        		<div class="search-container">
-		        		<input type="hidden" name="news_id" id="news_id" />
-		            	<input type="text" placeholder="코로나19" name="search">
-		            	<button type="submit">search</button>
-        		</div>
+        		<jsp:include page="/WEB-INF/views/common/search.jsp" />
       		</div>
           	</form>
     	</div>
@@ -52,12 +52,14 @@
 	   		<h5>언론사 목록</h5>
 	     	<div class="filters_wrap">
 	       		<div class="custom-select">
-	         		<select>
-	           			<option value="S11">등록일순</option>
-	           			<option value="S12">조회순</option>
-	           			<option value="S13">댓글순</option>
-	           			<option value="S14">평가순</option>
-	         		</select>
+	         		<select id="sortType">
+           				<option value="01" <c:if test="${searchOptionVO.sort eq '01' }">selected</c:if>>등록일최신순</option>
+           				<option value="02" <c:if test="${searchOptionVO.sort eq '02' }">selected</c:if>>등록일과거순</option>
+           				<option value="03" <c:if test="${searchOptionVO.sort eq '03' }">selected</c:if>>조회수높은순</option>
+           				<option value="04" <c:if test="${searchOptionVO.sort eq '04' }">selected</c:if>>조회수낮은순</option>
+<!-- 	           			<option value="S13">댓글순</option> -->
+<!-- 	           			<option value="S14">평가순</option> -->
+         			</select>
 	       		</div>
 	     	</div>
 	   	</div>
@@ -69,7 +71,7 @@
 					<div class="chart_wrap4">
 	   			</c:if>
 	   			<div class="chart_area">
-					<h4><a href="/c010d${result.media_id }.do"><b>${result.media_nm }</b></a></h4>
+					<h4><a href="/Media/c010d${result.media_id }.do"><b>${result.media_nm }</b></a></h4>
 					<div class="chart">
 						<canvas id="myChart${status.count }" width="225" height="225"></canvas>
 					</div>
@@ -121,7 +123,7 @@
 	</div>
 	</section>
 	
-	<script src="./resources/js/dropDown.js"></script>
+	<script src="/resources/js/dropDown.js"></script>
   	<footer>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />	    
   	</footer>   

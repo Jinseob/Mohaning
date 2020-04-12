@@ -20,7 +20,6 @@ import com.mohaning.app.Dao.CmmnDao;
 import com.mohaning.app.Model.MHNB01001VO;
 import com.mohaning.app.Model.MHNB010VO;
 import com.mohaning.app.Model.MHND010VO;
-import com.mohaning.app.Model.MHNN01001VO;
 import com.mohaning.app.Model.MHNP01001VO;
 import com.mohaning.app.Model.MHNR010VO;
 import com.mohaning.app.Model.SearchOptionVO;
@@ -33,7 +32,7 @@ public class BoardController {
 	private CmmnDao dao;
 	
 	// 토론
-	@RequestMapping(value = "/Board.do")
+	@RequestMapping(value = "/Board/main.do")
 	public String boardMain(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
@@ -44,14 +43,14 @@ public class BoardController {
 		return "mhnb010/b010l";
 	}
 	
-	@RequestMapping(value = "/b010i.do")
+	@RequestMapping(value = "/Board/b010i.do")
 	public String boardInsert(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
 		return "mhnb010/b010i";
 	}
 	
-	@RequestMapping(value = "/processUpdate_b010.do")
+	@RequestMapping(value = "/Board/processUpdate_b010.do")
 	public String processUpdate(@ModelAttribute("mhnb010VO") MHNB010VO mhnb010VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
@@ -69,7 +68,7 @@ public class BoardController {
 		return rediredUrl;
 	}
 	
-	@RequestMapping(value = "/b010d{board_id}.do")
+	@RequestMapping(value = "/Board/b010d{board_id}.do")
 	public String boardDetail(@PathVariable String board_id, @ModelAttribute("mhnb010VO") MHNB010VO mhnb010VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 

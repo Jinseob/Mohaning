@@ -8,46 +8,6 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
 
 <mapper namespace="b010">
-	<!-- 2. 이슈 관련 조회수 가장 많은 토론 5건 -->
-	<select id="issueTopBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
-		SELECT board_id,
-		       title,
-		       CONVERT(contents USING utf8) as contents,
-		       reg_dt,
-		       view_cnt 
-		  FROM mhnb01001tb ORDER BY view_cnt DESC LIMIT 5
-	</select>
-	
-	<!-- 3. 이슈 관련 신규 토론 5건 -->
-	<select id="issueNewBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
-		SELECT board_id,
-		       title,
-		       CONVERT(contents USING utf8) as contents,
-		       reg_dt,
-		       view_cnt 
-		  FROM mhnb01001tb ORDER BY reg_dt DESC LIMIT 5
-	</select>
-	
-	<!-- 8. 조회 수 높은 토론 10건 -->
-	<select id="selectTopBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
-		SELECT board_id,
-		       title,
-		       CONVERT(contents USING utf8) as contents,
-		       reg_dt,
-		       view_cnt 
-		  FROM mhnb01001tb ORDER BY view_cnt DESC LIMIT 10
-	</select>
-	
-	<!-- 10. 최신 토론 10건 -->
-	<select id="selectNewBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
-		SELECT board_id,
-		       title,
-		       CONVERT(contents USING utf8) as contents,
-		       reg_dt,
-		       view_cnt 
-		  FROM mhnb01001tb ORDER BY reg_dt DESC LIMIT 10
-	</select>
-	
 	<select id="selectBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT board_id,
 		       title,
@@ -56,11 +16,44 @@
 		       view_cnt 
 		  FROM mhnb01001tb
 		  <where>
-		  	<if test=" news_id!=null and news_id!='' ">
-				news_id = #{news_id }
+		  	<if test=" board_id!=null and board_id!='' ">
+				board_id = #{board_id }
 			</if>
+			<choose>
+				<when test=" val!=null and val!='' and type == 'TIT' ">
+				title like #{val }
+				</when>
+				<when test=" val!=null and val!='' and type == 'CON' ">
+				contents like #{val }
+				</when>
+				<when test=" val!=null and val!='' and type == 'MIX' ">
+				title like #{val } or contents like #{val }
+				</when>
+			</choose>
 		  </where>
-		 ORDER BY reg_dt DESC
+		  <trim prefix="ORDER BY">
+		  	<choose>
+		  		<when test="sort == '02'">
+		  		reg_dt ASC
+		  		</when>
+		  		<when test="sort == '03'">
+		  		view_cnt DESC
+		  		</when>
+		  		<when test="sort == '04'">
+		  		view_cnt ASC
+		  		</when>
+		  		<otherwise>
+		  		reg_dt DESC
+		  		</otherwise>
+<!-- 		  		<when test="sort == '05'"> -->
+<!-- 		  		cre_dt ASC -->
+<!-- 		  		</when> -->
+<!-- 		  		<when test="sort == '06'"> -->
+<!-- 		  		cre_dt ASC -->
+<!-- 		  		</when> -->
+		  	</choose>
+		  </trim>
+		  LIMIT #{legnth} OFFSET #{offset}
 	</select>
 	
 	<select id="selectBoard" parameterType="com.mohaning.app.Model.MHNB010VO" resultType="com.mohaning.app.Model.MHNB010VO">

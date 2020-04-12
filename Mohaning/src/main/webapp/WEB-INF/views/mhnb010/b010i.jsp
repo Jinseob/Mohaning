@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>기사</title>
+	<title>모하닝</title>
 	<jsp:include page="/WEB-INF/views/common/taglib.jsp" />
 	<script type="text/javascript">
 // 	function onNewsRegisterAjax(){
@@ -111,14 +111,15 @@
 	}
 	
 	function onSaveBtn(){
-		var frm = $("#frm").attr({"action" : "/processUpdate_b010.do", "method" : "POST"});
+		var frm = $("#frm").attr({"action" : "/Board/processUpdate_b010.do", "method" : "POST"});
 		if(confirm("저장 하시겠습니까?")){
 			frm.submit();
 		}
 	}
 	
-	function onPageMove(type){
-		$("#frm").attr({"action" : "/" + type + ".do", "method" : "POST"}).submit();
+	function onPageMove(url){
+		if(url == "main") url = "/Board/main";
+		$("#frm").attr({"action" : url + ".do", "method" : "POST"}).submit();
 	}
 	
 	window.onload = function(){
@@ -217,7 +218,7 @@
 	
 	        	</div>
 	        	<div class="right_group">
-	          		<button type="button" class="btn1" onclick="javascript: onPageMove('Board');">취소</button>
+	          		<button type="button" class="btn1" onclick="javascript: onPageMove('main');">취소</button>
 	          		<button type="button" class="btn1" onclick="javascript: onSaveBtn();">저장</button>
 	        	</div>
 	      	</div>

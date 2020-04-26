@@ -9,37 +9,75 @@
 
 <mapper namespace="d010">
 	<select id="selectScoreListByUser" parameterType="com.mohaning.app.Model.MHND010VO" resultType="com.mohaning.app.Model.MHND010VO">
-		SELECT a.type_cd, a.type_nm, b.news_id, b.score, b.reg_id
+		SELECT a.type_cd, 
+			   a.type_nm, 
+			   IFNULL(b.news_id, #{news_id}) AS news_id, 
+			   IFNULL(b.score, 0) as score,
+			   b.reg_id
    		  FROM mhnc91001tb a
-   		  LEFT JOIN ( SELECT news_id, type_cd, score, reg_id 
+   		  LEFT JOIN ( SELECT news_id, type_cd, SUM(score) AS score, reg_id 
                  		FROM mhnd01001tb 
                		   WHERE news_id = #{news_id}
                		     AND reg_id = #{reg_id} 
                		) AS b
-	  			 ON a.type_cd = b.type_cd
+	  	    ON a.type_cd = b.type_cd
+		  LEFT JOIN ( SELECT news_id, COUNT(DISTINCT(reg_dt)) AS total
+			            FROM mhnd01001tb
+			           WHERE news_id = #{news_id}
+			             AND reg_id = #{reg_id}
+			        ) AS c
+			ON b.news_id = c.news_id	  	   
 	</select>
 	<select id="selectScoreListByNews" parameterType="com.mohaning.app.Model.MHND010VO" resultType="com.mohaning.app.Model.MHND010VO">
-		SELECT a.type_cd, a.type_nm, b.news_id, b.score, b.reg_id
+		SELECT a.type_cd, 
+			   a.type_nm, 
+			   IFNULL(b.news_id, #{news_id}) AS news_id, 
+			   IFNULL(b.score, 0) as score,
+			   IFNULL(c.total, 0) as total,
+			   ROUND(IFNULL(b.score / c.total *100, 0), 2) AS ratio,
+			   b.reg_id
    		  FROM mhnc91001tb a
    		  LEFT JOIN ( SELECT news_id, type_cd, SUM(score) AS score, reg_id 
                  		FROM mhnd01001tb
                		   WHERE news_id = #{news_id}
                		   GROUP BY type_cd
                		) AS b
-	  			 ON a.type_cd = b.type_cd
+	  	    ON a.type_cd = b.type_cd
+	  	  LEFT JOIN ( SELECT news_id, COUNT(DISTINCT(reg_dt)) AS total
+			            FROM mhnd01001tb
+			           WHERE news_id = #{news_id}
+			        ) AS c
+			ON b.news_id = c.news_id
 	</select>
 	<select id="selectScoreListByMedia" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHND010VO">
-		SELECT a.type_cd, a.type_nm, b.news_id, b.media_id, b.score, b.reg_id
+		SELECT a.type_cd, 
+			   a.type_nm, 
+			   b.news_id, 
+			   b.media_id, 
+			   IFNULL(b.score, 0) as score,
+			   IFNULL(c.total, 0) as total,
+			   ROUND(IFNULL(b.score / c.total *100, 0), 2) AS ratio,
+			   b.reg_id
    		  FROM mhnc91001tb a
    		  LEFT JOIN ( SELECT news_id, media_id, type_cd, SUM(score) AS score, reg_id 
                  		FROM mhnd01001tb
                		   GROUP BY type_cd, media_id
                		) AS b
-	  			 ON a.type_cd = b.type_cd
+	  		ON a.type_cd = b.type_cd
+	  	  LEFT JOIN ( SELECT media_id, COUNT(DISTINCT(reg_dt)) AS total
+	  	                FROM mhnd01001tb
+	  	               GROUP BY media_id
+	  	            ) AS c
+	  	    ON b.media_id = c.media_id
 	  	 ORDER BY b.media_id, b.type_cd
 	</select>
 	<select id="selectAuthorScore" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHND010VO">
-		SELECT a.type_cd, a.type_nm, b.author_id, b.score
+		SELECT a.type_cd, 
+			   a.type_nm, 
+			   IFNULL(b.author_id, #{author_id}) AS author_id, 
+			   IFNULL(b.score, 0) as score,
+			   IFNULL(c.total, 0) as total,
+			   ROUND(IFNULL(b.score / c.total *100, 0), 2) AS ratio
 		  FROM mhnc91001tb a
 		  LEFT JOIN ( SELECT author_id, type_cd, SUM(score) AS score
 			            FROM mhnd01001tb
@@ -47,9 +85,19 @@
 			           GROUP BY type_cd
 			        ) AS b
 		    ON a.type_cd = b.type_cd
+		  LEFT JOIN ( SELECT author_id, COUNT(DISTINCT(reg_dt)) AS total
+			            FROM mhnd01001tb
+			           WHERE author_id = #{author_id}
+			        ) AS c
+			ON b.author_id = c.author_id
 	</select>
 	<select id="selectMediaScore" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHND010VO">
-		SELECT a.type_cd, a.type_nm, b.media_id, b.score
+		SELECT a.type_cd, 
+			   a.type_nm, 
+			   IFNULL(b.media_id, #{media_id}) AS media_id, 
+			   IFNULL(b.score, 0) as score,
+			   IFNULL(c.total, 0) as total,
+			   ROUND(IFNULL(b.score / c.total *100, 0), 2) AS ratio
 		  FROM mhnc91001tb a
 		  LEFT JOIN ( SELECT media_id, type_cd, SUM(score) AS score
 			            FROM mhnd01001tb
@@ -57,6 +105,11 @@
 			           GROUP BY type_cd
 			        ) AS b
 		    ON a.type_cd = b.type_cd
+		  LEFT JOIN ( SELECT media_id, COUNT(DISTINCT(reg_dt)) AS total 
+		                FROM mhnd01001tb 
+		               WHERE media_id = #{media_id} 
+		  			) AS c
+			ON b.media_id = c.media_id
 	</select>
 	<insert id="insertScore" parameterType="com.mohaning.app.Model.MHND010VO">
 		INSERT INTO mhnd01001tb(

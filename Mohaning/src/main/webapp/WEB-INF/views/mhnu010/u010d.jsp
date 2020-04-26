@@ -45,7 +45,7 @@
 	}
 	
 	function onSaveBtn(){
-		var frm = $("#frm").attr({"action" : "/processUpdate_a010.do", "method" : "POST"});
+		var frm = $("#frm").attr({"action" : "/Author/processUpdate.do", "method" : "POST"});
 		if(confirm("저장 하시겠습니까?")){
 			frm.submit();
 		}

@@ -10,7 +10,10 @@ public class MHND010VO {
 	private String type_cd;
 	private String type_nm;
 	private Integer score;
+	private Integer total;
+	private Float ratio;
 	private List<String> scoreList;
+	private String status;
 	private String reg_id;
 	private Date reg_dt;
 	public String getNews_id() {
@@ -49,6 +52,18 @@ public class MHND010VO {
 	public void setScore(Integer score) {
 		this.score = score;
 	}
+	public Integer getTotal() {
+		return total;
+	}
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
+	public Float getRatio() {
+		return ratio;
+	}
+	public void setRatio(Float ratio) {
+		this.ratio = ratio;
+	}
 	public String getReg_id() {
 		return reg_id == null ? "" : reg_id;
 	}
@@ -66,5 +81,11 @@ public class MHND010VO {
 	}
 	public void setScoreList(List<String> scoreList) {
 		this.scoreList = scoreList;
+	}
+	public String getStatus() {
+		return status == null ? "" : status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

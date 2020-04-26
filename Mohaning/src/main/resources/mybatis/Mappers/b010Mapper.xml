@@ -16,8 +16,8 @@
 		       view_cnt 
 		  FROM mhnb01001tb
 		  <where>
-		  	<if test=" board_id!=null and board_id!='' ">
-				board_id = #{board_id }
+		  	<if test=" news_id!=null and news_id!='' ">
+				news_id = #{news_id }
 			</if>
 			<choose>
 				<when test=" val!=null and val!='' and type == 'TIT' ">

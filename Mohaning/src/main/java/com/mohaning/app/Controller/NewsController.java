@@ -50,7 +50,7 @@ public class NewsController {
 		return "mhnn010/n010i";
 	}
 
-	@RequestMapping(value = "/News/processUpdate_n010.do")
+	@RequestMapping(value = "/News/processUpdate.do")
 	public String processUpdate(@ModelAttribute("mhnn01001VO") MHNN01001VO mhnn01001VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
@@ -79,7 +79,7 @@ public class NewsController {
 		}
 		
 		// 저장 성공시 Detail 화면으로 간다.
-		String rediredUrl = "redirect:/n010d" + mhnn01001VO.getNews_id() + ".do";
+		String rediredUrl = "redirect:/News/n010d" + mhnn01001VO.getNews_id() + ".do";
 		System.out.println(rediredUrl);
 		return rediredUrl;
 	}

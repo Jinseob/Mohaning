@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,9 @@ public class ScoreJsonController {
 			List<MHND010VO> mediaScoreTemp = (List<MHND010VO>) dao.selectList("d010.selectMediaScore", searchOptionVO);
 			model.addAttribute("mediaScore", mediaScoreTemp);
 		}else if(type.equals("N")) {
-			
+			@SuppressWarnings("unchecked")
+			List<MHND010VO> authorScoreTemp = (List<MHND010VO>) dao.selectList("d010.selectAuthorScore", searchOptionVO);
+			model.addAttribute("authorScore", authorScoreTemp);
 		}else if(type.equals("A")) {
 			
 		}

@@ -9,6 +9,7 @@
 	<!-- Chart.js -->
 	<script src="/resources/js/Chart.bundle.js"></script>
 	<!-- Chart.js End -->
+	<script src="/resources/js/common.js"></script>
 	<script type="text/javascript">
 	$(function(){
 // 		$("#dialogOpenBtn").button().on("click", function(){
@@ -50,18 +51,6 @@
 	<div class="container">
 		<div class="contents_type">
 	   		<h5>언론사 목록</h5>
-	     	<div class="filters_wrap">
-	       		<div class="custom-select">
-	         		<select id="sortType">
-           				<option value="01" <c:if test="${searchOptionVO.sort eq '01' }">selected</c:if>>등록일최신순</option>
-           				<option value="02" <c:if test="${searchOptionVO.sort eq '02' }">selected</c:if>>등록일과거순</option>
-           				<option value="03" <c:if test="${searchOptionVO.sort eq '03' }">selected</c:if>>조회수높은순</option>
-           				<option value="04" <c:if test="${searchOptionVO.sort eq '04' }">selected</c:if>>조회수낮은순</option>
-<!-- 	           			<option value="S13">댓글순</option> -->
-<!-- 	           			<option value="S14">평가순</option> -->
-         			</select>
-	       		</div>
-	     	</div>
 	   	</div>
 	   	<c:choose>
 	    <c:when test="${fn:length(resultList) > 0 }">
@@ -81,37 +70,9 @@
 					<div class="spacer-horizontal-line"></div>
 				</c:if>
 				<script type="text/javascript">
-				var scoreList = JSON.parse('${result.scoreList}');
-				var ctx = document.getElementById('myChart${status.count }').getContext('2d');
-					
-				var labels = new Array();
-				var data = new Array();
-				for(var i = 0; i < scoreList.length; i++){
-					var item = scoreList[i];
-					labels.push(item.type_nm);
-					data.push(item.score);
-				}
-				var myChart = new Chart(ctx, {
-				    type: 'radar',
-				    data: {
-				        labels: labels,
-				        datasets: [{
-				        	label: '기사 특성',
-				            data: data,
-				            borderColor : 'rgba(200, 0, 0, 0.1)',
-				            backgroundColor: 'rgba(200, 0, 0, 0.2)'
-				        }
-				        ]
-				    },
-				    options: {
-				    	scale:{
-				    		ticks:{
-				    			beginAtZero: true,
-			// 	    			max :100
-				    		}
-				    	}
-				    }
-				});
+				var mediaScore = JSON.parse('${result.scoreList}');
+				var prop = new Object();
+				drawChart(mediaScore, prop, "myChart${status.count }");
 				</script>
 				<!-- Chart.js End -->
 			</c:forEach>
@@ -123,7 +84,7 @@
 	</div>
 	</section>
 	
-	<script src="/resources/js/dropDown.js"></script>
+<!-- 	<script src="/resources/js/dropDown.js"></script> -->
   	<footer>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />	    
   	</footer>   

@@ -50,7 +50,7 @@ public class BoardController {
 		return "mhnb010/b010i";
 	}
 	
-	@RequestMapping(value = "/Board/processUpdate_b010.do")
+	@RequestMapping(value = "/Board/processUpdate.do")
 	public String processUpdate(@ModelAttribute("mhnb010VO") MHNB010VO mhnb010VO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
@@ -64,7 +64,7 @@ public class BoardController {
 		dao.insert("b010.insertBoard", mhnb010VO);			// 기사 ID 를 board 에 넣는다.
 		
 		// 저장 성공시 Detail 화면으로 간다.
-		String rediredUrl = "redirect:/b010d" + mhnb010VO.getBoard_id() + ".do";
+		String rediredUrl = "redirect:/Board/b010d" + mhnb010VO.getBoard_id() + ".do";
 		return rediredUrl;
 	}
 	

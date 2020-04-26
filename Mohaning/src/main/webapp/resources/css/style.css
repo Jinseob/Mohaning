@@ -428,7 +428,7 @@
   display: flex;
 }
 .news_info .news_url label{
-  width: 100px;
+  width: 120px;
   font-size: 16px;
   font-weight: bold;
 }
@@ -638,17 +638,25 @@
   height: 41px;
   text-align: center;
   border: 0.1rem solid black;
+  cursor: pointer;
+}
+.media_table td p{
+    font-size: 1.6rem;
+    text-decoration: none;
 }
 .media_table .active{
 	background-color: black;
 /* 	color: #EF8126; */
 }
-.media_table .active a{
+.media_table .active p{
 	color: #EF8126;
 	font-weight: bold;
 }
 .media_table td:hover{
   background-color: grey;
+}
+.media_table td:hover p{
+  color: white;
 }
 
 /* Main News List Bottom */

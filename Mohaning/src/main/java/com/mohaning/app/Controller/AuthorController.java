@@ -55,7 +55,7 @@ public class AuthorController {
 		MHNA010VO author = (MHNA010VO) dao.select("a010.selectAuthorByID", mhna01001VO);
 		model.addAttribute("author", author);
 		
-		// 2. 기자 점수 가지고 오는 부분
+		// 2. 기자 점수 가지고 오는 부분 -> ScoreJsonController 로 이동.
 		@SuppressWarnings("unchecked")
 		List<MHND010VO> authorScoreTemp = (List<MHND010VO>) dao.selectList("d010.selectAuthorScore", mhna01001VO);
 		JSONArray authorScore = new JSONArray(authorScoreTemp);
@@ -65,6 +65,11 @@ public class AuthorController {
 		@SuppressWarnings("unchecked")
 		List<MHNB010VO> authorNewsList = (List<MHNB010VO>) dao.selectList("n010.selectAuthorNewsList", mhna01001VO);
 		model.addAttribute("authorNewsList", authorNewsList);
+		
+		// 4. 기자의 동료 기자 가지고 오는 부분
+		@SuppressWarnings("unchecked")
+		List<MHNB010VO> mediaAuthorList = (List<MHNB010VO>) dao.selectList("a010.selectMediaAuthorList", author);
+		model.addAttribute("mediaAuthorList", mediaAuthorList);
 		
 		return "mhna010/a010d";
 	}

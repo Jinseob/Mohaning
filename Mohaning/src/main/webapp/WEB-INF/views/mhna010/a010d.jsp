@@ -10,7 +10,20 @@
 	<script src="/resources/js/Chart.bundle.js"></script>
 	<!-- Chart.js End -->
 	
+	<script src="/resources/js/common.js"></script>
 	<script type="text/javascript">
+	$(function(){
+		// Chart 넣는 부분.
+		var authorScore = JSON.parse('${authorScore}');
+		var prop = new Object();
+		drawChart(authorScore, prop, "myChart1");
+		// Chart 넣는 부분. 여기까지.
+		
+		$("#saveBtn").on("click", function(){
+			onSaveBtn();
+		});
+	})
+	
 	function onPageMove(url){
 		if(url == "main") url = "/Author/main";
 		$("#frm").attr({"action" : url + ".do", "method" : "POST"}).submit();
@@ -84,42 +97,7 @@
 		            	<div class="chart_area">
 <!-- 		              		<span>언론사</span> -->
 		              		<div class="chart">
-		              			<!-- Chart.js -->
 		              			<canvas id="myChart1" width="300" height="300"></canvas>
-		              			<script type="text/javascript">
-								var scoreList = JSON.parse('${mediaScore}');
-								var ctx = document.getElementById('myChart1').getContext('2d');
-								
-								var labels = new Array();
-								var data = new Array();
-								for(var i = 0; i < scoreList.length; i++){
-									var item = scoreList[i];
-									labels.push(item.type_nm);
-									data.push(item.score);
-								}
-								var myChart = new Chart(ctx, {
-								    type: 'radar',
-								    data: {
-								        labels: labels,
-								        datasets: [{
-								        	label: '언론사 특성',
-								            data: data,
-								            borderColor : 'rgba(200, 0, 0, 0.1)',
-								            backgroundColor: 'rgba(200, 0, 0, 0.2)'
-								        }
-								        ]
-								    },
-								    options: {
-								    	scale:{
-								    		ticks:{
-								    			beginAtZero: true,
-							// 	    			max :100
-								    		}
-								    	}
-								    }
-								});
-								</script>
-								<!-- Chart.js End -->
 		              		</div>
 		            	</div>
 		          	</div>

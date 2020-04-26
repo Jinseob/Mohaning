@@ -57,9 +57,6 @@
 	 			success: function(results){
 	 				var result = results.result;
 	 				if(result.status == "N"){
-	 					$("div[class='news_info']").show();
- 						$("div[class='news_button']").hide();
- 						$("#news_modal").hide();
 	 					$("#doc_id").val(result.doc_id);
 	 					$("#media_id").val(result.media_id);
 	 					$("#media_nm").val(result.media_nm);
@@ -73,6 +70,12 @@
 	 					$("#news_contents").val(result.news_contents);
 	 					$("#news_url").val(result.news_url);
 	 					
+	 					// 팝업 숨기는 용.
+	 					$("div[class='news_info']").show();
+ 						$("div[class='news_button']").hide();
+ 						$("#news_modal").hide();
+	 					
+ 						// 화면 출력용.
 	 					$("[data-index='news_title']").text(result.news_title);
 	 					$("[data-index='news_url']").text(result.news_url);
 	 					$("[data-index='portal_url']").text(result.portal_url);
@@ -111,7 +114,7 @@
 	}
 	
 	function onSaveBtn(){
-		var frm = $("#frm").attr({"action" : "/Board/processUpdate_b010.do", "method" : "POST"});
+		var frm = $("#frm").attr({"action" : "/Board/processUpdate.do", "method" : "POST"});
 		if(confirm("저장 하시겠습니까?")){
 			frm.submit();
 		}

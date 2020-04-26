@@ -18,12 +18,16 @@
 		scoreAjax($(".media")[0]);
 		
 		$(".media").click(function(){
-			scoreAjax(this);
+			if($(this).hasClass("active")){
+				location.href = "/Media/c010d" + this.dataset.index + ".do";
+			}else{
+				$(".media").removeClass("active");
+				$(this).addClass("active");
+				scoreAjax(this);
+			}
 		});
 	})
 	function scoreAjax(that){
-		$(".media").removeClass("active");
-		$(that).addClass("active");
 		$("#media_id").val(that.dataset.index);
 		var frm = $("#frm").serialize();
 		var url = "/getScoreM.json";
@@ -214,7 +218,8 @@
 				   				</c:when>
 				   				<c:otherwise>
 				   					<c:if test="${searchOptionVO.media_id eq result.media_id}">active</c:if>
-					   				<td class="media" data-index="${result.media_id }"><a href="/Media/c010d${result.media_id }.do" >${result.media_nm}</a></td>
+<%-- 					   				<td class="media" data-index="${result.media_id }"><a href="/Media/c010d${result.media_id }.do" >${result.media_nm}</a></td> --%>
+					   				<td class="media" data-index="${result.media_id }"><p>${result.media_nm}</p></td>
 				   				</c:otherwise>
 				   				</c:choose>
 			   				<c:if test="${status.count % 6 eq 0}">

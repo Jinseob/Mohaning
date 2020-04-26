@@ -180,6 +180,7 @@
   			ON a.author_id = b.author_id
   		  LEFT JOIN mhnc99901tb AS c
   			ON b.media_id = c.media_id
+  		 ORDER BY a.reg_dt DESC
 	</select>
 	
 	<select id="selectAuthorNewsList" parameterType="com.mohaning.app.Model.MHNN01001VO" resultType="com.mohaning.app.Model.MHNN01001VO">
@@ -202,6 +203,7 @@
   			ON a.author_id = b.author_id
   		  LEFT JOIN mhnc99901tb AS c
   			ON b.media_id = c.media_id
+  		 ORDER BY a.reg_dt DESC
 	</select>
 	
 	<!-- 데이터 삭제 (YYYYMM 기준) -->

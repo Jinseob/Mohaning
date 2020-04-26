@@ -38,6 +38,14 @@
 // 	}
 	
 	function onRegisterBtn(){
+		var url = $("#modal_url_in").val();
+		if(url == ""){
+			alert("URL 을 입력해주세요.");
+			return;
+		}else{
+			$("#news_url").val(url);
+		}
+		
 		var frm = $("#frm").serialize();
 		if(confirm("등록 하시겠습니까?")){
 			$.ajax({
@@ -61,6 +69,19 @@
 	 					$("#news_title").val(result.news_title);
 	 					$("#news_contents").val(result.news_contents);
 	 					$("#news_url").val(result.news_url);
+	 					
+	 					// 팝업 숨기는 용.
+	 					$("div[class='news_info']").show();
+ 						$("div[class='news_button']").hide();
+ 						$("#news_modal").hide();
+ 						
+ 						// 화면 출력용.
+ 						$("[data-index='news_title']").text(result.news_title);
+	 					$("[data-index='news_url']").text(result.news_url);
+	 					$("[data-index='portal_url']").text(result.portal_url);
+	 					$("[data-index='author_nm']").text(result.author_nm);
+	 					$("[data-index='author_email']").text(result.author_email);
+	 					$("[data-index='media_nm']").text(result.media_nm);
 	 				}else if(result.status == "AL"){
 	 					if(confirm(result.news_id + " 번으로 등록된 뉴스가 있습니다.\n이동하시겠습니까?")){
 	 						onPageMove("n010d" + result.news_id);					
@@ -77,7 +98,7 @@
 	}
 	
 	function onSaveBtn(){
-		var frm = $("#frm").attr({"action" : "/processUpdate_n010.do", "method" : "POST"});
+		var frm = $("#frm").attr({"action" : "/News/processUpdate.do", "method" : "POST"});
 		if(confirm("저장 하시겠습니까?")){
 			frm.submit();
 		}
@@ -87,6 +108,20 @@
 		if(url = "main") url = "/News/main";
 		$("#frm").attr({"action" : "/" + type + ".do", "method" : "POST"}).submit();
 	}
+	
+	window.onload = function(){
+		var btn = document.getElementById("news_insert_btn");
+	    var modal = document.getElementById("news_modal");
+	    var close = document.getElementById("news_modal_close");
+	    btn.onclick = function() {
+	    	modal.style.display = "block";
+	    }
+
+	    // When the user clicks on <span> (x), close the modal
+	    close.onclick = function() {
+	    	modal.style.display = "none";
+	    }
+	}
 	</script>
 </head>
 <body>
@@ -94,61 +129,96 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	</header>
-	<h1>기사 등록</h1>
-
-<!-- <form id="frm" name="frm"> -->
-<!-- 	<input type="text" name="media_id" id="media_id" /> -->
-<!-- 	<input type="text" name="media_url" id="media_url"> -->
-<!-- </form> -->
+	<section>
+	<div class="container padt-30">
+	    <div class="contents_wrap">
+    	<form id="frm" name="frm" method="post" >
+			<input type="hidden" name="doc_id" id="doc_id" value="${result.doc_id}"/>
+			<input type="hidden" name="media_id" id="media_id" value="${result.media_id}"/>
+			<input type="hidden" name="author_id" id="author_id" value="${result.author_id}"/>  		
+			<input type="hidden" name="portal_id" id="portal_id" value="${result.portal_id}"/>
+	    	<div class="contents_head">
+	        	<div class="contents_type">
+	          		<h5>기사 등록</h5>
+	        	</div>
+	      	</div>
+	      	<div class="contents_title">
+	        	<div class="title">
+	          		<input type="text" class="in_title" name="news_title" id="news_title" placeholder="URL 등록 후 자동으로 제목을 가져옵니다." readonly/>
+	        	</div>
+	      	</div>
+	      	<div class="news_button">
+	        	<div class="insert_div">
+	          		<button type="button" id="news_insert_btn">기사를 등록하실려면 눌러주세요.</button>
+	        	</div>
+	      	</div>
+	      	<div class="news_info" hidden>
+	        	<div class="news_url">
+	          		<label>원문 URL</label>
+	          		<a href="#" data-index="news_url">${result.news_url }</a>
+	          		<input type="hidden" name="news_url" id="news_url" value="${result.news_url}"/>
+	        	</div>
+	        	<div class="news_url">
+	          		<label>포털 URL</label>
+	          		<a href="#" data-index="portal_url">${result.portal_url }</a>
+	          		<input type="hidden" name="portal_url" id="portal_url" value="${result.portal_url}"/>
+	        	</div>
+	        	<div class="author_info">
+	          		<div class="author_name">
+	            		<p data-index="author_nm">${result.author_nm }</p>
+	            		<input type="hidden" name="author_nm" id="author_nm" value="${result.author_nm}"/>
+	          		</div>
+	          		<div class="author_email">
+	            		<p data-index="author_email">${result.author_email }</p>
+	            		<input type="hidden" name="author_email" id="author_email" value="${result.author_email}"/>
+	          		</div>
+	          		<div class="author_media">
+	            		<p data-index="media_nm">${result.media_nm }</p>
+	            		<input type="hidden" name="media_nm" id="media_nm" value="${result.media_nm}"/>
+	          		</div>
+	        	</div>
+	      	</div>
+	      	<div class="contents_view mt-10">
+	        	<article>
+	          		<div class="contents_article">
+	            		<textarea cols="50" rows="10" name="news_contents" id="news_contents" placeholder="URL 등록 후 자동으로 요약 내용을 가져옵니다." readonly="readonly"></textarea>
+	          		</div>
+	        	</article>
+	      	</div>
+	      	<div class="contents_tags">
+	        	<div class="tags">
+	          		<p>#태그</p>
+	          		<p>#태그1</p>
+	          		<p>#태그2</p>
+	          		<p>#태그3</p>
+	        	</div>
+	      	</div>
+	      	<div class="buttons_wrap">
+	        	<div class="left_group">
 	
-	<div class="uk-section">
-  	<div class="uk-container">
-  	<form id="frm" name="frm">
-		<input type="hidden" name="doc_id" id="doc_id" value="${result.doc_id}"/>
-		<input type="hidden" name="media_id" id="media_id" value="${result.media_id}"/>
-		<input type="hidden" name="author_id" id="author_id" value="${result.author_id}"/>  		
-		<input type="hidden" name="portal_id" id="portal_id" value="${result.portal_id}"/>
-		
-    	<fieldset class="uk-fieldset">
-        <div class="uk-grid-small" uk-grid>
-          	<p uk-margin>
-	            <button type="button" class="uk-button uk-button-default" onclick="onRegisterBtn();">등록</button>
-	            <button type="button" class="uk-button uk-button-default" onclick="onPageMove('main');">취소</button>
-<!-- 	            <button class="uk-button uk-button-primary">발행</button> -->
-          	</p>
-            <div class="uk-width-1-1">
-                <input class="uk-input" type="text" name="news_url" id="news_url" placeholder="https://" value="${result.news_url }"/>
-            </div>
-            <div class="uk-width-1-1">
-                <input class="uk-input" type="text" name="portal_url" id="portal_url" placeholder="https://" value="${result.portal_url }" readonly="readonly"/>
-            </div>
-            <div class="uk-width-1-1">
-                <input class="uk-input" type="text" name="news_title" id="news_title" placeholder="기사 제목" value="${result.news_title }"/>
-            </div>
-            <div class="uk-width-1-3@s">
-                <input class="uk-input" type="text" name="author_nm" id="author_nm" placeholder="모하닝 기자" value="${result.author_nm }"/>
-            </div>
-            <div class="uk-width-1-3@s">
-                <input class="uk-input" type="text" name="author_email" id="author_email" placeholder="mohaning@mohaning.com" value="${result.author_email }"/>
-            </div>
-            <div class="uk-width-1-3@s">
-                <input class="uk-input" type="text" name="media_nm" id="media_nm" placeholder="모하닝 신문" value="${result.media_nm }"/>
-            </div>
-            <div class="uk-width-1-1">
-              <textarea class="uk-textarea" rows="5" name="news_contents" id="news_contents" placeholder="Textarea">${result.news_contents }</textarea>
-            </div>
-            <div class="uk-width-1-1">
-              <span class="uk-badge">태그태그</span>
-              <span class="uk-badge">태그태그태그</span>
-            </div>
-            <p uk-margin>
-	            <button type="button" class="uk-button uk-button-default" onclick="javascript: onSaveBtn();">저장</button>
-	            <button type="button" class="uk-button uk-button-primary" onclick="javascript: onPageMove('News');">목록</button>
-          	</p>
-        </div>
-      	</fieldset>
-    </form>
+	        	</div>
+	        	<div class="right_group">
+	          		<button type="button" class="btn1" onclick="javascript: onPageMove('main');">취소</button>
+	          		<button type="button" class="btn1" onclick="javascript: onSaveBtn();">저장</button>
+	        	</div>
+	      	</div>
+      	</form>
+		</div>
+	</div>
+
+  	<!-- Modal -->
+  	<div id="news_modal" class="modal">
+    	<div class="modal_contents">
+      		<input type="text" class="modal_url_in" name="modal_url_in" id="modal_url_in" placeholder="기사의 URL을 입력해주세요."/>
+      		<button type="button" class="btn1" onclick="onRegisterBtn();">등록</button>
+      		<span class="close" id="news_modal_close">&times;</span>
+    	</div>
   	</div>
-  	</div>
+	<!-- Modal -->
+	</section>
+	
+	<footer>
+		<jsp:include page="/WEB-INF/views/common/footer.jsp" />	    
+  	</footer>
 </body>
 </html>

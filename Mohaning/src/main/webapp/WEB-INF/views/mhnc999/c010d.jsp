@@ -123,7 +123,7 @@
 	        		<c:choose>
 		        		<c:when test="${fn:length(mediaNewsList) > 0 }">
 		        		<c:forEach items="${mediaNewsList }" var="result">
-		        			<li><label>298</label><a href="/n010d${result.news_id }.do">${result.news_title }</a></li>
+		        			<li><label>298</label><a href="/News/n010d${result.news_id }.do">${result.news_title }</a></li>
 		        		</c:forEach>
 		        		</c:when>
 		        		<c:otherwise>
@@ -142,7 +142,7 @@
 	        		<c:choose>
 		        		<c:when test="${fn:length(mediaAuthorList) > 0 }">
 		        		<c:forEach items="${mediaAuthorList }" var="result">
-		        			<li><a href="/a010d${result.author_id }.do"><label>${result.author_nm }</label>${result.author_email }</a></li>
+		        			<li><a href="/Author/a010d${result.author_id }.do"><label>${result.author_nm }</label>${result.author_email }</a></li>
 		        		</c:forEach>
 		        		</c:when>
 		        		<c:otherwise>

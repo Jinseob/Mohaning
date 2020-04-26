@@ -51,7 +51,7 @@ public class NewsJsonController {
 	
 	@RequestMapping(value = "/scoreUpdate.json")
 	public ModelAndView scoreUpdate(@ModelAttribute("mhnd010VO") MHND010VO mhnd010VO, ModelMap model, 
-			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+			HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
@@ -62,7 +62,12 @@ public class NewsJsonController {
 		for(int i = 0; i < scoreList.size(); i++) {
 			mhnd010VO.setType_cd(scoreList.get(i));
 			mhnd010VO.setScore(1);
-			dao.insert("d010.insertScore", mhnd010VO);
+			try {
+				dao.insert("d010.insertScore", mhnd010VO);
+				if(i == scoreList.size() - 1)mhnd010VO.setStatus("S");	// 우선은 단순 처리.
+			} catch (Exception e) {
+				mhnd010VO.setStatus("E");
+			}
 		}
 		return modelAndView;
 	}

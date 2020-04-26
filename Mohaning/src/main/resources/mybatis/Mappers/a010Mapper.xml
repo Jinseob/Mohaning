@@ -60,6 +60,7 @@
 			   media_id
 		  FROM MHNA01001TB
 		 WHERE media_id = #{media_id}
+		 ORDER BY reg_dt DESC
 	</select>
 
 	<select id="selectTopAuthorList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNA010VO">

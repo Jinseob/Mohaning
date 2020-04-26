@@ -63,23 +63,18 @@
 				dataType: "JSON",
 				data : frm,
 				success: function(results){
-					var result = results.result;
-					if(results.type == "NEW"){
-						$("#title").val(result.title);
-						$("#author_id").val(result.author_id);
-						$("#author_nm").val(result.author_nm);
-						$("#author_email").val(result.author_email);
-						$("#media_id").val(result.media_id);
-						$("#media_nm").val(result.media_nm);
-						$("#media_url").val(result.media_url);
-					}else if(results.type == "OCC"){
-						if(confirm(result.news_id + " 번으로 등록된 뉴스가 있습니다.\n이동하시겠습니까?")){
-							onPageMove("/Author/a010d" + result.news_id);					
-						}
+					var result = results.mhnd010VO;
+					if(result.status == "S"){
+						alert("평가를 하였습니다.");
+						onPageMove("/News/n010d" + result.news_id);
+					}else{
+						alert("평가중 오류가 발생하였습니다.\n새로 고침 하겠습니다.");
+						onPageMove("/News/n010d" + result.news_id);
 					}
 				},
 				error: function(data){
-					alert("E" + data);
+					alert("평가중 오류가 발생하였습니다.\n새로 고침 하겠습니다. E");
+					onPageMove("/News/n010d" + results.news_id);
 				}
 			})
 			
@@ -88,7 +83,7 @@
 	}
 	
 	function onPageMove(url){
-		if(url = "main") url = "/News/main";
+		if(url == "main") url = "/News/main";
 		$("#frm").attr({"action" : url + ".do", "method" : "POST"}).submit();
 	}
 	</script>

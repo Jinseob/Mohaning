@@ -88,6 +88,7 @@ public class MediaController {
 						baseScore = baseScoreList.get(x);
 						if(selectedScore.getType_cd().equals(baseScore.getType_cd())) {
 							baseScore.setScore(selectedScore.getScore());
+							baseScore.setRatio(selectedScore.getRatio());
 							break;
 						}
 					}

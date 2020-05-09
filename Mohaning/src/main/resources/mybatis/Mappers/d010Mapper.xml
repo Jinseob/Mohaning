@@ -10,7 +10,8 @@
 <mapper namespace="d010">
 	<select id="selectScoreListByUser" parameterType="com.mohaning.app.Model.MHND010VO" resultType="com.mohaning.app.Model.MHND010VO">
 		SELECT a.type_cd, 
-			   a.type_nm, 
+			   a.type_nm,
+			   a.color, 
 			   IFNULL(b.news_id, #{news_id}) AS news_id, 
 			   IFNULL(b.score, 0) as score,
 			   b.reg_id
@@ -30,7 +31,8 @@
 	</select>
 	<select id="selectScoreListByNews" parameterType="com.mohaning.app.Model.MHND010VO" resultType="com.mohaning.app.Model.MHND010VO">
 		SELECT a.type_cd, 
-			   a.type_nm, 
+			   a.type_nm,
+			   a.color,
 			   IFNULL(b.news_id, #{news_id}) AS news_id, 
 			   IFNULL(b.score, 0) as score,
 			   IFNULL(c.total, 0) as total,
@@ -51,7 +53,8 @@
 	</select>
 	<select id="selectScoreListByMedia" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHND010VO">
 		SELECT a.type_cd, 
-			   a.type_nm, 
+			   a.type_nm,
+			   a.color,
 			   b.news_id, 
 			   b.media_id, 
 			   IFNULL(b.score, 0) as score,
@@ -73,7 +76,8 @@
 	</select>
 	<select id="selectAuthorScore" parameterType="com.mohaning.app.Model.MHNB01001VO" resultType="com.mohaning.app.Model.MHND010VO">
 		SELECT a.type_cd, 
-			   a.type_nm, 
+			   a.type_nm,
+			   a.color,
 			   IFNULL(b.author_id, #{author_id}) AS author_id, 
 			   IFNULL(b.score, 0) as score,
 			   IFNULL(c.total, 0) as total,
@@ -93,7 +97,8 @@
 	</select>
 	<select id="selectMediaScore" parameterType="com.mohaning.app.Model.MHNC99901VO" resultType="com.mohaning.app.Model.MHND010VO">
 		SELECT a.type_cd, 
-			   a.type_nm, 
+			   a.type_nm,
+			   a.color,
 			   IFNULL(b.media_id, #{media_id}) AS media_id, 
 			   IFNULL(b.score, 0) as score,
 			   IFNULL(c.total, 0) as total,

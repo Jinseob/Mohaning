@@ -80,12 +80,12 @@
 					</c:choose>
         		</ul>
         		<div class="news-list-bottom">
-          			<button class="btn1" type="submit">처음으로</button>
+<!--           			<button class="btn1" type="submit">처음으로</button> -->
           			<div class="nav-paging-wrap">
             			<div class="nav-paging-area">
               				<a href="#" class="nav-paging-prev">이전</a>
               				<div class="nav-paging">
-				                <a href="#" >1</a>
+				                <a href="#" class="active">1</a>
 				                <a href="#" >2</a>
 				                <a href="#" >3</a>
 				                <a href="#" >4</a>

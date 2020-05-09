@@ -12,7 +12,7 @@
 	<div class="topnav">
 		<!-- Left-aligned links (default) -->
     	<div class="topnav-left">
-      		<a href="/">모하닝</a>
+      		<a href="/"><img id="logo" src="/resources/images/logo1@2x.png" /></a>
     	</div>
 
 	    <!-- Centered link -->

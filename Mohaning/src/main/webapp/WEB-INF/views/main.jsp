@@ -38,9 +38,12 @@
  			data : frm,
  			success: function(results){
  				var prop = new Object();
- 				var id = "myChart1";
+ 				var id = "myChart2";
  				var items = results.mediaScore;
  				drawChart(items, prop, id);
+ 				drawChart(items, prop, "myChart3");
+ 				drawChart(items, prop, "myChart4");
+ 				drawChart(items, prop, "myChart5");
  			},
  			error: function(data){
  				alert("E" + data);
@@ -80,91 +83,137 @@
 		        <button class="tablinks" onclick="openCity(event, 'Seoul')">가나다라마바auto</button>
 		    </div>
 	      	<div id="tabcontent" class="tabcontent">
-		        <div class="tabcontent-title">
-		        	<h4>Paris</h4>
-		        </div>
 	        	<div class="tabcontent-wrap">
 		          	<div class="tab-list-wrap">
-			            <div class="contents_type">
-			            	<h5>기자 분석</h5>
+			            <div class="top-chart-wrap">
+			            	<canvas id="myChart1" width="366" height="180"></canvas>
+			            	<script type="text/javascript">
+			            	var ctx = document.getElementById('myChart1').getContext('2d');
+
+			        		var config = {
+			        			type: 'line',
+			        			data: {
+			        				labels: [ // Date Objects
+			        					"2020.01.01",
+			        					"2020.01.02",
+			        					"2020.01.03",
+			        					"2020.01.04",
+			        					"2020.01.05",
+			        					"2020.01.06",
+			        					"2020.01.07"
+			        				],
+			        				datasets: [{
+			        					label: 'My First dataset',
+			        					backgroundColor: "rgba(200,0,0,0.1)",
+			        					borderColor: "rgba(200,0,0,0.1)",
+			        					fill: false,
+			        					data: [
+			        						100,
+			        						120,
+			        						130,
+			        						140,
+			        						110,
+			        						120,
+			        						140
+			        					],
+			        				}]
+			        			},
+			        			options: {
+			        				title: {
+			        					text: 'Chart.js Time Scale'
+			        				},
+			        				scales: {
+			        					xAxes: [{
+			        						scaleLabel: {
+			        							display: true,
+			        						}
+			        					}],
+			        					yAxes: [{
+			        						scaleLabel: {
+			        							display: true,
+// 			        							labelString: 'value'
+			        						}
+			        					}]
+			        				},
+			        			}
+			        		};
+			        		var myChart = new Chart(ctx, config);
+			            	</script>
 			            </div>
-	            		<ul class="tab-list">
-	              			<li class="news-list">
-	                			<p class="press-name">국민일보</p>
-	                			<p class="news-title">신천지 에브리웨어 싯파샛키들아!!!!!</p>
-	              			</li>
-	              			<li class="news-list">
-	                			<p class="press-name">좃선일보</p>
-	                			<p class="news-title">대구경북지역 신천지 때문에 초전박살났다.대구경북지역 신천지 때문에 초전박살났다.대구경북지역 신천지 때문에 초전박살났다.</p>
-	              			</li>
-	              			<li class="news-list">
-	                			<p class="press-name">오마이뉴읏스</p>
-	                			<p class="news-title">우리회사도 재택근무로 전면 바꿔줘라!</p>
-	              			</li>
-	              			<li class="news-list">
-	                			<p class="press-name">중앙일보</p>
-	                			<p class="news-title">코로나 종식돼야 운동도하고 쇼핑도하지 놀러가고 싶따고요</p>
-			              	</li>
-			              	<li class="news-list">
-	                			<p class="press-name">연합뉴스TV</p>
-				                <p class="news-title">돈많이많이 벌고시포요 막 이것저것 지르고 시포요!</p>
-	              			</li>
-	            		</ul>
+			            <div class="top-wrap">
+			            	<div class="top-header">
+			            		<p class="top-title">신천지히히히히신천지히히히히신천지히히히히신천지히히히히신천신천신천신천신천신천신천</p>
+			            	</div>
+			            	<div class="top-section">
+			            		<p class="top-contents">신천지 에브리웨어 싯파샛키들아!!!!!신천지 에브리웨어 싯파샛키들아!!!!!신천지 에브리웨어 싯파샛키들아!!!!!신천지 에브리웨어 싯파샛키들아!!!!!ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ</p>
+			            	</div>
+			            	<div class="top-bottom">
+			            		<p class="top-media">국민일보</p>
+			            		<p class="top-name">홍길동</p>
+			            		<p class="top-date">2020.05.03</p>
+			            		<p class="top-view">조회수 100만</p>
+			            	</div>
+			            </div>
 	          		</div>
 	          		<div class="spacer-vertical" ></div>
 	          		<div class="tab-list-wrap">
-			            <div class="contents_type">
-			            	<h5>기자 분석</h5>
-			            </div>
 	            		<ul class="tab-list">
 	              			<li class="news-list">
-	                			<p class="press-name">국민일보</p>
-	                			<p class="news-title">신천지 에브리웨어 싯파샛키들아!!!!!</p>
+	              				<div class="top-header">
+	                				<p class="top-title">신천지 에브리웨어 싯파샛키들아!!!!!</p>
+                				</div>
+	                			<div class="top-bottom">
+				            		<p class="top-media">국민일보</p>
+				            		<p class="top-name">홍길동</p>
+				            		<p class="top-date">2020.05.03</p>
+				            		<p class="top-view">조회수 100만</p>
+				            	</div>
 	              			</li>
 	              			<li class="news-list">
-	                			<p class="press-name">좃선일보</p>
-	                			<p class="news-title">대구경북지역 신천지 때문에 초전박살났다.대구경북지역 신천지 때문에 초전박살났다.대구경북지역 신천지 때문에 초전박살났다.</p>
+	                			<div class="top-header">
+	                				<p class="top-title">대구경북지역 신천지 때문에 초전박살났다.대구경북지역 신천지 때문에 초전박살났다.대구경북지역 신천지 때문에 초전박살났다.</p>
+                				</div>
+	                			<div class="top-bottom">
+				            		<p class="top-media">국민일보</p>
+				            		<p class="top-name">홍길동</p>
+				            		<p class="top-date">2020.05.03</p>
+				            		<p class="top-view">조회수 100만</p>
+				            	</div>
 	              			</li>
 	              			<li class="news-list">
-	                			<p class="press-name">오마이뉴읏스</p>
-	                			<p class="news-title">우리회사도 재택근무로 전면 바꿔줘라!</p>
+	              				<div class="top-header">
+	                				<p class="top-title">우리회사도 재택근무로 전면 바꿔줘라!</p>
+                				</div>
+	                			<div class="top-bottom">
+				            		<p class="top-media">국민일보</p>
+				            		<p class="top-name">홍길동</p>
+				            		<p class="top-date">2020.05.03</p>
+				            		<p class="top-view">조회수 100만</p>
+				            	</div>
 	              			</li>
 	              			<li class="news-list">
-	                			<p class="press-name">중앙일보</p>
-	                			<p class="news-title">코로나 종식돼야 운동도하고 쇼핑도하지 놀러가고 싶따고요</p>
+	              				<div class="top-header">
+	                				<p class="top-title">코로나 종식돼야 운동도하고 쇼핑도하지 놀러가고 싶따고요</p>
+                				</div>
+	                			<div class="top-bottom">
+				            		<p class="top-media">국민일보</p>
+				            		<p class="top-name">홍길동</p>
+				            		<p class="top-date">2020.05.03</p>
+				            		<p class="top-view">조회수 100만</p>
+				            	</div>
 			              	</li>
 			              	<li class="news-list">
-	                			<p class="press-name">연합뉴스TV</p>
-				                <p class="news-title">돈많이많이 벌고시포요 막 이것저것 지르고 시포요!</p>
+			              		<div class="top-header">
+				                	<p class="top-title">돈많이많이 벌고시포요 막 이것저것 지르고 시포요!</p>
+			                	</div>
+	                			<div class="top-bottom">
+				            		<p class="top-media">국민일보</p>
+				            		<p class="top-name">홍길동</p>
+				            		<p class="top-date">2020.05.03</p>
+				            		<p class="top-view">조회수 100만</p>
+				            	</div>
 	              			</li>
-	            		</ul>
-	          		</div>
-	          		<div class="spacer-vertical" ></div>
-	          		<div class="tab-list-wrap">
-			            <div class="contents_type">
-			            	<h5>기자 분석</h5>
-			            </div>
-	            		<ul class="tab-list">
-	              			<li class="news-list">
-	                			<p class="press-name">국민일보</p>
-	                			<p class="news-title">신천지 에브리웨어 싯파샛키들아!!!!!</p>
-	              			</li>
-	              			<li class="news-list">
-	                			<p class="press-name">좃선일보</p>
-	                			<p class="news-title">대구경북지역 신천지 때문에 초전박살났다.대구경북지역 신천지 때문에 초전박살났다.대구경북지역 신천지 때문에 초전박살났다.</p>
-	              			</li>
-	              			<li class="news-list">
-	                			<p class="press-name">오마이뉴읏스</p>
-	                			<p class="news-title">우리회사도 재택근무로 전면 바꿔줘라!</p>
-	              			</li>
-	              			<li class="news-list">
-	                			<p class="press-name">중앙일보</p>
-	                			<p class="news-title">코로나 종식돼야 운동도하고 쇼핑도하지 놀러가고 싶따고요</p>
-			              	</li>
-			              	<li class="news-list">
-	                			<p class="press-name">연합뉴스TV</p>
-				                <p class="news-title">돈많이많이 벌고시포요 막 이것저것 지르고 시포요!</p>
-	              			</li>
+	              			<li><a href="/News/main.do" class="more right">기사 더보기 ></a></li>
 	            		</ul>
 	          		</div>
 	        	</div>
@@ -177,18 +226,55 @@
 	    <div class="contents_type">
 	    	<h5>기자 분석</h5>
 	    </div>
-	    <div class="chart_wrap">
-	    	<div class="chart_area">
-	        	<span>기자명</span>
-	        	<div class="chart"></div>
+	    <div class="chart_wrap3">
+	    	<div class="chart_with_info">
+	        	<div class="chart">
+	        		<canvas id="myChart3" width="140" height="140"></canvas>
+	        	</div>
+	        	<div class="spacer-vertical"></div>
+	        	<div class="chart_info">
+	        		<div class="spacer-horizontal"></div>
+	        		<h5>홍길동</h5>
+	        		<div class="spacer-horizontal"></div>
+	        		<span>MBC</span><br/>
+	        		<span>기사 수</span><a>185 건</a><br/>
+	        		<div class="spacer-horizontal"></div>
+	        		<a>hong@imbc.com</a>
+	        	</div>
 	      	</div>
-	      	<div class="chart_area">
-	        	<span>기자명</span>
-	        	<div class="chart"></div>
+<!--       	</div> -->
+<!--       	<div class="chart_wrap"> -->
+	      	<div class="chart_with_info">
+	        	<div class="chart">
+	        		<canvas id="myChart4" width="140" height="140"></canvas>
+	        	</div>
+	        	<div class="spacer-vertical"></div>
+	        	<div class="chart_info">
+	        		<div class="spacer-horizontal"></div>
+	        		<h5>홍길동</h5>
+	        		<div class="spacer-horizontal"></div>
+	        		<span>MBC</span><br/>
+	        		<span>기사 수</span><a>185 건</a><br/>
+	        		<div class="spacer-horizontal"></div>
+	        		<a>hong@imbc.com</a>
+	        	</div>
 	      	</div>
-	      	<div class="chart_area">
-	        	<span>기자명</span>
-	        	<div class="chart"></div>
+<!--       	</div> -->
+<!--       	<div class="chart_wrap"> -->
+	      	<div class="chart_with_info">
+	        	<div class="chart">
+	        		<canvas id="myChart5" width="140" height="140"></canvas>
+	        	</div>
+	        	<div class="spacer-vertical"></div>
+	        	<div class="chart_info">
+	        		<div class="spacer-horizontal"></div>
+	        		<h5>홍길동</h5>
+	        		<div class="spacer-horizontal"></div>
+	        		<span>MBC</span><br/>
+	        		<span>기사 수</span><a>185 건</a><br/>
+	        		<div class="spacer-horizontal"></div>
+	        		<a>hong@imbc.com</a>
+	        	</div>
 	      	</div>
 	    </div>
 	</div>
@@ -199,27 +285,38 @@
 	    	<h5>언론사 분석</h5>
 	    </div>
 	    <div class="media_wrap">
-	    	<div class="chart_area">
-	        	<div class="chart">
-	        		<canvas id="myChart1" width="238" height="238"></canvas>
-	        	</div>
-	      	</div>
+	    	<div class="chart_wrap">
+		    	<div class="chart_with_info">
+		        	<div class="chart">
+		        		<canvas id="myChart2" width="140" height="140"></canvas>
+		        	</div>
+		        	<div class="spacer-vertical"></div>
+		        	<div class="chart_info">
+		        		<div class="spacer-horizontal"></div>
+		        		<h5>MBC</h5>
+		        		<div class="spacer-horizontal"></div>
+		        		<span>기자 수</span><a>85 명</a><br/>
+		        		<span>기사 수</span><a>185 건</a><br/>
+		        		<div class="spacer-horizontal"></div>
+		        		<a>www.imbc.com</a>
+		        	</div>
+		      	</div>
+	    	</div>
 	      	<div class="media_area">
 	        	<c:choose>
 	        		<c:when test="${fn:length(mediaList) > 0 }">
 	        			<table class="media_table">
-	        			<c:forEach items="${mediaList }" var="result" varStatus="status">
+	        			<c:forEach items="${mediaList }" var="result" varStatus="status" end="17">
 	        				<c:if test="${status.count % 6 eq 1}">
 								<tr>
 				   			</c:if>
 				   				<c:choose>
-				   				<c:when test="${fn:length(mediaList) eq status.count }">
-				   					<td><a href="/Media/main.do" >더보기</a></td>
+				   				<c:when test="${status.count eq 18 }">
+				   					<td><a href="/Media/main.do" class="more">더보기</a></td>
 				   				</c:when>
 				   				<c:otherwise>
-				   					<c:if test="${searchOptionVO.media_id eq result.media_id}">active</c:if>
 <%-- 					   				<td class="media" data-index="${result.media_id }"><a href="/Media/c010d${result.media_id }.do" >${result.media_nm}</a></td> --%>
-					   				<td class="media" data-index="${result.media_id }"><p>${result.media_nm}</p></td>
+					   				<td class="media <c:if test="${status.first}">active</c:if>" data-index="${result.media_id }"><p>${result.media_nm}</p></td>
 				   				</c:otherwise>
 				   				</c:choose>
 			   				<c:if test="${status.count % 6 eq 0}">
@@ -246,6 +343,7 @@
         					<c:forEach var="result" items="${newNewsList }" varStatus="status">
         						<li class="news-list-title"><label>${result.view_cnt }</label><a href="/News/n010d${result.news_id }.do">${result.news_title }</a></li>
         					</c:forEach>
+        					<li><a href="/News/main.do" class="more right">기사 더보기 ></a></li>
         				</c:when>
         				<c:otherwise>
         					<li class="news-list-title"><div><span>데이터가 없습니다.</span></div></li>
@@ -264,6 +362,7 @@
         					<c:forEach var="result" items="${topNewsList }" varStatus="status">
         						<li class="news-list-title"><label>${result.view_cnt }</label><a href="/News/n010d${result.news_id }.do">${result.news_title }</a></li>
         					</c:forEach>
+        					<li><a href="/News/main.do" class="more right">기사 더보기 ></a></li>
         				</c:when>
         				<c:otherwise>
         					<li class="news-list-title"><div><span>데이터가 없습니다.</span></div></li>

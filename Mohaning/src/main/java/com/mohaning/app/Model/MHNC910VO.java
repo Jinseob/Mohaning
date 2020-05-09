@@ -3,6 +3,7 @@ package com.mohaning.app.Model;
 public class MHNC910VO {	
 	private String type_cd;
 	private String type_nm;
+	private String color;
 	public String getType_cd() {
 		return type_cd == null ? "" : type_cd;
 	}
@@ -14,5 +15,11 @@ public class MHNC910VO {
 	}
 	public void setType_nm(String type_nm) {
 		this.type_nm = type_nm;
+	}
+	public String getColor() {
+		return color == null ? "" : color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 }

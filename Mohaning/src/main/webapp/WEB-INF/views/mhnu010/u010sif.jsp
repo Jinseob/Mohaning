@@ -67,7 +67,7 @@
 	        			<input type="password" class="in_passwd" name="psw" id="psw" placeholder="Password" autocomplete="off"/>
 	      			</div>
 	      			<div class="row">
-	        			<button type="button" class="login_btn">로그인</button>
+	        			<button type="button" class="btn1">로그인</button>
 	      			</div>
 	      			<div class="row">
 		        		<input type="checkbox" id="chkItem1">

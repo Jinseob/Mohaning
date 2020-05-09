@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import com.mohaning.app.Model.MHNA010VO;
 import com.mohaning.app.Model.MHNB01001VO;
 import com.mohaning.app.Model.MHNB010VO;
 import com.mohaning.app.Model.MHNC99901VO;
-import com.mohaning.app.Model.MHND010VO;
 import com.mohaning.app.Model.SearchOptionVO;
 
 /**

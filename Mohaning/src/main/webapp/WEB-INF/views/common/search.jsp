@@ -9,7 +9,17 @@
 <!--     	<a href="#">Link 3</a> -->
 <!-- 	</div> -->
 <!-- </div> -->
+<script type="text/javascript">
+$(function(){
+	$("#search-btn").click(function(){
+		var searchVal = $("#searchVal").val();
+		var path = location.pathname;
+		if(path == "/")path += "Search.do";
+		location.href = path + "?val=" + searchVal;
+	});
+});
+</script>
 <div class="search-container">
-	<input type="text" placeholder="코로나19" name="search">
-	<button type="submit">search</button>
+	<input type="text" placeholder="코로나19" name="searchVal" id="searchVal">
+	<button type="button" class="search-btn" id="search-btn"></button>
 </div>

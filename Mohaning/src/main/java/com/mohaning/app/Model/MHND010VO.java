@@ -3,12 +3,10 @@ package com.mohaning.app.Model;
 import java.sql.Date;
 import java.util.List;
 
-public class MHND010VO {
+public class MHND010VO extends MHNC910VO{
 	private String news_id;
 	private String author_id;
 	private String media_id;
-	private String type_cd;
-	private String type_nm;
 	private Integer score;
 	private Integer total;
 	private Float ratio;
@@ -33,18 +31,6 @@ public class MHND010VO {
 	}
 	public void setMedia_id(String media_id) {
 		this.media_id = media_id;
-	}
-	public String getType_cd() {
-		return type_cd == null ? "" : type_cd;
-	}
-	public void setType_cd(String type_cd) {
-		this.type_cd = type_cd;
-	}
-	public String getType_nm() {
-		return type_nm == null ? "" : type_nm;
-	}
-	public void setType_nm(String type_nm) {
-		this.type_nm = type_nm;
 	}
 	public Integer getScore() {
 		return score == null ? 0 : score;

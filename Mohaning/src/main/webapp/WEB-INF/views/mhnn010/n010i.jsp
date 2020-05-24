@@ -56,7 +56,13 @@
 	 			data : frm,
 	 			success: function(results){
 	 				var result = results.result;
-	 				if(result.status == "N"){
+	 				if(result.status == "AL"){
+	 					if(confirm(result.news_id + " 번으로 등록된 뉴스가 있습니다.\n이동하시겠습니까?")){
+	 						onPageMove("n010d" + result.news_id);					
+	 					}
+	 				}else{
+	 					if(result.status == "E20") alert("관리자가 확인 후 내용을 업데이트 하겠습니다.");
+	 					
 	 					$("#doc_id").val(result.doc_id);
 	 					$("#media_id").val(result.media_id);
 	 					$("#media_nm").val(result.media_nm);
@@ -82,12 +88,6 @@
 	 					$("[data-index='author_nm']").text(result.author_nm);
 	 					$("[data-index='author_email']").text(result.author_email);
 	 					$("[data-index='media_nm']").text(result.media_nm);
-	 				}else if(result.status == "AL"){
-	 					if(confirm(result.news_id + " 번으로 등록된 뉴스가 있습니다.\n이동하시겠습니까?")){
-	 						onPageMove("n010d" + result.news_id);					
-	 					}
-	 				}else if(result.status == "E1"){
-	 					alert("아직 지원하지 않는 언론사입니다.");
 	 				}
 	 			},
 	 			error: function(data){

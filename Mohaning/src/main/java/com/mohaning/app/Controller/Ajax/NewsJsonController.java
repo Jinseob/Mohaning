@@ -27,13 +27,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import com.mohaning.app.Const;
 import com.mohaning.app.GetDataController;
+import com.mohaning.app.NewsValidator;
+import com.mohaning.app.Controller.NewsController;
 import com.mohaning.app.Dao.CmmnDao;
 import com.mohaning.app.Model.MHNA01001VO;
 import com.mohaning.app.Model.MHNC99901VO;
@@ -87,9 +92,10 @@ public class NewsJsonController {
 		return modelAndView;
 	}
 	
+	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/NewsRegister.json", method=RequestMethod.POST)
 	public ModelAndView NewsRegister(@ModelAttribute("mhnn01001VO") MHNN01001VO mhnn01001VO, ModelMap model, HttpServletRequest request, 
-			HttpServletResponse response, HttpSession session) throws Exception{
+			HttpServletResponse response, HttpSession session, BindingResult bindingResult) throws Exception{
 		
 		ModelAndView modelAndView = new ModelAndView();
 		MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
@@ -100,13 +106,45 @@ public class NewsJsonController {
 		// 1. Portal, SSL, Media Check.
 		result = DataCheckForURL(mhnn01001VO);
 		
-		// 2. 데이터 추출.
+		// 2. Url 확인.
+		result.setStatus(Const.STATUS10);	// 임시 저장.
 		if(result.getMedia_id() != null && !result.getMedia_id().isEmpty()) {
-			result.setStatus("S");
 			result = DataExtract(result);
-		}else {
-			result.setStatus("E1");
 		}
+		
+		// 3. 필수 항목, 선택 항목 
+		NewsValidator newsValidator = new NewsValidator();
+		newsValidator.validate(result, bindingResult);
+		
+		List<FieldError> errors = bindingResult.getFieldErrors();
+		FieldError error = null;
+		int e10Cnt = 0, e20Cnt = 0, e30Cnt = 0, e40Cnt = 0;
+		String eLog = "";
+		for(int i = 0; i < errors.size(); i++) {
+			error = errors.get(i);
+			if(error.getCode().equals(Const.ERROR10)) e10Cnt++;
+			if(error.getCode().equals(Const.ERROR20)) e20Cnt++;
+			if(error.getCode().equals(Const.ERROR30)) e30Cnt++;
+			if(error.getCode().equals(Const.ERROR40)) e40Cnt++;
+			eLog += error.getField() + ",";
+		}
+
+		String eCd = Const.STATUS50;
+		
+		// 4. 필수 항목 및 기타 항목 확인.
+		if(e20Cnt > 0) {	// 필수 항목이 없는 경우.
+			eCd = Const.STATUS30;
+		}else if((e30Cnt + e40Cnt) > 0) {	// 필수 항목외에 없는 경우.
+			eCd = Const.STATUS40;
+		}
+		result.setStatus(eCd);
+		
+		// 저장 후 ID 가지고 와서 result 에 넣어주기.
+		NewsController newsController = new NewsController();
+		result = newsController.processUpdate(result);
+		
+		// 성공시 -> 등록되었습니다. 알림창 띄우기 -> 확인 시 기사 상세 화면으로 이동.
+		// 실패시 -> 등록에 실패하였습니다. 다시 등록해주세요. -> 확인 시 기사 등록 화면으로 이동.
 		
 		model.addAttribute("result", result);
 		

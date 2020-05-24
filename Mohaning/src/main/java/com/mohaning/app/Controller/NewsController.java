@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mohaning.app.Const;
 import com.mohaning.app.Dao.CmmnDao;
 import com.mohaning.app.Model.MHNA01001VO;
 import com.mohaning.app.Model.MHNB01001VO;
@@ -50,38 +51,75 @@ public class NewsController {
 		return "mhnn010/n010i";
 	}
 
-	@RequestMapping(value = "/News/processUpdate.do")
-	public String processUpdate(@ModelAttribute("mhnn01001VO") MHNN01001VO mhnn01001VO, ModelMap model, 
-			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+//	@RequestMapping(value = "/News/processUpdate.do")
+//	public String processUpdate(@ModelAttribute("mhnn01001VO") MHNN01001VO mhnn01001VO, ModelMap model, 
+//			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+//		
+//		// 저자가 등록되어 있지 않으면 저장하기.
+//		if(mhnn01001VO.getAuthor_id().isEmpty()) {
+//			MHNA01001VO authorInfo = new MHNA01001VO();
+//			authorInfo.setAuthor_id(mhnn01001VO.getAuthor_id());
+//			authorInfo.setAuthor_email(mhnn01001VO.getAuthor_email());
+//			authorInfo.setAuthor_nm(mhnn01001VO.getAuthor_nm());
+//			authorInfo.setMedia_id(mhnn01001VO.getMedia_id());
+//			
+//			dao.insert("a010.insertAuthor", authorInfo);	// 우선 기자를 등록하고 등록된 기자의 ID 를 가지고 온다.
+//			mhnn01001VO.setAuthor_id(authorInfo.getAuthor_id());
+//		}
+//		dao.insert_return("n010.insertNews", mhnn01001VO);		// News 를 저장한다.
+//
+//		// 포털 URL 이 있는 경우 저장 되었는지 확인하는 부분.
+//		int portalCnt = -1;	// -1 이면 포털 ID 가 없는 경우. 0 이상이면 포털 ID 가 있는 경우.
+//		if(!mhnn01001VO.getPortal_id().isEmpty()) {	// 포털 URL 이 잇는 경우 포털 ID 가 있다.
+//			portalCnt = dao.selectCnt("p010.selectPortalByNewsCnt", mhnn01001VO);
+//		}
+//		
+//		if(portalCnt == 0) {
+//			System.out.println("Portal Count : " + portalCnt);
+//			dao.insert_return("p010.insertPortal", mhnn01001VO);	// 포탈에서 가져온 경우 포털 정보를 저장한다.
+//		}
+//		
+//		// 저장 성공시 Detail 화면으로 간다.
+//		String rediredUrl = "redirect:/News/n010d" + mhnn01001VO.getNews_id() + ".do";
+//		System.out.println(rediredUrl);
+//		return rediredUrl;
+//	}
+	
+	public MHNN01001VO processUpdate(MHNN01001VO mhnn01001VO){
 		
-		// 저자가 등록되어 있지 않으면 저장하기.
-		if(mhnn01001VO.getAuthor_id().isEmpty()) {
-			MHNA01001VO authorInfo = new MHNA01001VO();
-			authorInfo.setAuthor_id(mhnn01001VO.getAuthor_id());
-			authorInfo.setAuthor_email(mhnn01001VO.getAuthor_email());
-			authorInfo.setAuthor_nm(mhnn01001VO.getAuthor_nm());
-			authorInfo.setMedia_id(mhnn01001VO.getMedia_id());
+		try {
+			// 저자가 등록되어 있지 않으면 저장하기.
+			if(mhnn01001VO.getAuthor_id().isEmpty()) {
+				MHNA01001VO authorInfo = new MHNA01001VO();
+				authorInfo.setAuthor_id(mhnn01001VO.getAuthor_id());
+				authorInfo.setAuthor_email(mhnn01001VO.getAuthor_email());
+				authorInfo.setAuthor_nm(mhnn01001VO.getAuthor_nm());
+				authorInfo.setMedia_id(mhnn01001VO.getMedia_id());
+				
+				dao.insert("a010.insertAuthor", authorInfo);
+				mhnn01001VO.setAuthor_id(authorInfo.getAuthor_id());
+			}
 			
-			dao.insert("a010.insertAuthor", authorInfo);	// 우선 기자를 등록하고 등록된 기자의 ID 를 가지고 온다.
-			mhnn01001VO.setAuthor_id(authorInfo.getAuthor_id());
-		}
-		dao.insert_return("n010.insertNews", mhnn01001VO);		// News 를 저장한다.
+			
+			dao.insert_return("n010.insertNews", mhnn01001VO);
 
-		// 포털 URL 이 있는 경우 저장 되었는지 확인하는 부분.
-		int portalCnt = -1;	// -1 이면 포털 ID 가 없는 경우. 0 이상이면 포털 ID 가 있는 경우.
-		if(!mhnn01001VO.getPortal_id().isEmpty()) {	// 포털 URL 이 잇는 경우 포털 ID 가 있다.
-			portalCnt = dao.selectCnt("p010.selectPortalByNewsCnt", mhnn01001VO);
+			// 포털 URL 이 있는 경우 저장 되었는지 확인하는 부분.
+			int portalCnt = -1;	// -1 이면 포털 ID 가 없는 경우. 0 이상이면 포털 ID 가 있는 경우.
+			if(!mhnn01001VO.getPortal_id().isEmpty()) {	// 포털 URL 이 잇는 경우 포털 ID 가 있다.
+				portalCnt = dao.selectCnt("p010.selectPortalByNewsCnt", mhnn01001VO);
+			}
+			
+			if(portalCnt == 0) {
+				System.out.println("Portal Count : " + portalCnt);
+				dao.insert_return("p010.insertPortal", mhnn01001VO);
+			}
+		}catch(Exception e) {
+			mhnn01001VO.setStatus(Const.ERROR50);
+			// log 에 남기기. 
+			e.printStackTrace();
 		}
 		
-		if(portalCnt == 0) {
-			System.out.println("Portal Count : " + portalCnt);
-			dao.insert_return("p010.insertPortal", mhnn01001VO);	// 포탈에서 가져온 경우 포털 정보를 저장한다.
-		}
-		
-		// 저장 성공시 Detail 화면으로 간다.
-		String rediredUrl = "redirect:/News/n010d" + mhnn01001VO.getNews_id() + ".do";
-		System.out.println(rediredUrl);
-		return rediredUrl;
+		return mhnn01001VO;
 	}
 	
 	@RequestMapping(value = "/News/n010d{news_id}.do")

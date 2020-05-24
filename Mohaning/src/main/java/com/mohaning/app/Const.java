@@ -14,6 +14,9 @@ public class Const {
 	public final static String STATUS90 = "90";		// 완료
 	public final static String STATUS99 = "99";		// 반려
 	
+	// 상태 코드
+	public final static String STATUSAL = "AL"; 	// Already Registerd.
+	
 	// 오류 코드.
 	public final static String ERROR10 	= "E10";		// First Check Error. News_url
 	public final static String ERROR20 	= "E20";		// Second Check Error. News_title, News_contents, Media_nm, Author_nm, Author_email 
@@ -23,6 +26,11 @@ public class Const {
 	public final static String ERROR50 	= "E50";		// Insert Error.
 	public final static String ERROR60 	= "E60";		// Select Error.
 	
+	
+	// 메세지
+	public final static String MSG10 = "등록 되었습니다.\n관리자 점검 후 기사 메뉴에서 확인 하실 수 있습니다.";
+	public final static String MSG20 = "등록 되었습니다.\n관리자 점검 후 기사 메뉴에서 확인 하실 수 있습니다.";
+	public final static String MSG50 = "등록이 실패하였습니다. 잠시 후 다시 등록해주세요.";
 	
 	// 메뉴 타입
 	public final static String NEWS 	= "N";			// News 타입

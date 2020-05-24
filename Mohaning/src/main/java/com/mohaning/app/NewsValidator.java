@@ -17,49 +17,49 @@ public class NewsValidator implements Validator{
 		// TODO Auto-generated method stub
 		MHNN01001VO news = (MHNN01001VO) obj;
 		
-		/* First Check */
+		// News Url 체크
 		String news_url = news.getNews_url();
 		if(news_url == null || news_url.trim().isEmpty()) {
 			errors.rejectValue("news_url", Const.ERROR10);
 		}
 		
-		/* Second Check */
 		// 기사 제목 필수.
 		String news_title = news.getNews_title();
 		if(news_title == null || news_title.trim().isEmpty()) {
-			errors.rejectValue("news_title", Const.ERROR20);
+			errors.rejectValue("news_title", Const.ERROR10);
+		}
+		
+		/* Doc_id 체크 */
+		String doc_id = news.getDoc_id();
+		if(doc_id == null || doc_id.trim().isEmpty()) {
+			errors.rejectValue("doc_id", Const.ERROR20);
 		}
 		
 		// 기사 내용 필수.
 		String news_contents = news.getNews_contents();
 		if(news_contents == null || news_contents.trim().isEmpty()) {
-			errors.rejectValue("news_contents", Const.ERROR20);
+			errors.rejectValue("news_contents", Const.ERROR30);
 		}
 		
 		// 언론사명 필수.
 		String media_nm = news.getMedia_nm();
 		if(media_nm == null || media_nm.trim().isEmpty()) {
-			errors.rejectValue("media_nm", Const.ERROR20);
+			errors.rejectValue("media_nm", Const.ERROR30);
 		}
 		
 		// 기자명 필수.
 		String author_nm = news.getAuthor_nm();
 		if(author_nm == null || author_nm.trim().isEmpty()) {
-			errors.rejectValue("author_nm", Const.ERROR20);
+			errors.rejectValue("author_nm", Const.ERROR30);
 		}
 		
 		// 기자 email 필수.
 		String author_email = news.getAuthor_email();
 		if(author_email == null || author_email.trim().isEmpty()) {
-			errors.rejectValue("author_email", Const.ERROR20);
+			errors.rejectValue("author_email", Const.ERROR30);
 		}
 		
 		/* Etc Check */
-		String doc_id = news.getDoc_id();
-		if(doc_id == null || doc_id.trim().isEmpty()) {
-			errors.rejectValue("doc_id", Const.ERROR30);
-		}
-		
 		String media_id = news.getMedia_id();
 		if(media_id == null || media_id.trim().isEmpty()) {
 			errors.rejectValue("media_id", Const.ERROR30);

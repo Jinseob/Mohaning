@@ -425,27 +425,29 @@ public class GetDataController {
         	// Title, Content 는 거의 공통.
         	if(dataCheck.getType().equals("TITLE")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setNews_title(dataElement.attr(dataCheck.getData()));
+        		if(dataElement != null) result.setNews_title(dataElement.attr(dataCheck.getData()));
 				System.out.println("TitleHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("CONTENTS")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setNews_contents(dataElement.attr(dataCheck.getData()));
+        		if(dataElement != null) result.setNews_contents(dataElement.attr(dataCheck.getData()));
 				System.out.println("ContentHtml : " + dataElement.outerHtml());
         	}else if(dataCheck.getType().equals("AUTHOR")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-				result.setAuthor_nm(dataElement.attr(dataCheck.getData()));
+        		if(dataElement != null) result.setAuthor_nm(dataElement.attr(dataCheck.getData()));
         	}else if(dataCheck.getType().equals("EMAIL")) {
         		dataElement = document.select(dataCheck.getSelection()).first();
-        		String[] textArray = dataElement.text().split("\\s+");
-        		String selectedTxt = "";
-        		for(int j = textArray.length - 1; j >= 0; j--) {
-        			String text = textArray[j];
-        			if(text.indexOf(dataCheck.getPattern()) > -1) {
-        				selectedTxt = text;
-        				break;
+        		if(dataElement != null) {
+        			String[] textArray = dataElement.text().split("\\s+");
+        			String selectedTxt = "";
+        			for(int j = textArray.length - 1; j >= 0; j--) {
+        				String text = textArray[j];
+        				if(text.indexOf(dataCheck.getPattern()) > -1) {
+        					selectedTxt = text;
+        					break;
+        				}
         			}
+        			result.setAuthor_email(selectedTxt);
         		}
-        		result.setAuthor_email(selectedTxt);
         	}
         }
 		

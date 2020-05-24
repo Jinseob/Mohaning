@@ -50,19 +50,20 @@
  			},
  		})
 	}
-	function downimage(){
-		$.ajax({
- 			type: "POST",
- 			url : "/downImage.json",
- 			dataType: "json",
- 			success: function(results){
- 				console.log(results);
- 			},
- 			error: function(data){
- 				alert("E" + data);
- 			},
- 		})
-	}
+// 	Image down 시 사용함.
+// 	function downimage(){
+// 		$.ajax({
+//  			type: "POST",
+//  			url : "/downImage.json",
+//  			dataType: "json",
+//  			success: function(results){
+//  				console.log(results);
+//  			},
+//  			error: function(data){
+//  				alert("E" + data);
+//  			},
+//  		})
+// 	}
 	</script>
 </head>
 
@@ -385,7 +386,6 @@
       		</div>
     	</div>
   	</div>
-  	<button type="button" onclick="javascript:downimage();">aaaa</button>
 	</section>
 	
   	<script type="text/javascript">

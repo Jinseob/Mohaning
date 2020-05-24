@@ -60,34 +60,46 @@
 	 					if(confirm(result.news_id + " 번으로 등록된 뉴스가 있습니다.\n이동하시겠습니까?")){
 	 						onPageMove("n010d" + result.news_id);					
 	 					}
+	 				}else if(result.status == "E50"){
+	 					alert(result.msg);
+ 						location.href = "./n010i.do";
 	 				}else{
-	 					if(result.status == "E20") alert("관리자가 확인 후 내용을 업데이트 하겠습니다.");
+	 					if(result.status == "10" || result.status == "20"){
+	 						alert(result.msg);
+	 						location.href = "./main.do";
+	 					}else{
+	 						alert("등록되었습니다.");
+	 						onPageMove("n010d" + result.news_id);
+	 					}
 	 					
-	 					$("#doc_id").val(result.doc_id);
-	 					$("#media_id").val(result.media_id);
-	 					$("#media_nm").val(result.media_nm);
-	 					$("#media_url").val(result.media_url);
-	 					$("#author_id").val(result.author_id);
-	 					$("#author_nm").val(result.author_nm);
-	 					$("#author_email").val(result.author_email);
-	 					$("#portal_id").val(result.portal_id);
-	 					$("#portal_url").val(result.portal_url);
-	 					$("#news_title").val(result.news_title);
-	 					$("#news_contents").val(result.news_contents);
-	 					$("#news_url").val(result.news_url);
 	 					
-	 					// 팝업 숨기는 용.
-	 					$("div[class='news_info']").show();
- 						$("div[class='news_button']").hide();
- 						$("#news_modal").hide();
+// 	 					if(result.status == "E20") alert("관리자가 확인 후 내용을 업데이트 하겠습니다.");
+	 					
+// 	 					$("#doc_id").val(result.doc_id);
+// 	 					$("#media_id").val(result.media_id);
+// 	 					$("#media_nm").val(result.media_nm);
+// 	 					$("#media_url").val(result.media_url);
+// 	 					$("#author_id").val(result.author_id);
+// 	 					$("#author_nm").val(result.author_nm);
+// 	 					$("#author_email").val(result.author_email);
+// 	 					$("#portal_id").val(result.portal_id);
+// 	 					$("#portal_url").val(result.portal_url);
+// 	 					$("#news_title").val(result.news_title);
+// 	 					$("#news_contents").val(result.news_contents);
+// 	 					$("#news_url").val(result.news_url);
+	 					
+// 	 					// 팝업 숨기는 용.
+// 	 					$("div[class='news_info']").show();
+//  						$("div[class='news_button']").hide();
+//  						$("#news_modal").hide();
  						
- 						// 화면 출력용.
- 						$("[data-index='news_title']").text(result.news_title);
-	 					$("[data-index='news_url']").text(result.news_url);
-	 					$("[data-index='portal_url']").text(result.portal_url);
-	 					$("[data-index='author_nm']").text(result.author_nm);
-	 					$("[data-index='author_email']").text(result.author_email);
-	 					$("[data-index='media_nm']").text(result.media_nm);
+//  						// 화면 출력용.
+//  						$("[data-index='news_title']").text(result.news_title);
+// 	 					$("[data-index='news_url']").text(result.news_url);
+// 	 					$("[data-index='portal_url']").text(result.portal_url);
+// 	 					$("[data-index='author_nm']").text(result.author_nm);
+// 	 					$("[data-index='author_email']").text(result.author_email);
+// 	 					$("[data-index='media_nm']").text(result.media_nm);
 	 				}
 	 			},
 	 			error: function(data){
@@ -105,8 +117,7 @@
 	}
 	
 	function onPageMove(url){
-		if(url = "main") url = "/News/main";
-		$("#frm").attr({"action" : "/" + type + ".do", "method" : "POST"}).submit();
+		$("#frm").attr({"action" : "./" + url + ".do", "method" : "POST"}).submit();
 	}
 	
 	window.onload = function(){

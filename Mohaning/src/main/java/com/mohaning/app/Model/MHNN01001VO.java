@@ -18,6 +18,7 @@ public class MHNN01001VO {
 	private String news_contents;
 	private String news_url;
 	private String status;
+	private String msg;
 	private int view_cnt;
 	private int del_fl;
 	private String reg_id;
@@ -113,6 +114,12 @@ public class MHNN01001VO {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getMsg() {
+		return msg == null ? "" : msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 	public int getView_cnt() {
 		return view_cnt;

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis -->	
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ibatis -->
+<!-- <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
+
+<mapper namespace="m010">
+	<insert id="insertStatus" parameterType="com.mohaning.app.Model.MHNM01001VO">
+		INSERT INTO mhnm01001tb(
+			ID,
+			TYPE,
+			STATUS,
+			LOG,
+			UPT_ID,
+			UPT_DT
+		)VALUES(
+			#{id},
+			#{type},
+			#{status},
+			#{log},
+			'admin',
+			now()
+		)
+	</insert>
+</mapper>

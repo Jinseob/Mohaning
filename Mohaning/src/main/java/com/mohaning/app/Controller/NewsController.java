@@ -40,7 +40,6 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import com.mohaning.app.Const;
 import com.mohaning.app.GetDataController;
 import com.mohaning.app.NewsValidator;
-import com.mohaning.app.Controller.Ajax.NewsJsonController;
 import com.mohaning.app.Dao.CmmnDao;
 import com.mohaning.app.Model.MHNA01001VO;
 import com.mohaning.app.Model.MHNB01001VO;
@@ -126,8 +125,13 @@ public class NewsController {
 				mhnn01001VO.setAuthor_id(authorInfo.getAuthor_id());
 			}
 			
-			
+			// 기사 저장
 			dao.insert_return("n010.insertNews", mhnn01001VO);
+			
+			// 기사 상태 저장
+			mhnn01001VO.setId(mhnn01001VO.getNews_id());
+			mhnn01001VO.setType(Const.NEWS);
+			dao.insert("m010.insertStatus", mhnn01001VO);
 
 			// 포털 URL 이 있는 경우 저장 되었는지 확인하는 부분.
 			int portalCnt = -1;	// -1 이면 포털 ID 가 없는 경우. 0 이상이면 포털 ID 가 있는 경우.
@@ -253,6 +257,7 @@ public class NewsController {
 				eCd = Const.STATUS40;
 			}
 			result.setStatus(eCd);
+			result.setLog(eLog);
 			
 			// 저장 후 ID 가지고 와서 result 에 넣어주기.
 			result = processUpdate(result);

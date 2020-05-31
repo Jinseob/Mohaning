@@ -16,13 +16,20 @@
 			   a.view_cnt, 
 			   a.reg_dt,
        		   b.author_nm, 
-       		   c.media_nm
+       		   c.media_nm,
+       		   m.status,
+       		   m.log
  		  FROM mhnn01001tb AS a
   		  LEFT JOIN mhna01001tb AS b
   			ON a.author_id = b.author_id
   		  LEFT JOIN mhnc99901tb AS c
   			ON b.media_id = c.media_id
+  	      LEFT JOIN ( SELECT id, type, status, log 
+  	      				FROM mhnm01001tb
+  	      			   WHERE type = 'N' ) AS m
+  			ON a.news_id = m.id
   		 <where>
+  		    m.status > '20' or m.status is null
 		  	<if test=" news_id!=null and news_id!='' ">
 				a.news_id = #{news_id }
 			</if>
@@ -84,12 +91,18 @@
 		       d.media_nm,
 		       d.media_url,
 		       b.author_nm,
-		       b.author_email
+		       b.author_email,
+		       m.status,
+		       m.log
 		  FROM mhnn01001tb AS a
 		  LEFT JOIN mhna01001tb AS b
 		  	 	 ON a.author_id = b.author_id
 		  LEFT JOIN mhnc99901tb AS d
 		         ON a.media_id = d.media_id
+		  LEFT JOIN ( SELECT id, type, status, log 
+  	      				FROM mhnm01001tb
+  	      			   WHERE type = 'N' ) AS m
+  			ON a.news_id = m.id
   		 WHERE a.news_id = #{news_id}
 	</select>
 	

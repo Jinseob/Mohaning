@@ -2,7 +2,7 @@ package com.mohaning.app.Model;
 
 import java.sql.Date;
 
-public class MHNN01001VO {	
+public class MHNN01001VO extends MHNM01001VO{	
 	private String news_id;
 	private String doc_id;
 	private String media_id;
@@ -17,7 +17,6 @@ public class MHNN01001VO {
 	private String news_title;
 	private String news_contents;
 	private String news_url;
-	private String status;
 	private String msg;
 	private int view_cnt;
 	private int del_fl;
@@ -108,12 +107,6 @@ public class MHNN01001VO {
 	}
 	public void setNews_url(String news_url) {
 		this.news_url = news_url;
-	}
-	public String getStatus() {
-		return status == null ? "" : status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
 	}
 	public String getMsg() {
 		return msg == null ? "" : msg;

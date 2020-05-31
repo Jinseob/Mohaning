@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import com.mohaning.app.MailHandler;
 import com.mohaning.app.Dao.CmmnDao;
 import com.mohaning.app.Model.MHNU010VO;
 

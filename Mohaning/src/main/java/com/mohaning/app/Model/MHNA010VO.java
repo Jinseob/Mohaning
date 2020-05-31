@@ -2,7 +2,7 @@ package com.mohaning.app.Model;
 
 import java.sql.Date;
 
-public class MHNA010VO {
+public class MHNA010VO extends MHNM01001VO{
 	private String author_id;
 	private String media_id;
 	private String media_nm;

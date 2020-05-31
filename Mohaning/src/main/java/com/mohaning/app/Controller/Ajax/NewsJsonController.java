@@ -1,50 +1,23 @@
 package com.mohaning.app.Controller.Ajax;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
 import java.util.List;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import com.mohaning.app.Const;
-import com.mohaning.app.GetDataController;
-import com.mohaning.app.NewsValidator;
-import com.mohaning.app.Controller.NewsController;
 import com.mohaning.app.Dao.CmmnDao;
-import com.mohaning.app.Model.MHNA01001VO;
-import com.mohaning.app.Model.MHNC99901VO;
-import com.mohaning.app.Model.MHNC99902VO;
 import com.mohaning.app.Model.MHND010VO;
-import com.mohaning.app.Model.MHNN01001VO;
 import com.mohaning.app.Model.MHNR010VO;
 
 @Controller

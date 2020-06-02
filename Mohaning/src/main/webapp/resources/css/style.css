@@ -545,6 +545,19 @@
   border-bottom: 0.1rem solid black;
 }
 
+/* News Input */
+.news_input_area{
+	position: relative;
+	display: grid;
+	padding: 30px 20px;
+	border: 0.1rem dotted black;
+}
+.news_url_input{
+	border: none;
+	height: 50px;
+	padding-left: 10px;
+	background-color: #F6F6F6
+}
 /* News Insert Button */
 .insert_div{
   height: 203.4px;

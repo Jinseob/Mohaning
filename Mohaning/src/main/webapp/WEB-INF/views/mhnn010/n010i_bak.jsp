@@ -38,10 +38,12 @@
 // 	}
 	
 	function onRegisterBtn(){
-		var url = $("#news_url").val();
+		var url = $("#modal_url_in").val();
 		if(url == ""){
 			alert("URL 을 입력해주세요.");
 			return;
+		}else{
+			$("#news_url").val(url);
 		}
 		
 		var frm = $("#frm").serialize();
@@ -151,22 +153,79 @@
 	          		<h5>기사 등록</h5>
 	        	</div>
 	      	</div>
-	      	<div class="news_input_area">
-	      		<h4>기사의 URL을 입력해주세요.</h4>
-	      		<span class="mt-10">URL 등록 후 자동으로 요약 내용을 가져옵니다.</span>
-	      		<input type="url" class="news_url_input mt-10" name="news_url" id="news_url"></input>
-	      		<div class="buttons_wrap mt-10">
-		        	<div class="left_group">
-			
-		        	</div>
-		        	<div class="right_group">
-		          		<button type="button" class="btn1" onclick="onRegisterBtn();">등록</button>
-		        	</div>
-		      	</div>
+	      	<div class="contents_title">
+	        	<div class="title">
+	          		<input type="text" class="in_title" name="news_title" id="news_title" placeholder="URL 등록 후 자동으로 제목을 가져옵니다." readonly/>
+	        	</div>
+	      	</div>
+	      	<div class="news_button">
+	        	<div class="insert_div">
+	          		<button type="button" id="news_insert_btn">기사를 등록하실려면 눌러주세요.</button>
+	        	</div>
+	      	</div>
+	      	<div class="news_info" hidden>
+	        	<div class="news_url">
+	          		<label>원문 URL</label>
+	          		<a href="#" data-index="news_url">${result.news_url }</a>
+	          		<input type="hidden" name="news_url" id="news_url" value="${result.news_url}"/>
+	        	</div>
+	        	<div class="news_url">
+	          		<label>포털 URL</label>
+	          		<a href="#" data-index="portal_url">${result.portal_url }</a>
+	          		<input type="hidden" name="portal_url" id="portal_url" value="${result.portal_url}"/>
+	        	</div>
+	        	<div class="author_info">
+	          		<div class="author_name">
+	            		<p data-index="author_nm">${result.author_nm }</p>
+	            		<input type="hidden" name="author_nm" id="author_nm" value="${result.author_nm}"/>
+	          		</div>
+	          		<div class="author_email">
+	            		<p data-index="author_email">${result.author_email }</p>
+	            		<input type="hidden" name="author_email" id="author_email" value="${result.author_email}"/>
+	          		</div>
+	          		<div class="author_media">
+	            		<p data-index="media_nm">${result.media_nm }</p>
+	            		<input type="hidden" name="media_nm" id="media_nm" value="${result.media_nm}"/>
+	          		</div>
+	        	</div>
+	      	</div>
+	      	<div class="contents_view mt-10">
+	        	<article>
+	          		<div class="contents_article">
+	            		<textarea cols="50" rows="10" name="news_contents" id="news_contents" placeholder="URL 등록 후 자동으로 요약 내용을 가져옵니다." readonly="readonly"></textarea>
+	          		</div>
+	        	</article>
+	      	</div>
+	      	<div class="contents_tags">
+	        	<div class="tags">
+	          		<p>#태그</p>
+	          		<p>#태그1</p>
+	          		<p>#태그2</p>
+	          		<p>#태그3</p>
+	        	</div>
+	      	</div>
+	      	<div class="buttons_wrap">
+	        	<div class="left_group">
+	
+	        	</div>
+	        	<div class="right_group">
+	          		<button type="button" class="btn1" onclick="javascript: onPageMove('main');">취소</button>
+	          		<button type="button" class="btn1" onclick="javascript: onSaveBtn();">저장</button>
+	        	</div>
 	      	</div>
       	</form>
 		</div>
 	</div>
+
+  	<!-- Modal -->
+  	<div id="news_modal" class="modal">
+    	<div class="modal_contents">
+      		<input type="text" class="modal_url_in" name="modal_url_in" id="modal_url_in" placeholder="기사의 URL을 입력해주세요."/>
+      		<button type="button" class="btn1" onclick="onRegisterBtn();">등록</button>
+      		<span class="close" id="news_modal_close">&times;</span>
+    	</div>
+  	</div>
+	<!-- Modal -->
 	</section>
 	
 	<footer>

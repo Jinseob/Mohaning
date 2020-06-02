@@ -115,14 +115,21 @@ public class NewsController {
 		try {
 			// 저자가 등록되어 있지 않으면 저장하기.
 			if(mhnn01001VO.getAuthor_id().isEmpty()) {
+				int authorCnt = 0;
 				MHNA01001VO authorInfo = new MHNA01001VO();
-				authorInfo.setAuthor_id(mhnn01001VO.getAuthor_id());
+//				authorInfo.setAuthor_id(mhnn01001VO.getAuthor_id());
 				authorInfo.setAuthor_email(mhnn01001VO.getAuthor_email());
 				authorInfo.setAuthor_nm(mhnn01001VO.getAuthor_nm());
 				authorInfo.setMedia_id(mhnn01001VO.getMedia_id());
 				
-				dao.insert_return("a010.insertAuthor", authorInfo);
-				mhnn01001VO.setAuthor_id(authorInfo.getAuthor_id());
+				if(authorInfo.getAuthor_email().isEmpty()) authorCnt++;
+				if(authorInfo.getAuthor_nm().isEmpty()) authorCnt++;
+				if(authorInfo.getMedia_id().isEmpty()) authorCnt++;
+				
+				if(authorCnt < 2) {
+					dao.insert_return("a010.insertAuthor", authorInfo);
+					mhnn01001VO.setAuthor_id(authorInfo.getAuthor_id());
+				}
 			}
 			
 			// 기사 저장
@@ -208,7 +215,6 @@ public class NewsController {
 		return "mhnn010/n010d";
 	}
 	
-	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/NewsRegister.json", method=RequestMethod.POST)
 	public ModelAndView NewsRegister(@ModelAttribute("mhnn01001VO") MHNN01001VO mhnn01001VO, ModelMap model, HttpServletRequest request, 
 			HttpServletResponse response, HttpSession session, BindingResult bindingResult) throws Exception{

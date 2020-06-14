@@ -49,7 +49,16 @@
   	<div class="container">
     	<div class="row">
       		<div class="search-result-wrapper">
-        		<h3>"검색 결과"</h3>
+        		<c:choose>
+        			<c:when test="${val ne '' }">
+        				<h3>"${searchOptionVO.val }"</h3>	
+        			</c:when>
+        			<c:otherwise>
+        				<h3>"검색 결과"</h3>
+        			</c:otherwise>
+        		</c:choose>
+        		
+        		
       		</div>
     	</div>
   	</div>
@@ -58,48 +67,24 @@
   	<div class="container mt-30">
 		<div class="contents_type">
 			<div class="title_wrap">
-	   			<h5>토론방 결과</h5><h5 class="highlight">(11 건)</h5>
+	   			<h5>토론방 결과</h5><h5 class="highlight">(${boardResultCnt } 건)</h5>
 			</div>
    		</div>
    		<ul class="popular-news-list">
-<%--         			<c:choose> --%>
-<%-- 						<c:when test="${fn:length(resultList) > 0 }"> --%>
-<%-- 						<c:forEach items="${resultList }" var="result"> --%>
-<!-- 							<li class="news-list-title"> -->
-<!-- 								<label>298</label> -->
-<%-- 								<a href="/Board/b010d${result.board_id }.do">${result.title }</a> --%>
-<!-- 							</li> -->
-<%-- 						</c:forEach> --%>
-<%-- 						</c:when> --%>
-<%-- 						<c:otherwise> --%>
-<!-- 							<li>데이터가 없습니다.</li> -->
-<%-- 						</c:otherwise> --%>
-<%-- 					</c:choose> --%>
-			<li class="news-list-title">
-				<label>298</label>
-				<a href="/Board/main.do">내용을 길게길게 제목은 여기에</a>
-			</li>
-			<li class="news-list-title">
-				<label>298</label>
-				<a href="/Board/main.do">내용을 길게길게 제목은 여기에</a>
-			</li>
-			<li class="news-list-title">
-				<label>298</label>
-				<a href="/Board/main.do">내용을 길게길게 제목은 여기에</a>
-			</li>
-			<li class="news-list-title">
-				<label>298</label>
-				<a href="/Board/main.do">내용을 길게길게 제목은 여기에</a>
-			</li>
-			<li class="news-list-title">
-				<label>298</label>
-				<a href="/Board/main.do">내용을 길게길게 제목은 여기에</a>
-			</li>
-			<li class="news-list-title">
-				<label>298</label>
-				<a href="/Board/main.do">내용을 길게길게 제목은 여기에</a>
-			</li>
-			<li><a href="/News/main.do" class="more right">기사 더보기 ></a></li>
+			<c:choose>
+				<c:when test="${fn:length(boardResultList) > 0 }">
+				<c:forEach items="${boardResultList }" var="result">
+					<li class="news-list-title">
+						<label>298</label>
+						<a href="/Board/b010d${result.board_id }.do">${result.title }</a>
+					</li>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<li>데이터가 없습니다.</li>
+				</c:otherwise>
+			</c:choose>
+			<li><a href="/Board/main.do?val=${searchOptionVO.val }" class="more right">기사 더보기 ></a></li>
    		</ul>
 	</div>
 
@@ -107,48 +92,24 @@
     <div class="container mt-30">
     	<div class="contents_type">
     		<div class="title_wrap">
-        		<h5>기사 결과</h5><h5 class="highlight">(11 건)</h5>
+        		<h5>기사 결과</h5><h5 class="highlight">(${newsResultCnt } 건)</h5>
        		</div>
         </div>
         <ul class="popular-news-list">
-<%--         			<c:choose> --%>
-<%-- 						<c:when test="${fn:length(resultList) > 0 }"> --%>
-<%-- 						<c:forEach items="${resultList }" var="result"> --%>
-<!-- 							<li class="news-list-title"> -->
-<!-- 								<label>298</label> -->
-<%-- 								<a href="/Board/b010d${result.board_id }.do">${result.title }</a> --%>
-<!-- 							</li> -->
-<%-- 						</c:forEach> --%>
-<%-- 						</c:when> --%>
-<%-- 						<c:otherwise> --%>
-<!-- 							<li>데이터가 없습니다.</li> -->
-<%-- 						</c:otherwise> --%>
-<%-- 					</c:choose> --%>
-			<li class="news-list-title">
-				<label>298</label>
-				<a href="/Board/main.do">내용을 길게길게 제목은 여기에</a>
-			</li>
-			<li class="news-list-title">
-				<label>298</label>
-				<a href="/Board/main.do">내용을 길게길게 제목은 여기에</a>
-			</li>
-			<li class="news-list-title">
-				<label>298</label>
-				<a href="/Board/main.do">내용을 길게길게 제목은 여기에</a>
-			</li>
-			<li class="news-list-title">
-				<label>298</label>
-				<a href="/Board/main.do">내용을 길게길게 제목은 여기에</a>
-			</li>
-			<li class="news-list-title">
-				<label>298</label>
-				<a href="/Board/main.do">내용을 길게길게 제목은 여기에</a>
-			</li>
-			<li class="news-list-title">
-				<label>298</label>
-				<a href="/Board/main.do">내용을 길게길게 제목은 여기에</a>
-			</li>
-			<li><a href="/News/main.do" class="more right">기사 더보기 ></a></li>
+			<c:choose>
+				<c:when test="${fn:length(newsResultList) > 0 }">
+				<c:forEach items="${newsResultList }" var="result">
+					<li class="news-list-title">
+						<label>298</label>
+						<a href="/News/n010d${result.news_id }.do">${result.news_title }</a>
+					</li>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<li>데이터가 없습니다.</li>
+				</c:otherwise>
+			</c:choose>
+			<li><a href="/News/main.do?val=${searchOptionVO.val }" class="more right">기사 더보기 ></a></li>
 		</ul>
 	</div>
   	

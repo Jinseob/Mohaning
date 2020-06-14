@@ -8,6 +8,35 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
 
 <mapper namespace="n010">
+	<select id="selectNewsCount" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="int">
+		SELECT COUNT(*) 
+		  FROM mhnn01001tb a
+		  LEFT JOIN ( SELECT id, type, status, log 
+  	      				FROM mhnm01001tb
+  	      			   WHERE type = 'N' ) AS m
+  			ON a.news_id = m.id
+		<where>
+  		    ( m.status > '20' or m.status is null )
+			<choose>
+				<when test=" val!=null and val!='' and type == 'TIT' ">
+				and a.news_title like CONCAT('%',#{val },'%')
+				</when>
+				<when test=" val!=null and val!='' and type == 'CON' ">
+				and a.news_contents like CONCAT('%',#{val },'%')
+				</when>
+				<when test=" val!=null and val!='' and type == 'MIX' ">
+				and ( a.news_title like CONCAT('%',#{val },'%') or a.news_contents like CONCAT('%',#{val },'%') )
+				</when>
+				<when test=" val!=null and val!='' and type == 'ATH' ">
+				and b.author_nm like CONCAT('%',#{val },'%')
+				</when>
+				<when test=" val!=null and val!='' and type == 'MED' ">
+				and c.media_nm like CONCAT('%',#{val },'%')
+				</when>
+			</choose>
+		</where>
+	</select>
+
 	<!-- 기사 메인용 -->
 	<select id="selectNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNN01001VO">
 		SELECT a.news_id, 
@@ -29,25 +58,25 @@
   	      			   WHERE type = 'N' ) AS m
   			ON a.news_id = m.id
   		 <where>
-  		    m.status > '20' or m.status is null
+  		    ( m.status > '20' or m.status is null )
 		  	<if test=" news_id!=null and news_id!='' ">
-				a.news_id = #{news_id }
+				and a.news_id = #{news_id }
 			</if>
 			<choose>
 				<when test=" val!=null and val!='' and type == 'TIT' ">
-				a.news_title like #{val }
+				and a.news_title like CONCAT('%',#{val },'%')
 				</when>
 				<when test=" val!=null and val!='' and type == 'CON' ">
-				a.news_contents like #{val }
+				and a.news_contents like CONCAT('%',#{val },'%')
 				</when>
 				<when test=" val!=null and val!='' and type == 'MIX' ">
-				a.news_title like #{val } or a.news_contents like #{val }
+				and ( a.news_title like CONCAT('%',#{val },'%') or a.news_contents like CONCAT('%',#{val },'%') )
 				</when>
 				<when test=" val!=null and val!='' and type == 'ATH' ">
-				b.author_nm like #{val }
+				and b.author_nm like CONCAT('%',#{val },'%')
 				</when>
 				<when test=" val!=null and val!='' and type == 'MED' ">
-				c.media_nm like #{val }
+				and c.media_nm like CONCAT('%',#{val },'%')
 				</when>
 			</choose>
 		  </where>
@@ -73,7 +102,7 @@
 <!-- 		  		</when> -->
 		  	</choose>
 		  </trim>
-		  LIMIT #{legnth} OFFSET #{offset}
+		  LIMIT #{length} OFFSET #{offset}
 	</select>
 	
 	<!-- 기사 상세용 -->

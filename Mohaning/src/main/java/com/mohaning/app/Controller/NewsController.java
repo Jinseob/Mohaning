@@ -62,6 +62,10 @@ public class NewsController {
 	public String newsMain(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
+		searchOptionVO.setType(Const.MIX);
+		int resultCnt = dao.selectCnt("n010.selectNewsCount", searchOptionVO);
+		model.addAttribute("resultCnt", resultCnt);
+		
 		@SuppressWarnings("unchecked")
 		List<MHNN01001VO> list = (List<MHNN01001VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
 		model.addAttribute("resultList", list);

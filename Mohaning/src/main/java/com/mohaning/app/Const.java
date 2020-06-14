@@ -37,4 +37,10 @@ public class Const {
 	public final static String BOARD 	= "B";			// Board 타입
 	public final static String AUTHOR 	= "A";			// Author 타입
 	public final static String MEDIA 	= "M";			// Media 타입
+	
+	public final static String MIX		= "MIX";
+	public final static String TIT		= "TIT";
+	public final static String CON		= "CON";
+	public final static String ATH		= "ATH";
+	public final static String MED		= "MED";
 }

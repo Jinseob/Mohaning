@@ -20,6 +20,6 @@ $(function(){
 });
 </script>
 <div class="search-container">
-	<input type="text" placeholder="코로나19" name="searchVal" id="searchVal">
+	<input type="text" placeholder="코로나19" name="searchVal" id="searchVal" value="${searchOptionVO.val }">
 	<button type="button" class="search-btn" id="search-btn"></button>
 </div>

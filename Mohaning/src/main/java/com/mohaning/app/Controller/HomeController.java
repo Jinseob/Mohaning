@@ -45,7 +45,7 @@ public class HomeController {
 		// 1. 이슈 관련 조회수 가장 많은 기사 5건
 		searchOptionVO.setType("MIX");	// Title, Contents 에 이슈 단어가 있는 경우만 검색. val 에 이슈 단어가 들어가 있음.
 		searchOptionVO.setSort("03");
-		searchOptionVO.setLegnth(5);
+		searchOptionVO.setLength(5);
 		@SuppressWarnings("unchecked")
 		List<MHNB010VO> issueTopNewsList = (List<MHNB010VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
 		model.addAttribute("issueTopNewsList", issueTopNewsList);
@@ -53,7 +53,7 @@ public class HomeController {
 		// 2. 이슈 관련 조회수 가장 많은 토론 5건
 		searchOptionVO.setType("MIX");	// Title, Contents 에 이슈 단어가 있는 경우만 검색.  val 에 이슈 단어가 들어가 있음.
 		searchOptionVO.setSort("03");
-		searchOptionVO.setLegnth(5);
+		searchOptionVO.setLength(5);
 		@SuppressWarnings("unchecked")
 		List<MHNB01001VO> issueTopBoardList = (List<MHNB01001VO>) dao.selectList("b010.selectBoardList", searchOptionVO);
 		model.addAttribute("issueTopBoardList", issueTopBoardList);
@@ -61,7 +61,7 @@ public class HomeController {
 		// 3. 이슈 관련 신규 토론 5건
 		searchOptionVO.setType("MIX");	// Title, Contents 에 이슈 단어가 있는 경우만 검색. val 에 이슈 단어가 들어가 있음.
 		searchOptionVO.setSort("01");
-		searchOptionVO.setLegnth(5);
+		searchOptionVO.setLength(5);
 		@SuppressWarnings("unchecked")
 		List<MHNB01001VO> issueNewBoardList = (List<MHNB01001VO>) dao.selectList("b010.selectBoardList", searchOptionVO);
 		model.addAttribute("issueNewBoardList", issueNewBoardList);
@@ -88,7 +88,7 @@ public class HomeController {
 		// 7. 조회 수 높은 기사 10건
 		searchOptionVO.setType("");
 		searchOptionVO.setSort("03");
-		searchOptionVO.setLegnth(10);
+		searchOptionVO.setLength(10);
 		@SuppressWarnings("unchecked")
 		List<MHNB010VO> topNewsList = (List<MHNB010VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
 		model.addAttribute("topNewsList", topNewsList);
@@ -104,7 +104,7 @@ public class HomeController {
 		// 9. 최신 기사 10건
 		searchOptionVO.setType("");
 		searchOptionVO.setSort("01");
-		searchOptionVO.setLegnth(10);
+		searchOptionVO.setLength(10);
 		@SuppressWarnings("unchecked")
 		List<MHNB010VO> newsList = (List<MHNB010VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
 		model.addAttribute("newNewsList", newsList);

@@ -8,6 +8,24 @@
 	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
 
 <mapper namespace="b010">
+	<select id="selectBoardCount" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="int">
+		SELECT COUNT(*) 
+		  FROM mhnb01001tb
+		<where>
+  		    <choose>
+				<when test=" val!=null and val!='' and type == 'TIT' ">
+				and title like CONCAT('%',#{val },'%')
+				</when>
+				<when test=" val!=null and val!='' and type == 'CON' ">
+				and contents like CONCAT('%',#{val },'%')
+				</when>
+				<when test=" val!=null and val!='' and type == 'MIX' ">
+				and ( title like CONCAT('%',#{val },'%') or contents like CONCAT('%',#{val },'%') )
+				</when>
+			</choose>
+		</where>
+	</select>
+
 	<select id="selectBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT board_id,
 		       title,
@@ -21,13 +39,13 @@
 			</if>
 			<choose>
 				<when test=" val!=null and val!='' and type == 'TIT' ">
-				title like #{val }
+				and title like CONCAT('%',#{val },'%')
 				</when>
 				<when test=" val!=null and val!='' and type == 'CON' ">
-				contents like #{val }
+				and contents like CONCAT('%',#{val },'%')
 				</when>
 				<when test=" val!=null and val!='' and type == 'MIX' ">
-				title like #{val } or contents like #{val }
+				and title like CONCAT('%',#{val },'%') or contents like CONCAT('%',#{val },'%')
 				</when>
 			</choose>
 		  </where>
@@ -53,7 +71,7 @@
 <!-- 		  		</when> -->
 		  	</choose>
 		  </trim>
-		  LIMIT #{legnth} OFFSET #{offset}
+		  LIMIT #{length} OFFSET #{offset}
 	</select>
 	
 	<select id="selectBoard" parameterType="com.mohaning.app.Model.MHNB010VO" resultType="com.mohaning.app.Model.MHNB010VO">

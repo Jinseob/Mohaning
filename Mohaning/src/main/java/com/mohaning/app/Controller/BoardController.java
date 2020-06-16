@@ -37,7 +37,7 @@ public class BoardController {
 	public String boardMain(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
-		searchOptionVO.setType(Const.MIX);
+		searchOptionVO.setType(Const.MIX); 
 		int resultCnt = dao.selectCnt("b010.selectBoardCount", searchOptionVO);
 		model.addAttribute("resultCnt", resultCnt);
 		

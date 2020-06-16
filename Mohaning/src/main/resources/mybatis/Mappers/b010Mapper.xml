@@ -24,7 +24,7 @@
 				</when>
 			</choose>
 		</where>
-	</select>
+	</select> 
 
 	<select id="selectBoardList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNB010VO">
 		SELECT board_id,

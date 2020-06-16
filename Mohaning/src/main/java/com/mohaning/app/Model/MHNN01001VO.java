@@ -19,6 +19,7 @@ public class MHNN01001VO extends MHNM01001VO{
 	private String news_url;
 	private String msg;
 	private int view_cnt;
+	private int portal_cnt;
 	private int del_fl;
 	private String reg_id;
 	private Date reg_dt;
@@ -149,5 +150,11 @@ public class MHNN01001VO extends MHNM01001VO{
 	}
 	public void setUpd_dt(Date upd_dt) {
 		this.upd_dt = upd_dt;
+	}
+	public int getPortal_cnt() {
+		return portal_cnt;
+	}
+	public void setPortal_cnt(int portal_cnt) {
+		this.portal_cnt = portal_cnt;
 	}
 }

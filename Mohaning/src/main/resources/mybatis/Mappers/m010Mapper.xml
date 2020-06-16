@@ -25,4 +25,87 @@
 			now()
 		)
 	</insert>
+	
+	<select id="selectManageNewsList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNN01001VO">
+		SELECT a.news_id, 
+			   a.news_title,
+			   CONVERT(a.news_contents USING utf8) as news_contents,
+			   a.doc_id,
+			   a.news_url,
+			   a.view_cnt, 
+			   a.reg_dt,
+       		   b.author_nm,
+       		   b.author_id,
+       		   b.author_email,
+       		   c.media_nm,
+       		   c.media_id,
+       		   m.status,
+       		   m.log,
+       		   p.portal_cnt,
+       		   p1.portal_url
+ 		  FROM mhnn01001tb AS a
+  		  LEFT JOIN mhna01001tb AS b
+  			ON a.author_id = b.author_id
+  		  LEFT JOIN mhnc99901tb AS c
+  			ON b.media_id = c.media_id
+  	      LEFT JOIN ( SELECT id, type, status, log 
+  	      				FROM mhnm01001tb
+  	      			   WHERE type = 'N' ) AS m
+  			ON a.news_id = m.id
+  	      LEFT JOIN ( SELECT COUNT(*) as portal_cnt,
+  	      					 doc_id
+  	                    from mhnp01001tb
+  	                   GROUP BY doc_id ) AS p
+  	        ON a.doc_id = p.doc_id
+  	      LEFT JOIN ( SELECT portal_url,
+  	      					 doc_id
+  	                    from mhnp01001tb ) AS p1
+  	        ON a.doc_id = p1.doc_id
+  		 <where>
+<!--   		    m.status > '20' or m.status is null -->
+		  	<if test=" news_id!=null and news_id!='' ">
+				a.news_id = #{news_id }
+			</if>
+			<choose>
+				<when test=" val!=null and val!='' and type == 'TIT' ">
+				a.news_title like #{val }
+				</when>
+				<when test=" val!=null and val!='' and type == 'CON' ">
+				a.news_contents like #{val }
+				</when>
+				<when test=" val!=null and val!='' and type == 'MIX' ">
+				a.news_title like #{val } or a.news_contents like #{val }
+				</when>
+				<when test=" val!=null and val!='' and type == 'ATH' ">
+				b.author_nm like #{val }
+				</when>
+				<when test=" val!=null and val!='' and type == 'MED' ">
+				c.media_nm like #{val }
+				</when>
+			</choose>
+		  </where>
+		  <trim prefix="ORDER BY">
+		  	<choose>
+		  		<when test="sort == '02'">
+		  		a.reg_dt ASC
+		  		</when>
+		  		<when test="sort == '03'">
+		  		a.view_cnt DESC
+		  		</when>
+		  		<when test="sort == '04'">
+		  		a.view_cnt ASC
+		  		</when>
+		  		<otherwise>
+		  		a.reg_dt DESC
+		  		</otherwise>
+<!-- 		  		<when test="sort == '05'"> -->
+<!-- 		  		cre_dt ASC -->
+<!-- 		  		</when> -->
+<!-- 		  		<when test="sort == '06'"> -->
+<!-- 		  		cre_dt ASC -->
+<!-- 		  		</when> -->
+		  	</choose>
+		  </trim>
+		  LIMIT #{legnth} OFFSET #{offset}
+	</select>
 </mapper>

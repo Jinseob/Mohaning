@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mohaning.app.Const;
 import com.mohaning.app.Dao.CmmnDao;
 import com.mohaning.app.Model.MHNB01001VO;
 import com.mohaning.app.Model.MHNB010VO;
@@ -35,6 +36,10 @@ public class BoardController {
 	@RequestMapping(value = "/Board/main.do")
 	public String boardMain(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+		
+		searchOptionVO.setType(Const.MIX); 
+		int resultCnt = dao.selectCnt("b010.selectBoardCount", searchOptionVO);
+		model.addAttribute("resultCnt", resultCnt);
 		
 		@SuppressWarnings("unchecked")
 		List<MHNB01001VO> list = (List<MHNB01001VO>) dao.selectList("b010.selectBoardList", searchOptionVO);

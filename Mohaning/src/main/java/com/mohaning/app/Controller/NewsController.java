@@ -248,11 +248,22 @@ public class NewsController {
 		
 		MHNN01001VO result = new MHNN01001VO();
 		
+		// News 확인 및 등록 관련 Process 정리.
+		result = RegisterProcess(mhnn01001VO, bindingResult);
+		
+		model.addAttribute("result", result);
+		
+		return modelAndView;
+	}
+	
+	public MHNN01001VO RegisterProcess(MHNN01001VO mhnn01001VO, BindingResult bindingResult) throws Exception {
+		MHNN01001VO result = new MHNN01001VO();
+		
 		// 1. Portal, SSL, Media Check.
 		result = DataCheckForURL(mhnn01001VO);
 		
 		// 2. Url 확인.
-//		result.setStatus(Const.STATUS10);	// 임시 저장.
+//				result.setStatus(Const.STATUS10);	// 임시 저장.
 		if(result.getMedia_id() != null && !result.getMedia_id().isEmpty()) {
 			result = DataExtract(result);
 		}
@@ -295,9 +306,7 @@ public class NewsController {
 			// 실패시 -> 등록에 실패하였습니다. 다시 등록해주세요. -> 확인 시 기사 등록 화면으로 이동.
 		}
 		
-		model.addAttribute("result", result);
-		
-		return modelAndView;
+		return result;
 	}
 	
 	// 1. Portal, SSL Check.

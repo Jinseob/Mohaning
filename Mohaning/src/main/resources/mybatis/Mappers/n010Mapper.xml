@@ -78,6 +78,9 @@
 				<when test=" val!=null and val!='' and type == 'MED' ">
 				and c.media_nm like CONCAT('%',#{val },'%')
 				</when>
+				<when test=" keyword!=null and keyword!='' and type == 'KEY'">
+				and ( a.news_title like CONCAT('%',#{keyword },'%') or a.news_contents like CONCAT('%',#{keyword },'%') )
+				</when>
 			</choose>
 		  </where>
 		  <trim prefix="ORDER BY">

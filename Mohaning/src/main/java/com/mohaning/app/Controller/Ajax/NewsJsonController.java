@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import com.mohaning.app.Const;
 import com.mohaning.app.Dao.CmmnDao;
 import com.mohaning.app.Model.MHND010VO;
+import com.mohaning.app.Model.MHNN01001VO;
 import com.mohaning.app.Model.MHNR010VO;
+import com.mohaning.app.Model.SearchOptionVO;
 
 @Controller
 public class NewsJsonController {
@@ -137,5 +140,22 @@ public class NewsJsonController {
 //		
 //		return modelAndView;
 //	}
+	
+	@RequestMapping(value = "/keywordSearch.json")
+	public ModelAndView keywordSearch(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
+			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+		
+		ModelAndView modelAndView = new ModelAndView();
+		MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
+		modelAndView.setView(jsonView);
+		
+		// 받아온 Keyword 로 검색
+		searchOptionVO.setType(Const.KEY);
+		@SuppressWarnings("unchecked")
+		List<MHNN01001VO> listByKeyword = (List<MHNN01001VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
+		model.addAttribute("listByKeyword", listByKeyword);
+		
+		return modelAndView;
+	}
 }
 

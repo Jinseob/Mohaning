@@ -22,7 +22,7 @@ public class MHNN01001VO extends MHNM01001VO{
 	private int portal_cnt;
 	private int del_fl;
 	private String reg_id;
-	private Date reg_dt;
+	private java.util.Date reg_dt;
 	private String upd_id;
 	private Date upd_dt;
 	public String getNews_id() {
@@ -133,10 +133,10 @@ public class MHNN01001VO extends MHNM01001VO{
 	public void setReg_id(String reg_id) {
 		this.reg_id = reg_id;
 	}
-	public Date getReg_dt() {
+	public java.util.Date getReg_dt() {
 		return reg_dt;
 	}
-	public void setReg_dt(Date reg_dt) {
+	public void setReg_dt(java.util.Date reg_dt) {
 		this.reg_dt = reg_dt;
 	}
 	public String getUpd_id() {

@@ -2,6 +2,13 @@ package com.mohaning.app;
 
 public class Const {
 	
+	// Main Keyword 용
+	public final static Integer keylistlength 		= 6;	// Page 당 건수.
+	
+	// Paging 용.
+	public final static Integer length 		= 10;	// Page 당 건수.
+	public final static Integer totalpage 	= 10;	// 목록 화면에 선택할 수 있는 Page 갯 수.
+	
 	// 처리 상태 코드.
 	public final static String STATUS10 = "10";		// 임시 저장
 	public final static String STATUS20 = "20";		// 저장 완료
@@ -43,4 +50,5 @@ public class Const {
 	public final static String CON		= "CON";
 	public final static String ATH		= "ATH";
 	public final static String MED		= "MED";
+	public final static String KEY		= "KEY";
 }

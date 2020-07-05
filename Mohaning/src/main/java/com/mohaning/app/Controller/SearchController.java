@@ -38,6 +38,9 @@ public class SearchController {
 	public String search(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 
+		/* Keyword Save */
+		dao.insert("k010.insertKeyword", searchOptionVO);
+		
 		/* Board List */
 		searchOptionVO.setType(Const.MIX);
 		searchOptionVO.setLength(10);

@@ -6,6 +6,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
@@ -48,6 +49,7 @@ import com.mohaning.app.Model.MHNC99902VO;
 import com.mohaning.app.Model.MHND010VO;
 import com.mohaning.app.Model.MHNN01001VO;
 import com.mohaning.app.Model.MHNP01001VO;
+import com.mohaning.app.Model.PagingVO;
 import com.mohaning.app.Model.SearchOptionVO;
 
 @Controller
@@ -62,10 +64,27 @@ public class NewsController {
 	public String newsMain(@ModelAttribute("searchOptionVO") SearchOptionVO searchOptionVO, ModelMap model, 
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		
+//		int totallength = Const.totalpage * Const.length;	// 한 화면에 Count 할 총 건수
 		searchOptionVO.setType(Const.MIX);
 		int resultCnt = dao.selectCnt("n010.selectNewsCount", searchOptionVO);
-		model.addAttribute("resultCnt", resultCnt);
+		model.addAttribute("resultCnt", resultCnt);		// 총 건수 표시.
+		int totalPage = (int) Math.ceil((double)resultCnt / Const.length );
+//		model.addAttribute("totalPage", totalPage);
 		
+		// Paging 용 정보를 다 만들어서 배열로 넣어준다면? page, currpage, href, 총 페이지는 배열의 수
+		int unitPage = ( searchOptionVO.getPage() - 1 ) / Const.totalpage;
+		PagingVO pagingVO = null;
+		List<PagingVO> pagingList = new ArrayList<PagingVO>();
+		for(int i = 1; i <= totalPage; i++) {
+			pagingVO = new PagingVO();
+			pagingVO.setIdx((unitPage * Const.totalpage) + i);
+			pagingVO.setPage(searchOptionVO.getPage());
+			pagingList.add(pagingVO);
+		}
+		model.addAttribute("pagingList", pagingList);
+		
+		int offset = ( searchOptionVO.getPage() - 1 ) * searchOptionVO.getLength();
+		searchOptionVO.setOffset(offset);
 		@SuppressWarnings("unchecked")
 		List<MHNN01001VO> list = (List<MHNN01001VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
 		model.addAttribute("resultList", list);

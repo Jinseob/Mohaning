@@ -14,11 +14,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mohaning.app.Const;
 import com.mohaning.app.Dao.CmmnDao;
 import com.mohaning.app.Model.MHNA010VO;
 import com.mohaning.app.Model.MHNB01001VO;
 import com.mohaning.app.Model.MHNB010VO;
 import com.mohaning.app.Model.MHNC99901VO;
+import com.mohaning.app.Model.MHNK01001VO;
 import com.mohaning.app.Model.SearchOptionVO;
 
 /**
@@ -41,6 +43,24 @@ public class HomeController {
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 
 		// 0. 현재 이슈 리스트업 10건
+		// 0-1. 검색 건수 7건. 기준 - 조회 수 상위, 오늘 날짜 기준.
+		@SuppressWarnings("unchecked")
+		List<MHNK01001VO> keyList = (List<MHNK01001VO>) dao.selectList("k010.selectKeyword", searchOptionVO);
+		// 처음 값 세팅.
+		if(keyList.size() > 0) {
+			searchOptionVO.setKeyword(keyList.get(0).getKeyword());
+		}
+		if(keyList.size() < Const.keylistlength) {
+			MHNK01001VO emptyKey = null;
+			for(int i = keyList.size(); i < Const.keylistlength; i++) {
+				emptyKey = new MHNK01001VO();
+				keyList.add(emptyKey);
+			}
+		}
+		
+		model.addAttribute("keyList", keyList);
+		// 0-2. Top 1 검색어를 기반으로 조회수 많은 6건의 기사 추출.
+		
 		
 		// 1. 이슈 관련 조회수 가장 많은 기사 5건
 		searchOptionVO.setType("MIX");	// Title, Contents 에 이슈 단어가 있는 경우만 검색. val 에 이슈 단어가 들어가 있음.

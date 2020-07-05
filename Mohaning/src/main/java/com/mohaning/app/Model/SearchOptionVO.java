@@ -17,7 +17,12 @@ public class SearchOptionVO extends PagingVO{
 	
 	// 라인수
 	private int line;	// 원하는 라인 수 만큼 출력 
-
+	
+	// IP Address.
+	private String ip;
+	
+	// Keyword
+	private String keyword;
 	
 	public String getAid() {
 		return aid == null ? "" : aid;
@@ -89,5 +94,21 @@ public class SearchOptionVO extends PagingVO{
 
 	public void setLine(int line) {
 		this.line = line;
+	}
+
+	public String getIp() {
+		return ip == null ? "" : ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getKeyword() {
+		return keyword == null ? "" : keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 }

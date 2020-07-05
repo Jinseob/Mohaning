@@ -85,16 +85,16 @@
             			<div class="nav-paging-area">
               				<a href="#" class="nav-paging-prev">이전</a>
               				<div class="nav-paging">
-				                <a href="#" class="active">1</a>
-				                <a href="#" >2</a>
-				                <a href="#" >3</a>
-				                <a href="#" >4</a>
-				                <a href="#" >5</a>
-				                <a href="#" >6</a>
-				                <a href="#" >7</a>
-				                <a href="#" >8</a>
-				                <a href="#" >9</a>
-				                <a href="#" >10</a>
+           					<c:choose>
+           						<c:when test="${fn:length(pagingList) > 0 }">
+           						<c:forEach items="${pagingList }" var="paging">
+           							<a href="?page=${paging.idx }" class='<c:if test="${paging.idx eq paging.page }">active</c:if>'>${paging.idx }</a>
+           						</c:forEach>
+           						</c:when>
+           						<c:otherwise>
+           							<a>1</a>
+           						</c:otherwise>
+           					</c:choose>
               				</div>
               				<a href="#" class="nav-paging-next">다음</a>
             			</div>

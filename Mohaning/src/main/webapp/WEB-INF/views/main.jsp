@@ -14,6 +14,8 @@
 	<!-- Chart.js End -->
 	<script type="text/javascript">
 	$(function(){
+		// Keyword 초기값.
+		onSearchListByKey();
 		// 초기값.
 		scoreAjax($(".media")[0]);
 		
@@ -50,6 +52,72 @@
  			},
  		})
 	}
+	function onSearchListByKey(){
+		var frm = $("#frm").serialize();
+		var url = "/keywordSearch.json";
+		$.ajax({
+ 			type: "POST",
+ 			url : url,
+ 			dataType: "json",
+ 			data : frm,
+ 			success: function(results){
+ 				var result = results.listByKeyword;
+ 				for(var i = 0; i < result.length; i++){
+ 					var data = result[i];
+ 					var keyList = $("[data-name='keyList']");
+ 					var item = $(keyList[i]);
+ 					item.children().children(".top-title").text(data.news_title);
+ 					item.children().children(".top-title").attr("href", "/News/n010d" + data.news_id + ".do");
+ 					item.children().children(".top-media").text(data.media_nm);
+ 					item.children().children(".top-name").text(data.author_nm);
+ 					
+ 					var date = new Date(data.reg_dt);
+ 					var yyyy = date.getFullYear();
+ 					var mm = (date.getMonth() + 1 > 9) ? (date.getMonth() + 1) : "0" + (date.getMonth() + 1);
+ 					var dd = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+ 					item.children().children(".top-date").text(yyyy+"-"+mm+"-"+dd);
+ 					item.children().children(".top-view").text("조회수 " + data.view_cnt);
+ 					if(i == 0){
+	 					item.children().children(".top-contents").text(data.news_contents);
+ 					}
+ 				}
+ 			},
+ 			error: function(data){
+ 				alert("E" + data);
+ 			},
+ 		})
+	}
+	function selectKeyword(evt, keyword) {
+      	var i, tabcontent, tablinks;
+
+      	tablinks = document.getElementsByClassName("tablinks");
+      	for (i = 0; i < tablinks.length; i++) {
+        	tablinks[i].className = tablinks[i].className.replace(" active", "");
+      	}
+		evt.currentTarget.className += " active";
+		
+		// 리스트 초기화
+		resetList();
+		
+		// 검색 단어로 값 가져오기.
+		$("#keyword").val(keyword);
+		onSearchListByKey();
+    }
+	function resetList(){
+		var keyList = $("[data-name='keyList']");
+		for(var i = 0; i < keyList.length; i++){
+			var item = $(keyList[i]);
+			item.children().children(".top-title").text("Title");
+			item.children().children(".top-title").removeAttr("href");
+			item.children().children(".top-media").text("Media");
+			item.children().children(".top-name").text("Name");
+			item.children().children(".top-date").text("Date");
+			item.children().children(".top-view").text("조회수");
+			if(i == 0){
+				item.children().children(".top-contents").text("Contents");
+			}
+		}
+	}
 // 	Image down 시 사용함.
 // 	function downimage(){
 // 		$.ajax({
@@ -76,6 +144,7 @@
 	<div class="container">
     	<div class="row">
     		<form id="frm" name="frm">
+    			<input type="hidden" name="keyword" id="keyword" value="${searchOptionVO.keyword }"/>
         		<input type="hidden" name="author_id" id="author_id" />
         		<input type="hidden" name="media_id" id="media_id" />
       		<div class="search-wrapper">
@@ -89,12 +158,9 @@
 	<div class="container">
 		<div class="tab-wrapper">
 	    	<div class="tab">
-		        <button class="tablinks active" onclick="openCity(event, 'London')">London</button>
-		        <button class="tablinks" onclick="openCity(event, 'Seoul')">Paris</button>
-		        <button class="tablinks" onclick="openCity(event, 'Seoul')">Seoul</button>
-		        <button class="tablinks" onclick="openCity(event, 'Seoul')">기사이름</button>
-		        <button class="tablinks" onclick="openCity(event, 'Seoul')">기사기사제목</button>
-		        <button class="tablinks" onclick="openCity(event, 'Seoul')">가나다라마바auto</button>
+	    		<c:forEach items="${keyList }" var="keyList" end="6" varStatus="status">
+	    			<button class="tablinks <c:if test='${status.first }'>active</c:if>" onclick="selectKeyword(event, '${keyList.keyword}')">${keyList.keyword }</button>
+	    		</c:forEach>
 		    </div>
 	      	<div id="tabcontent" class="tabcontent">
 	        	<div class="tabcontent-wrap">
@@ -154,77 +220,77 @@
 			        		var myChart = new Chart(ctx, config);
 			            	</script>
 			            </div>
-			            <div class="top-wrap">
+			            <div class="top-wrap" data-name="keyList">
 			            	<div class="top-header">
-			            		<p class="top-title">신천지히히히히신천지히히히히신천지히히히히신천지히히히히신천신천신천신천신천신천신천</p>
+			            		<a class="top-title">Title</a>
 			            	</div>
 			            	<div class="top-section">
-			            		<p class="top-contents">신천지 에브리웨어 싯파샛키들아!!!!!신천지 에브리웨어 싯파샛키들아!!!!!신천지 에브리웨어 싯파샛키들아!!!!!신천지 에브리웨어 싯파샛키들아!!!!!ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ</p>
+			            		<p class="top-contents">Contents</p>
 			            	</div>
 			            	<div class="top-bottom">
-			            		<p class="top-media">국민일보</p>
-			            		<p class="top-name">홍길동</p>
-			            		<p class="top-date">2020.05.03</p>
-			            		<p class="top-view">조회수 100만</p>
+			            		<p class="top-media">Media</p>
+			            		<p class="top-name">Name</p>
+			            		<p class="top-date">Date</p>
+			            		<p class="top-view">조회수</p>
 			            	</div>
 			            </div>
 	          		</div>
 	          		<div class="spacer-vertical" ></div>
 	          		<div class="tab-list-wrap">
 	            		<ul class="tab-list">
-	              			<li class="news-list">
+	              			<li class="news-list" data-name="keyList">
 	              				<div class="top-header">
-	                				<p class="top-title">신천지 에브리웨어 싯파샛키들아!!!!!</p>
+	                				<a class="top-title">Title</a>
                 				</div>
 	                			<div class="top-bottom">
-				            		<p class="top-media">국민일보</p>
-				            		<p class="top-name">홍길동</p>
-				            		<p class="top-date">2020.05.03</p>
-				            		<p class="top-view">조회수 100만</p>
+				            		<p class="top-media">Media</p>
+				            		<p class="top-name">Name</p>
+				            		<p class="top-date">Date</p>
+				            		<p class="top-view">조회수</p>
 				            	</div>
 	              			</li>
-	              			<li class="news-list">
+	              			<li class="news-list" data-name="keyList">
 	                			<div class="top-header">
-	                				<p class="top-title">대구경북지역 신천지 때문에 초전박살났다.대구경북지역 신천지 때문에 초전박살났다.대구경북지역 신천지 때문에 초전박살났다.</p>
+	                				<a class="top-title">Title</a>
                 				</div>
 	                			<div class="top-bottom">
-				            		<p class="top-media">국민일보</p>
-				            		<p class="top-name">홍길동</p>
-				            		<p class="top-date">2020.05.03</p>
-				            		<p class="top-view">조회수 100만</p>
+				            		<p class="top-media">Media</p>
+				            		<p class="top-name">Name</p>
+				            		<p class="top-date">Date</p>
+				            		<p class="top-view">조회수</p>
 				            	</div>
 	              			</li>
-	              			<li class="news-list">
+	              			<li class="news-list" data-name="keyList">
 	              				<div class="top-header">
-	                				<p class="top-title">우리회사도 재택근무로 전면 바꿔줘라!</p>
+	                				<a class="top-title">Title</a>
                 				</div>
 	                			<div class="top-bottom">
-				            		<p class="top-media">국민일보</p>
-				            		<p class="top-name">홍길동</p>
-				            		<p class="top-date">2020.05.03</p>
-				            		<p class="top-view">조회수 100만</p>
+				            		<p class="top-media">Media</p>
+				            		<p class="top-name">Name</p>
+				            		<p class="top-date">Date</p>
+				            		<p class="top-view">조회수</p>
 				            	</div>
 	              			</li>
-	              			<li class="news-list">
+	              			<li class="news-list" data-name="keyList">
 	              				<div class="top-header">
-	                				<p class="top-title">코로나 종식돼야 운동도하고 쇼핑도하지 놀러가고 싶따고요</p>
+	                				<a class="top-title">Title</a>
                 				</div>
 	                			<div class="top-bottom">
-				            		<p class="top-media">국민일보</p>
-				            		<p class="top-name">홍길동</p>
-				            		<p class="top-date">2020.05.03</p>
-				            		<p class="top-view">조회수 100만</p>
+				            		<p class="top-media">Media</p>
+				            		<p class="top-name">Name</p>
+				            		<p class="top-date">Date</p>
+				            		<p class="top-view">조회수</p>
 				            	</div>
 			              	</li>
-			              	<li class="news-list">
+			              	<li class="news-list" data-name="keyList">
 			              		<div class="top-header">
-				                	<p class="top-title">돈많이많이 벌고시포요 막 이것저것 지르고 시포요!</p>
-			                	</div>
+	                				<a class="top-title">Title</a>
+                				</div>
 	                			<div class="top-bottom">
-				            		<p class="top-media">국민일보</p>
-				            		<p class="top-name">홍길동</p>
-				            		<p class="top-date">2020.05.03</p>
-				            		<p class="top-view">조회수 100만</p>
+				            		<p class="top-media">Media</p>
+				            		<p class="top-name">Name</p>
+				            		<p class="top-date">Date</p>
+				            		<p class="top-view">조회수</p>
 				            	</div>
 	              			</li>
 	              			<li><a href="/News/main.do" class="more right">기사 더보기 ></a></li>
@@ -387,18 +453,6 @@
     	</div>
   	</div>
 	</section>
-	
-  	<script type="text/javascript">
-    function openCity(evt, cityName) {
-      	var i, tabcontent, tablinks;
-
-      	tablinks = document.getElementsByClassName("tablinks");
-      	for (i = 0; i < tablinks.length; i++) {
-        	tablinks[i].className = tablinks[i].className.replace(" active", "");
-      	}
-		evt.currentTarget.className += " active";
-    }
-  	</script>
   	<script src="/resources/js/common.js"></script>
   	<footer>
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />	    

@@ -14,7 +14,7 @@
 		  FROM mhnk01001tb
 		 GROUP BY keyword
 		 ORDER BY cnt DESC
-		 LIMIT 7
+		 LIMIT 6
 	</select>
 
 	<insert id="insertKeyword" parameterType="com.mohaning.app.Model.SearchOptionVO">

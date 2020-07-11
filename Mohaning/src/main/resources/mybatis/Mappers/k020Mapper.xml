@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis -->	
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ibatis -->
+<!-- <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
+
+<mapper namespace="k020">
+	<select id="selectKeywordCheckCount" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="int">
+		SELECT COUNT(*) FROM mhnk02001tb
+		 WHERE keyword = #{val}
+	</select>
+	<insert id="insertKeywordCheck" parameterType="com.mohaning.app.Model.SearchOptionVO">
+		INSERT INTO mhnk02001tb(
+			KEYWORD,
+			STATUS,
+			REG_ID,
+			REG_DT
+		)VALUES(
+			#{val},
+			'Y',
+			'admin',
+			now()
+		)
+		ON DUPLICATE KEY UPDATE
+			STATUS = 'Y',
+			UPT_ID = 'admin', 
+			UPT_DT = now()
+	</insert>
+	<update id="updateKeywordCheck" parameterType="com.mohaning.app.Model.SearchOptionVO">
+		UPDATE mhnk02001tb SET 
+			STATUS = 'N' 
+		 WHERE keyword = #{val}
+	</update>
+</mapper>

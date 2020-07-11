@@ -1,6 +1,5 @@
 package com.mohaning.app.Controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
@@ -67,26 +65,28 @@ public class SearchController {
 		List<MHNN01001VO> newsResultList = (List<MHNN01001VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
 		model.addAttribute("newsResultList", newsResultList);
 		
-		
-		// 이 부분을 어떻게 처리할지 고민.
+		// 검색 후 뉴스 건수가 10건 미만이면 관리자가 추가할 수 있도록 표시.
 		if(newsResultCnt < 10) {
-			NewsAPI newsAPI = new NewsAPI();
-			String newsResults = newsAPI.getNews(searchOptionVO.getVal());
-			JSONParser jsonParser = new JSONParser();
-			Object obj = jsonParser.parse(newsResults);
-			JSONObject jsonObj = (JSONObject) obj;
-			List<Map<String, Object>> items = null;
-			items = (List<Map<String, Object>>) jsonObj.get("items");
+			/* Keyword Check Save */
+			dao.insert("k020.insertKeywordCheck", searchOptionVO);
 			
-			MHNN01001VO item = null;
-			for(int i = 0;  i < items.size(); i++) {
-				System.out.println(items.get(i).get("originallink"));
-				item = new MHNN01001VO();
-				item.setNews_url(items.get(i).get("originallink").toString());
-				NewsController newsCon = new NewsController();
-				newsCon.setDao(dao);	// 현재 Dao 를 넘겨주는 용.
-				newsCon.RegisterProcess(item, bindingResult);	// bindingResult target 에 searchoptionvo 가 되어 있음. 
-			}
+//			NewsAPI newsAPI = new NewsAPI();
+//			String newsResults = newsAPI.getNews(searchOptionVO.getVal());
+//			JSONParser jsonParser = new JSONParser();
+//			Object obj = jsonParser.parse(newsResults);
+//			JSONObject jsonObj = (JSONObject) obj;
+//			List<Map<String, Object>> items = null;
+//			items = (List<Map<String, Object>>) jsonObj.get("items");
+//			
+//			MHNN01001VO item = null;
+//			for(int i = 0;  i < items.size(); i++) {
+//				System.out.println(items.get(i).get("originallink"));
+//				item = new MHNN01001VO();
+//				item.setNews_url(items.get(i).get("originallink").toString());
+//				NewsController newsCon = new NewsController();
+//				newsCon.setDao(dao);	// 현재 Dao 를 넘겨주는 용.
+//				newsCon.RegisterProcess(item, bindingResult);	// bindingResult target 에 searchoptionvo 가 되어 있음. 
+//			}
 			
 //			JSONObject items = (JSONObject) jsonObj.get("items");
 			
@@ -96,6 +96,9 @@ public class SearchController {
 			
 //			JSONArray newsJsonArray = new JSONArray(jsonParser);
 			System.out.println("AAAA");
+		}else {
+			int keywordChkCnt = dao.selectCnt("k020.selectKeywordCheckCount", searchOptionVO);
+			if(keywordChkCnt > 0) dao.update("k020.updateKeywordCheck", searchOptionVO);
 		}
 		
 		return "searchResult";

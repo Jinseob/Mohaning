@@ -67,6 +67,8 @@ public class SearchController {
 		List<MHNN01001VO> newsResultList = (List<MHNN01001VO>) dao.selectList("n010.selectNewsList", searchOptionVO);
 		model.addAttribute("newsResultList", newsResultList);
 		
+		
+		// 이 부분을 어떻게 처리할지 고민.
 		if(newsResultCnt < 10) {
 			NewsAPI newsAPI = new NewsAPI();
 			String newsResults = newsAPI.getNews(searchOptionVO.getVal());
@@ -82,7 +84,8 @@ public class SearchController {
 				item = new MHNN01001VO();
 				item.setNews_url(items.get(i).get("originallink").toString());
 				NewsController newsCon = new NewsController();
-				newsCon.RegisterProcess(item, bindingResult);
+				newsCon.setDao(dao);	// 현재 Dao 를 넘겨주는 용.
+				newsCon.RegisterProcess(item, bindingResult);	// bindingResult target 에 searchoptionvo 가 되어 있음. 
 			}
 			
 //			JSONObject items = (JSONObject) jsonObj.get("items");

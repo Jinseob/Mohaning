@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -58,6 +59,10 @@ public class NewsController {
 
 	@Autowired
 	private CmmnDao dao;
+	
+	public void setDao(CmmnDao cmmnDao){
+		dao = cmmnDao;
+    }
 	
 	// 기사
 	@RequestMapping(value = "/News/main.do")

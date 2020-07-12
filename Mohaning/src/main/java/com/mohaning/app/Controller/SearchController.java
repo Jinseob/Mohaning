@@ -69,33 +69,6 @@ public class SearchController {
 		if(newsResultCnt < 10) {
 			/* Keyword Check Save */
 			dao.insert("k020.insertKeywordCheck", searchOptionVO);
-			
-//			NewsAPI newsAPI = new NewsAPI();
-//			String newsResults = newsAPI.getNews(searchOptionVO.getVal());
-//			JSONParser jsonParser = new JSONParser();
-//			Object obj = jsonParser.parse(newsResults);
-//			JSONObject jsonObj = (JSONObject) obj;
-//			List<Map<String, Object>> items = null;
-//			items = (List<Map<String, Object>>) jsonObj.get("items");
-//			
-//			MHNN01001VO item = null;
-//			for(int i = 0;  i < items.size(); i++) {
-//				System.out.println(items.get(i).get("originallink"));
-//				item = new MHNN01001VO();
-//				item.setNews_url(items.get(i).get("originallink").toString());
-//				NewsController newsCon = new NewsController();
-//				newsCon.setDao(dao);	// 현재 Dao 를 넘겨주는 용.
-//				newsCon.RegisterProcess(item, bindingResult);	// bindingResult target 에 searchoptionvo 가 되어 있음. 
-//			}
-			
-//			JSONObject items = (JSONObject) jsonObj.get("items");
-			
-//			Map<String, String> items = new HashMap<String, String>();
-//			items = (Map<String, String>) jsonObj.get("items");
-			
-			
-//			JSONArray newsJsonArray = new JSONArray(jsonParser);
-			System.out.println("AAAA");
 		}else {
 			int keywordChkCnt = dao.selectCnt("k020.selectKeywordCheckCount", searchOptionVO);
 			if(keywordChkCnt > 0) dao.update("k020.updateKeywordCheck", searchOptionVO);

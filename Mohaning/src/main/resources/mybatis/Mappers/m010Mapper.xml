@@ -106,6 +106,6 @@
 <!-- 		  		</when> -->
 		  	</choose>
 		  </trim>
-		  LIMIT #{legnth} OFFSET #{offset}
+		  LIMIT #{length} OFFSET #{offset}
 	</select>
 </mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mybatis -->	
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- ibatis -->
+<!-- <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd"> -->
+
+<mapper namespace="m020">
+	<select id="selectKeywordCheckList" parameterType="com.mohaning.app.Model.SearchOptionVO" resultType="com.mohaning.app.Model.MHNK02001VO">
+		SELECT keyword,
+			   status,
+			   reg_id,
+			   reg_dt,
+			   upt_id,
+			   upt_dt
+		  FROM mhnk02001tb
+		 WHERE status = 'Y'
+	</select>
+</mapper>
